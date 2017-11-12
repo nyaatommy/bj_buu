@@ -1,23 +1,23 @@
 my $this_file = "$logdir/$m{country}/depot_b.cgi";
 my $this_log = "$logdir/$m{country}/depot_b_log.cgi";
 #=================================================
-# V‹K—p‘ŒÉ
+# æ–°è¦ç”¨å›½åº«
 #=================================================
 
-# Å‘å•Û‘¶”
+# æœ€å¤§ä¿å­˜æ•°
 my $max_depot = 15;
 
-# —a‚¯‚ç‚ê‚È‚¢±²ÃÑ
+# é ã‘ã‚‰ã‚Œãªã„ï½±ï½²ï¾ƒï¾‘
 my %taboo_items = (
-	wea => [32,], # •Ší
-	egg => [], # ÀÏºŞ
-	pet => [127,138,188], # Íß¯Ä
-	gua => [], # –h‹ï
+	wea => [32,36,], # æ­¦å™¨
+	egg => [], # ï¾€ï¾ï½ºï¾
+	pet => [127,138,188], # ï¾ï¾Ÿï½¯ï¾„
+	gua => [], # é˜²å…·
 );
 
 sub is_satisfy {
 	if ($m{country} eq '0') {
-		$mes .= '‘‚É‘®‚µ‚Ä‚È‚¢‚Æs‚¤‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ<br>dŠ¯‚·‚é‚É‚Íu‘î•ñv¨udŠ¯v‚©‚çs‚Á‚Ä‚İ‚½‚¢‘‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢<br>';
+		$mes .= 'å›½ã«å±ã—ã¦ãªã„ã¨è¡Œã†ã“ã¨ãŒã§ãã¾ã›ã‚“<br>ä»•å®˜ã™ã‚‹ã«ã¯ã€Œå›½æƒ…å ±ã€â†’ã€Œä»•å®˜ã€ã‹ã‚‰è¡Œã£ã¦ã¿ãŸã„å›½ã‚’é¸ã‚“ã§ãã ã•ã„<br>';
 		&refresh;
 		&n_menu;
 		return 0;
@@ -27,22 +27,22 @@ sub is_satisfy {
 #================================================
 sub begin {
 	if ($m{tp} > 1) {
-		$mes .= "‘¼‚É‰½‚©‚µ‚Ü‚·‚©?<br>";
+		$mes .= "ä»–ã«ä½•ã‹ã—ã¾ã™ã‹?<br>";
 		$m{tp} = 1;
 	}
 	else {
-		$mes .= "‚±‚±‚ÍV‹K—p‘ŒÉ‚Å‚·B$max_depotŒÂ‚Ü‚Å—a‚¯‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·<br>";
-		$mes .= "‚Ç‚¤‚µ‚Ü‚·‚©?<br>";
+		$mes .= "ã“ã“ã¯æ–°è¦ç”¨å›½åº«ã§ã™ã€‚$max_depotå€‹ã¾ã§é ã‘ã‚‹ã“ã¨ãŒã§ãã¾ã™<br>";
+		$mes .= "ã©ã†ã—ã¾ã™ã‹?<br>";
 	}
 	unless (-f $this_file) {
-		open my $fh, "> $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "> $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 		close $fh;
 	}
 	unless (-f $this_log) {
-		open my $fh, "> $this_log" or &error("$this_log‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "> $this_log" or &error("$this_logãŒé–‹ã‘ã¾ã›ã‚“");
 		close $fh;
 	}
-	&menu('‚â‚ß‚é', 'ˆøo‚·', '—a‚¯‚é', '®—‚·‚é','—š—ğŠm”F');
+	&menu('ã‚„ã‚ã‚‹', 'å¼•å‡ºã™', 'é ã‘ã‚‹', 'æ•´ç†ã™ã‚‹','å±¥æ­´ç¢ºèª');
 }
 sub tp_1 {
 	return if &is_ng_cmd(1..4);
@@ -52,17 +52,17 @@ sub tp_1 {
 }
 
 #=================================================
-# ˆøo‚·
+# å¼•å‡ºã™
 #=================================================
 sub tp_100 {
 	$layout = 2;
 	my($count, $sub_mes) = &radio_my_depot;
 
-	$mes .= "‚Ç‚ê‚ğˆøo‚µ‚Ü‚·‚©? [ $count / $max_depot ]<br>";
+	$mes .= "ã©ã‚Œã‚’å¼•å‡ºã—ã¾ã™ã‹? [ $count / $max_depot ]<br>";
 	$mes .= $sub_mes;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .=  $is_mobile ? qq|<p><input type="submit" value="ˆøo‚·" class="button1" accesskey="#"></p></form>|:
-		qq|<p><input type="submit" value="ˆøo‚·" class="button1"></p></form>|;
+	$mes .=  $is_mobile ? qq|<p><input type="submit" value="å¼•å‡ºã™" class="button1" accesskey="#"></p></form>|:
+		qq|<p><input type="submit" value="å¼•å‡ºã™" class="button1"></p></form>|;
 	
 	$m{tp} += 10;
 }
@@ -72,7 +72,7 @@ sub tp_110 {
 		my $new_line = '';
 		my $flag = 1;
 		my @lines = ();
-		open my $fh, "+< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "+< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 		eval { flock $fh, 2; };
 		while (my $line = <$fh>) {
 			++$count;
@@ -81,19 +81,19 @@ sub tp_110 {
 				my($kind, $item_no, $item_c, $item_lv) = split /<>/, $line;
 				
 				if ($kind eq '1' && $m{wea}) {
-					$mes .= "Šù‚É•Ší‚ğŠ‚µ‚Ä‚¢‚Ü‚·";
+					$mes .= "æ—¢ã«æ­¦å™¨ã‚’æ‰€æŒã—ã¦ã„ã¾ã™";
 					$flag = 0;
 				}
 				elsif ($kind eq '2' && $m{egg}) {
-					$mes .= "Šù‚É—‘‚ğŠ‚µ‚Ä‚¢‚Ü‚·";
+					$mes .= "æ—¢ã«åµã‚’æ‰€æŒã—ã¦ã„ã¾ã™";
 					$flag = 0;
 				}
 				elsif($kind eq '3' && $m{pet}) {
-					$mes .= "Šù‚ÉÍß¯Ä‚ğŠ‚µ‚Ä‚¢‚Ü‚·";
+					$mes .= "æ—¢ã«ï¾ï¾Ÿï½¯ï¾„ã‚’æ‰€æŒã—ã¦ã„ã¾ã™";
 					$flag = 0;
 				}
 				elsif($kind eq '4' && $m{gua}) {
-					$mes .= "Šù‚É–h‹ï‚ğŠ‚µ‚Ä‚¢‚Ü‚·";
+					$mes .= "æ—¢ã«é˜²å…·ã‚’æ‰€æŒã—ã¦ã„ã¾ã™";
 					$flag = 0;
 				}
 			}
@@ -112,27 +112,27 @@ sub tp_110 {
 				$m{wea}    = $item_no;
 				$m{wea_c}  = $item_c;
 				$m{wea_lv} = $item_lv;
-				$mes .= "$weas[$m{wea}][1]‚ğˆøo‚µ‚Ü‚µ‚½<br>";
+				$mes .= "$weas[$m{wea}][1]ã‚’å¼•å‡ºã—ã¾ã—ãŸ<br>";
 			}
 			elsif ($kind eq '2') {
 				$m{egg}    = $item_no;
 				$m{egg_c}  = $item_c;
-				$mes .= "$eggs[$m{egg}][1]‚ğˆøo‚µ‚Ü‚µ‚½<br>";
+				$mes .= "$eggs[$m{egg}][1]ã‚’å¼•å‡ºã—ã¾ã—ãŸ<br>";
 			}
 			elsif ($kind eq '3') {
 				$m{pet}    = $item_no;
 				$m{pet_c}  = $item_c;
-				$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ğˆøo‚µ‚Ü‚µ‚½<br>";
+				$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã‚’å¼•å‡ºã—ã¾ã—ãŸ<br>";
 
 				&get_icon_pet;
 			}
 			elsif ($kind eq '4') {
 				$m{gua}    = $item_no;
-				$mes .= "$guas[$m{gua}][1]‚ğˆøo‚µ‚Ü‚µ‚½<br>";
+				$mes .= "$guas[$m{gua}][1]ã‚’å¼•å‡ºã—ã¾ã—ãŸ<br>";
 			}
 
 			my @log_lines = ();
-			open my $lfh, "+< $this_log" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+			open my $lfh, "+< $this_log" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 			eval { flock $lfh, 2; };
 			my $log_count = 0;
 			while (my $log_line = <$lfh>){ 
@@ -146,7 +146,7 @@ sub tp_110 {
 			print $lfh @log_lines;
 			close $lfh;
 
-			# ˆøo‚·À²Ğİ¸Ş‚ÅV‚µ‚¢±²ÃÑ‚ª‚ ‚ê‚ÎºÚ¸¼®İ‚É’Ç‰Á
+			# å¼•å‡ºã™ï¾€ï½²ï¾ï¾ï½¸ï¾ã§æ–°ã—ã„ï½±ï½²ï¾ƒï¾‘ãŒã‚ã‚Œã°ï½ºï¾šï½¸ï½¼ï½®ï¾ã«è¿½åŠ 
 			require './lib/add_collection.cgi';
 			&add_collection;
 		}
@@ -158,12 +158,12 @@ sub tp_110 {
 }
 
 #=================================================
-# —a‚¯‚é
+# é ã‘ã‚‹
 #=================================================
 sub tp_200 {
-	$mes .= '‚Ç‚ê‚ğ—a‚¯‚Ü‚·‚©?';
+	$mes .= 'ã©ã‚Œã‚’é ã‘ã¾ã™ã‹?';
 	
-	my @menus = ('‚â‚ß‚é');
+	my @menus = ('ã‚„ã‚ã‚‹');
 	push @menus, $m{wea} ? $weas[$m{wea}][1] : '';
 	push @menus, $m{egg} ? $eggs[$m{egg}][1] : '';
 	push @menus, $m{pet} > 0 ? $pets[$m{pet}][1] : '';
@@ -175,7 +175,7 @@ sub tp_200 {
 sub tp_210 {
 	return if &is_ng_cmd(1..4);
 	if ($cmd eq '1' && $m{wea_name}) {
-		$mes .= "—Bˆê–³“ñ‚Ì•Ší‚ğ—a‚¯‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ<br>";
+		$mes .= "å”¯ä¸€ç„¡äºŒã®æ­¦å™¨ã‚’é ã‘ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“<br>";
 		&begin;
 		return;
 	}
@@ -187,7 +187,7 @@ sub tp_210 {
 							: $cmd eq '3' ? $pets[$m{pet}][1]
 							:               $guas[$m{gua}][1]
 							;
-			$mes .= "$t_item_name‚Í—a‚¯‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ<br>";
+			$mes .= "$t_item_nameã¯é ã‘ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“<br>";
 			&begin;
 			return;
 		}
@@ -216,13 +216,13 @@ sub tp_210 {
 	}
 	
 	my @lines = ();
-	open my $fh, "+< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	push @lines, $_ while <$fh>;
 	
 	if (@lines >= $max_depot) {
 		close $fh;
-		$mes .= '‚±‚êˆÈã—a‚¯‚é‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ<br>';
+		$mes .= 'ã“ã‚Œä»¥ä¸Šé ã‘ã‚‹ã“ã¨ãŒã§ãã¾ã›ã‚“<br>';
 	}
 	else {
 		push @lines, $line;
@@ -236,27 +236,27 @@ sub tp_210 {
 				$m{wea} = 32;
 				$m{wea_c} = 0;
 				$m{wea_lv} = 0;
-				$mes .= "‚¿å‚Ìè‚ğ—£‚ê‚½“r’[$m{wea_name}‚Í‚½‚¾‚Ì$weas[$m{wea}][1]‚É‚È‚Á‚Ä‚µ‚Ü‚Á‚½";
+				$mes .= "æŒã¡ä¸»ã®æ‰‹ã‚’é›¢ã‚ŒãŸé€”ç«¯$m{wea_name}ã¯ãŸã ã®$weas[$m{wea}][1]ã«ãªã£ã¦ã—ã¾ã£ãŸ";
 				$m{wea_name} = "";
 			}
-			$mes .= "$weas[$m{wea}][1]‚ğ—a‚¯‚Ü‚µ‚½<br>";
+			$mes .= "$weas[$m{wea}][1]ã‚’é ã‘ã¾ã—ãŸ<br>";
 			$m{wea} = $m{wea_c} = $m{wea_lv} = 0;
 		}
 		elsif ($cmd eq '2') {
-			$mes .= "$eggs[$m{egg}][1]‚ğ—a‚¯‚Ü‚µ‚½<br>";
+			$mes .= "$eggs[$m{egg}][1]ã‚’é ã‘ã¾ã—ãŸ<br>";
 			$m{egg} = $m{egg_c} = 0;
 		}
 		elsif ($cmd eq '3') {
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ğ—a‚¯‚Ü‚µ‚½<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã‚’é ã‘ã¾ã—ãŸ<br>";
 			&remove_pet;
 		}
 		elsif ($cmd eq '4') {
-			$mes .= "$guas[$m{gua}][1]‚ğ—a‚¯‚Ü‚µ‚½<br>";
+			$mes .= "$guas[$m{gua}][1]ã‚’é ã‘ã¾ã—ãŸ<br>";
 			$m{gua} = 0;
 		}
 		
 			my @log_lines = ();
-			open my $lfh, "+< $this_log" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+			open my $lfh, "+< $this_log" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 			eval { flock $lfh, 2; };
 			my $log_count = 0;
 			while (my $log_line = <$lfh>){ 
@@ -274,14 +274,14 @@ sub tp_210 {
 }
 
 #=================================================
-# ®—
+# æ•´ç†
 #=================================================
 sub tp_300 {
 	my @lines = ();
 	my $n_egg = 0;
 	my $n_man = 0;
 	my $n_hero = 0;	
-	open my $fh, "+< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	while (my $line = <$fh>){
 		my($kind, $item_no, $item_c, $item_lv) = split /<>/, $line;
@@ -325,44 +325,44 @@ sub tp_300 {
 	print $fh @lines;
 	close $fh;
 	
-	$mes .= "—a‚¯‚Ä‚¢‚é‚à‚Ì‚ğ®—‚µ‚Ü‚µ‚½<br>";
+	$mes .= "é ã‘ã¦ã„ã‚‹ã‚‚ã®ã‚’æ•´ç†ã—ã¾ã—ãŸ<br>";
 	&begin;
 }
 
 #=================================================
-# ƒƒOŠm”F
+# ãƒ­ã‚°ç¢ºèª
 #=================================================
 sub tp_400 {
 	my @lines = ();
-	open my $fh, "< $this_log" or &error("$this_log‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "< $this_log" or &error("$this_logãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $line = <$fh>){
 		my($kind, $item_no, $item_c, $item_lv, $name, $type) = split /<>/, $line;
-		$mes .= "$name ‚ª";
+		$mes .= "$name ãŒ";
 		$mes .= &get_item_name($kind, $item_no, $item_c, $item_lv);
-		$mes .= "‚ğ";
-		$mes .= $type eq '1' ? "—a‚¯‚Ü‚µ‚½<br>":
-					$type eq '0' ? "ˆø‚«o‚µ‚Ü‚µ‚½<br>":
-								"’D‚¢‚Ü‚µ‚½<br>";
+		$mes .= "ã‚’";
+		$mes .= $type eq '1' ? "é ã‘ã¾ã—ãŸ<br>":
+					$type eq '0' ? "å¼•ãå‡ºã—ã¾ã—ãŸ<br>":
+								"å¥ªã„ã¾ã—ãŸ<br>";
 	}
 	close $fh;
 	&begin;
 }
 
 #=================================================
-# <input type="radio" •t‚Ì—a‚©‚èŠ‚Ì•¨
+# <input type="radio" ä»˜ã®é ã‹ã‚Šæ‰€ã®ç‰©
 #=================================================
 sub radio_my_depot {
 	unless (-f $this_file) {
-		open my $fh, "> $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "> $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 		close $fh;
 	}
 	unless (-f $this_log) {
-		open my $fh, "> $this_log" or &error("$this_log‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "> $this_log" or &error("$this_logãŒé–‹ã‘ã¾ã›ã‚“");
 		close $fh;
 	}
 	my $count = 0;
-	my $sub_mes = qq|<form method="$method" action="$script"><input type="radio" id="no_0" name="cmd" value="0" checked><label for="no_0">‚â‚ß‚é</label><br>|;
-	open my $fh, "< $this_file" or &error("$this_file ‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	my $sub_mes = qq|<form method="$method" action="$script"><input type="radio" id="no_0" name="cmd" value="0" checked><label for="no_0">ã‚„ã‚ã‚‹</label><br>|;
+	open my $fh, "< $this_file" or &error("$this_file ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		++$count;
 		my($kind, $item_no, $item_c, $item_lv) = split /<>/, $line;
@@ -377,4 +377,4 @@ sub radio_my_depot {
 	return $count, $sub_mes;
 }
 
-1; # íœ•s‰Â
+1; # å‰Šé™¤ä¸å¯
