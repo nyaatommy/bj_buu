@@ -1,39 +1,39 @@
 require './lib/move_player.cgi';
 my $this_file = "$logdir/violator.cgi";
 #=================================================
-# ‘İ’è Created by Merino
+# å›½è¨­å®š Created by Merino
 #=================================================
 
-# Še‘İ’è‚Ì“Š‘‚ª—LŒø‚ÈŠúŠÔ
+# å„å›½è¨­å®šã®æŠ•è³‡ãŒæœ‰åŠ¹ãªæœŸé–“
 my $valid_investment = 1;
 
-# ŒNå‚Ì‹cŒˆ‚É‚æ‚èÌßÚ²Ô°íœŒ ŒÀ(0:‚È‚µ,1:‚ ‚è)
+# å›ä¸»ã®è­°æ±ºã«ã‚ˆã‚Šï¾Œï¾Ÿï¾šï½²ï¾”ï½°å‰Šé™¤æ¨©é™(0:ãªã—,1:ã‚ã‚Š)
 my $is_ceo_delete = 1;
 
-# íœŒ ŒÀ‚ ‚è‚Ìê‡B•K—v•[
+# å‰Šé™¤æ¨©é™ã‚ã‚Šã®å ´åˆã€‚å¿…è¦ç¥¨
 my @need_vote_violator = (2, 4, 5);
 
-# íœŒ ŒÀ‚ ‚è‚Ìê‡B•K—vŒo‰ß“ú”
+# å‰Šé™¤æ¨©é™ã‚ã‚Šã®å ´åˆã€‚å¿…è¦çµŒéæ—¥æ•°
 my $non_new_commer_date = 30;
 my $is_delete = $config_test ? 1 : $m{start_time} + $non_new_commer_date * 24 * 3600 < $time;
 
-my @violate = ('“‡—¬‚µ', 'añ', '‰i‹v’Ç•ú');
+my @violate = ('å³¶æµã—', 'æ–¬é¦–', 'æ°¸ä¹…è¿½æ”¾');
 
-# íœŒ ŒÀ‚ ‚è‚Ìê‡BŒNå‚Ì‘½dIPÁª¯¸Œ ŒÀ(0:‚È‚µ,1:‚ ‚è)
+# å‰Šé™¤æ¨©é™ã‚ã‚Šã®å ´åˆã€‚å›ä¸»ã®å¤šé‡IPï¾ï½ªï½¯ï½¸æ¨©é™(0:ãªã—,1:ã‚ã‚Š)
 my $is_ceo_watch_multi = 1;
 
 #=================================================
-# —˜—pğŒ
+# åˆ©ç”¨æ¡ä»¶
 #=================================================
 sub is_satisfy {
 	if ($m{country} eq '0') {
-		$mes .= '‘‚É‘®‚µ‚Ä‚È‚¢‚Æs‚¤‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ<br>dŠ¯‚·‚é‚É‚Íu‘î•ñv¨udŠ¯v‚©‚çs‚Á‚Ä‚İ‚½‚¢‘‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢<br>';
+		$mes .= 'å›½ã«å±ã—ã¦ãªã„ã¨è¡Œã†ã“ã¨ãŒã§ãã¾ã›ã‚“<br>ä»•å®˜ã™ã‚‹ã«ã¯ã€Œå›½æƒ…å ±ã€â†’ã€Œä»•å®˜ã€ã‹ã‚‰è¡Œã£ã¦ã¿ãŸã„å›½ã‚’é¸ã‚“ã§ãã ã•ã„<br>';
 		&refresh;
 		&n_menu;
 		return 0;
 	}
 	elsif ($cs{ceo}[$m{country}] ne $m{name}) {
-		$mes .= "‘‚Ì$e2j{ceo}‚Å‚È‚¢‚Æs‚¤‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ<br>";
+		$mes .= "å›½ã®$e2j{ceo}ã§ãªã„ã¨è¡Œã†ã“ã¨ãŒã§ãã¾ã›ã‚“<br>";
 		&refresh;
 		&n_menu;
 		return 0;
@@ -44,25 +44,25 @@ sub is_satisfy {
 #=================================================
 sub begin {
 	if ($m{tp} > 1) {
-		$mes .= '‘¼‚É‰½‚©s‚¢‚Ü‚·‚©?<br>';
+		$mes .= 'ä»–ã«ä½•ã‹è¡Œã„ã¾ã™ã‹?<br>';
 		$m{tp} = 1;
 	}
 	else {
-		$mes .= "—¬ŒYÒ‚ğŠe‘‚Ì$e2j{ceo}‚Ì“Š•[‚É‚æ‚èíœ‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·<br>" if $is_ceo_delete;
-		$mes .= "$c_m‚Ì–¼‘OAFA•ûjA‰ï‹cº–¼‚â˜S––¼‚ğ•ÏX‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·<br>";
-		$mes .= "$e2j{name}F$c_m<br>";
-		$mes .= "‘FF$cs{color}[$m{country}]<br>";
-		$mes .= "‰ï‹cº–¼F";
-		$mes .= $cs{bbs_name}[$m{country}] eq '' ? "$cs{name}[$m{country}]ìí‰ï‹cº" : $cs{bbs_name}[$m{country}];
-		$mes .= "<br>˜S––¼F$cs{prison_name}[$m{country}]";
+		$mes .= "æµåˆ‘è€…ã‚’å„å›½ã®$e2j{ceo}ã®æŠ•ç¥¨ã«ã‚ˆã‚Šå‰Šé™¤ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™<br>" if $is_ceo_delete;
+		$mes .= "$c_mã®åå‰ã€è‰²ã€æ–¹é‡ã€ä¼šè­°å®¤åã‚„ç‰¢ç„åã‚’å¤‰æ›´ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™<br>";
+		$mes .= "$e2j{name}ï¼š$c_m<br>";
+		$mes .= "å›½è‰²ï¼š$cs{color}[$m{country}]<br>";
+		$mes .= "ä¼šè­°å®¤åï¼š";
+		$mes .= $cs{bbs_name}[$m{country}] eq '' ? "$cs{name}[$m{country}]ä½œæˆ¦ä¼šè­°å®¤" : $cs{bbs_name}[$m{country}];
+		$mes .= "<br>ç‰¢ç„åï¼š$cs{prison_name}[$m{country}]";
 	}
-	my @menus = ('‚â‚ß‚é', '‘–¼/F‚ğ•ÏX', '•ûj/¼İÎŞÙ‚ğ•ÏX','NPC–¼‚ğ•ÏX','‘ŒÉ‚Ìİ’è','Še‘İ’è','‰ï‹cº–¼‚ğ•ÏX','˜S––¼‚ğ•ÏX','ˆÀŠy€');
+	my @menus = ('ã‚„ã‚ã‚‹', 'å›½å/è‰²ã‚’å¤‰æ›´', 'æ–¹é‡/ï½¼ï¾ï¾ï¾ï¾™ã‚’å¤‰æ›´','NPCåã‚’å¤‰æ›´','å›½åº«ã®è¨­å®š','å„å›½è¨­å®š','ä¼šè­°å®¤åã‚’å¤‰æ›´','ç‰¢ç„åã‚’å¤‰æ›´','å®‰æ¥½æ­»');
 	if ($is_ceo_delete) {
-		push @menus, '—¬ŒYÒ‹cŒˆ';
-		push @menus, '—¬ŒYÒ\\¿';
+		push @menus, 'æµåˆ‘è€…è­°æ±º';
+		push @menus, 'æµåˆ‘è€…ç”³\è«‹';
 		
 		if ($is_ceo_watch_multi) {
-			push @menus, '‘½dÒÁª¯¸';
+			push @menus, 'å¤šé‡è€…ï¾ï½ªï½¯ï½¸';
 		}
 	}
 	&menu(@menus);
@@ -75,17 +75,17 @@ sub tp_1 {
 }
 
 #================================================
-# ‘–¼/F‚ğ•ÏX
+# å›½å/è‰²ã‚’å¤‰æ›´
 #================================================
 sub tp_100 {
-	$mes .= qq|$e2j{name}‚Í‘SŠp7(”¼Šp14)•¶š‚Ü‚ÅB”¼Šp‹L†(,;"'&)A‹ó”’(½Íß°½)‚Íg‚¦‚Ü‚¹‚ñ<br>|;
+	$mes .= qq|$e2j{name}ã¯å…¨è§’7(åŠè§’14)æ–‡å­—ã¾ã§ã€‚åŠè§’è¨˜å·(,;"'&)ã€ç©ºç™½(ï½½ï¾ï¾Ÿï½°ï½½)ã¯ä½¿ãˆã¾ã›ã‚“<br>|;
 	#"
-	$mes .= qq|‘F‚Í#‚©‚çn‚Ü‚é16i”•\\‹L<br>|;
+	$mes .= qq|å›½è‰²ã¯#ã‹ã‚‰å§‹ã¾ã‚‹16é€²æ•°è¡¨\è¨˜<br>|;
 	$mes .= qq|<form method="$method" action="$script">|;
-	$mes .= qq|$e2j{name}F<input type="text" name="name" value="$c_m" class="text_box1"><br>|;
-	$mes .= qq|FF<input type="text" name="color" value="$cs{color}[$m{country}]" class="text_box1"><br>|;
+	$mes .= qq|$e2j{name}ï¼š<input type="text" name="name" value="$c_m" class="text_box1"><br>|;
+	$mes .= qq|è‰²ï¼š<input type="text" name="color" value="$cs{color}[$m{country}]" class="text_box1"><br>|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="•ÏX‚·‚é/‚â‚ß‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="å¤‰æ›´ã™ã‚‹/ã‚„ã‚ã‚‹" class="button1"></p></form>|;
 	$m{tp} += 10;
 	&n_menu;
 }
@@ -93,27 +93,27 @@ sub tp_110 {
 	my $is_rewrite = 0;
 	if ($in{name} || $in{color}) {
 		unless ($c_m eq $in{name}) {
-			&error("$e2j{name}‚ğ‹L“ü‚µ‚Ä‚­‚¾‚³‚¢") if $in{name} eq '';
-			&error("$e2j{name}‚É•s³‚È•¶š( ,;\"\'&<>\\\/ )‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·") if $in{name} =~ /[,;\"\'&<>\\\/]/;
+			&error("$e2j{name}ã‚’è¨˜å…¥ã—ã¦ãã ã•ã„") if $in{name} eq '';
+			&error("$e2j{name}ã«ä¸æ­£ãªæ–‡å­—( ,;\"\'&<>\\\/ )ãŒå«ã¾ã‚Œã¦ã„ã¾ã™") if $in{name} =~ /[,;\"\'&<>\\\/]/;
 			#"
-			&error("$e2j{name}‚É•s³‚È‹ó”’‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·") if $in{name} =~ /@/ || $in{name} =~ /\s/;
-			&error("$e2j{name}‚Í‘SŠp7(”¼Šp14)•¶š‚Ü‚Å‚Å‚·") if length $in{name} > 14;
+			&error("$e2j{name}ã«ä¸æ­£ãªç©ºç™½ãŒå«ã¾ã‚Œã¦ã„ã¾ã™") if $in{name} =~ /ã€€/ || $in{name} =~ /\s/;
+			&error("$e2j{name}ã¯å…¨è§’7(åŠè§’14)æ–‡å­—ã¾ã§ã§ã™") if length $in{name} > 14;
 			for my $name (@{ $cs{name} }) {
-				&error('‚»‚Ì$e2j{name}‚Í‚·‚Å‚Ég‚í‚ê‚Ä‚¢‚Ü‚·') if $in{name} eq $name;
+				&error('ãã®$e2j{name}ã¯ã™ã§ã«ä½¿ã‚ã‚Œã¦ã„ã¾ã™') if $in{name} eq $name;
 			}
 			
 			$in{color} ||= $cs{color}[$m{country}];
-			$mes .= "$e2j{name}‚ğ$in{name}‚É•ÏX‚µ‚Ü‚µ‚½<br>";
-			&write_world_news(qq|<b>$c_m‚Ì$e2j{ceo}$m{name}‚É‚æ‚Á‚ÄA$c_m‚ğ<font color="$in{color}">$in{name}</font>‚Æ$e2j{name}‚ğ‰ü‚ß‚Ü‚µ‚½</b>|, 1);
+			$mes .= "$e2j{name}ã‚’$in{name}ã«å¤‰æ›´ã—ã¾ã—ãŸ<br>";
+			&write_world_news(qq|<b>$c_mã®$e2j{ceo}$m{name}ã«ã‚ˆã£ã¦ã€$c_mã‚’<font color="$in{color}">$in{name}</font>ã¨$e2j{name}ã‚’æ”¹ã‚ã¾ã—ãŸ</b>|, 1);
 			
 			$cs{name}[$m{country}] = $in{name};
 			$is_rewrite = 1;
 		}
 	
 		unless ($cs{color}[$m{country}] eq $in{color}) {
-			&error('F‚ğ”¼Šp‰p”š‚Å‹L“ü‚µ‚Ä‚­‚¾‚³‚¢') if $in{color} eq '' || $in{color} =~ /[^0-9a-zA-Z#]/;
-			&error('F‚ğ#‚©‚çn‚Ü‚é16i”‚ÌF‚Å‹L“ü‚µ‚Ä‚­‚¾‚³‚¢') if $in{color} !~ /#.{6}/;
-			$mes .= "‘F‚ğ$in{color}‚É•ÏX‚µ‚Ü‚µ‚½<br>";
+			&error('è‰²ã‚’åŠè§’è‹±æ•°å­—ã§è¨˜å…¥ã—ã¦ãã ã•ã„') if $in{color} eq '' || $in{color} =~ /[^0-9a-zA-Z#]/;
+			&error('è‰²ã‚’#ã‹ã‚‰å§‹ã¾ã‚‹16é€²æ•°ã®è‰²ã§è¨˜å…¥ã—ã¦ãã ã•ã„') if $in{color} !~ /#.{6}/;
+			$mes .= "å›½è‰²ã‚’$in{color}ã«å¤‰æ›´ã—ã¾ã—ãŸ<br>";
 			$cs{color}[$m{country}] = $in{color};
 			$is_rewrite = 1;
 		}
@@ -123,35 +123,35 @@ sub tp_110 {
 		&write_cs;
 	}
 	else {
-		$mes .= '‚â‚ß‚Ü‚µ‚½<br>';
+		$mes .= 'ã‚„ã‚ã¾ã—ãŸ<br>';
 	}
 	
 	&begin;
 }
 
 #================================================
-# •ûj‚ğ•ÏX
+# æ–¹é‡ã‚’å¤‰æ›´
 #================================================
 sub tp_200 {
 	my $line = &get_countries_mes($m{country});
 	my($country_mes, $country_mark, $country_rule) = split /<>/, $line;
 	
 	$mes .= qq|<form method="$method" action="$script">|;
-	$mes .= qq|•ûj[‘SŠp100(”¼Šp200)•¶š‚Ü‚Å]<br>E‰üs‚Ííœ‚³‚ê‚Ü‚·<br>|;
+	$mes .= qq|æ–¹é‡[å…¨è§’100(åŠè§’200)æ–‡å­—ã¾ã§]<br>ãƒ»æ”¹è¡Œã¯å‰Šé™¤ã•ã‚Œã¾ã™<br>|;
 	$mes .= qq|<textarea name="country_mes" cols="60" rows="3" class="textarea1">$country_mes</textarea><br>|;
 
-	$mes .= qq|ƒ‹[ƒ‹[‘SŠp100(”¼Šp200)•¶š‚Ü‚Å]<br>E‰üs‚Ííœ‚³‚ê‚Ü‚·<br>|;
+	$mes .= qq|ãƒ«ãƒ¼ãƒ«[å…¨è§’100(åŠè§’200)æ–‡å­—ã¾ã§]<br>ãƒ»æ”¹è¡Œã¯å‰Šé™¤ã•ã‚Œã¾ã™<br>|;
 	$mes .= qq|<textarea name="country_rule" cols="60" rows="3" class="textarea1">$country_rule</textarea><br>|;
 
-	$mes .= qq|<hr>¼İÎŞÙ<br>|;
+	$mes .= qq|<hr>ï½¼ï¾ï¾ï¾ï¾™<br>|;
 
-	# ¼İÎŞÙ
-	$mes .= qq|<input type="radio" name="country_mark" value="">‚È‚µ<hr>|;
+	# ï½¼ï¾ï¾ï¾ï¾™
+	$mes .= qq|<input type="radio" name="country_mark" value="">ãªã—<hr>|;
 	if ($country_mark) {
 		my $file_title = &get_goods_title($country_mark);
-		$mes .= qq|<input type="radio" name="country_mark" value="$country_mark" checked><img src="$icondir/$country_mark">[Œ»İ‚Ì¼İÎŞÙ]$file_title<hr>|;
+		$mes .= qq|<input type="radio" name="country_mark" value="$country_mark" checked><img src="$icondir/$country_mark">[ç¾åœ¨ã®ï½¼ï¾ï¾ï¾ï¾™]$file_title<hr>|;
 	}
-	opendir my $dh, "$userdir/$id/picture" or &error("$userdir/$id/picture ÃŞ¨Ú¸ÄØ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	opendir my $dh, "$userdir/$id/picture" or &error("$userdir/$id/picture ï¾ƒï¾ï½¨ï¾šï½¸ï¾„ï¾˜ãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $file_name = readdir $dh) {
 		next if $file_name =~ /^\./;
 		next if $file_name =~ /^_/;
@@ -162,25 +162,25 @@ sub tp_200 {
 	closedir $dh;
 
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="•ÏX‚·‚é/‚â‚ß‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="å¤‰æ›´ã™ã‚‹/ã‚„ã‚ã‚‹" class="button1"></p></form>|;
 	$m{tp} += 10;
 	&n_menu;
 }
 sub tp_210 {
 	unless (defined $in{country_mes}) {
-		$mes .= "‚â‚ß‚Ü‚µ‚½<br>";
+		$mes .= "ã‚„ã‚ã¾ã—ãŸ<br>";
 		&begin;
 		return;
 	}
 	
-	&error("‘‚Ì•ûj‚Í‘SŠp100(”¼Šp200)•¶š‚Ü‚Å‚Å‚·") if length $in{country_mes} > 200;
-	&error("‘‚Ì•ûj‚Í‘SŠp100(”¼Šp200)•¶š‚Ü‚Å‚Å‚·") if length $in{country_rule} > 200;
-#	&error("‹M—lc‰½ƒ’ƒVƒˆƒEƒgƒVƒeƒCƒ‹ƒmƒJcƒƒJƒbƒeƒCƒ‹ƒmƒJcH") if $w{world} eq $#world_states && $m{country} eq $w{country};
+	&error("å›½ã®æ–¹é‡ã¯å…¨è§’100(åŠè§’200)æ–‡å­—ã¾ã§ã§ã™") if length $in{country_mes} > 200;
+	&error("å›½ã®æ–¹é‡ã¯å…¨è§’100(åŠè§’200)æ–‡å­—ã¾ã§ã§ã™") if length $in{country_rule} > 200;
+#	&error("è²´æ§˜â€¦ä½•ãƒ²ã‚·ãƒ¨ã‚¦ãƒˆã‚·ãƒ†ã‚¤ãƒ«ãƒã‚«â€¦ãƒ¯ã‚«ãƒƒãƒ†ã‚¤ãƒ«ãƒã‚«â€¦ï¼Ÿ") if $w{world} eq $#world_states && $m{country} eq $w{country};
 	
 	my $is_rewrite = 0;
 	my $country = 0;
 	my @lines = ();
-	open my $fh, "+< $logdir/countries_mes.cgi" or &error("$logdir/countries_mes.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $logdir/countries_mes.cgi" or &error("$logdir/countries_mes.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	while (my $line = <$fh>) {
 		if ($country eq $m{country}) {
@@ -188,46 +188,46 @@ sub tp_210 {
 			
 			unless ($country_mes eq $in{country_mes}) {
 				$is_rewrite = 1;
-				$mes .= "‘‚Ì•ûj‚ğ<hr>$in{country_mes}<hr>‚É•ÏX‚µ‚Ü‚µ‚½<br>";
+				$mes .= "å›½ã®æ–¹é‡ã‚’<hr>$in{country_mes}<hr>ã«å¤‰æ›´ã—ã¾ã—ãŸ<br>";
 			}
 
 			unless ($country_rule eq $in{country_rule}) {
 				$is_rewrite = 1;
-				$mes .= "ŒY–@‚ğ<hr>$in{country_rule}<hr>‚É•ÏX‚µ‚Ü‚µ‚½<br>";
+				$mes .= "åˆ‘æ³•ã‚’<hr>$in{country_rule}<hr>ã«å¤‰æ›´ã—ã¾ã—ãŸ<br>";
 			}
 			
-			# ¼İÎŞÙ‚ ‚è¨‚È‚µ
+			# ï½¼ï¾ï¾ï¾ï¾™ã‚ã‚Šâ†’ãªã—
 			if ($country_mark && $in{country_mark} eq '') {
 				$is_rewrite = 1;
-				rename "$icondir/$country_mark", "$userdir/$id/picture/$country_mark" or &error("¼İÎŞÙ‚Ì‘‚«Š·‚¦‚É¸”s‚µ‚Ü‚µ‚½");
-				$mes .= qq|‘‚Ì¼İÎŞÙ‚ğ‚È‚µ‚É•ÏX‚µ‚Ü‚µ‚½<br>|;
+				rename "$icondir/$country_mark", "$userdir/$id/picture/$country_mark" or &error("ï½¼ï¾ï¾ï¾ï¾™ã®æ›¸ãæ›ãˆã«å¤±æ•—ã—ã¾ã—ãŸ");
+				$mes .= qq|å›½ã®ï½¼ï¾ï¾ï¾ï¾™ã‚’ãªã—ã«å¤‰æ›´ã—ã¾ã—ãŸ<br>|;
 			}
-			# ¼İÎŞÙ•ÏX
+			# ï½¼ï¾ï¾ï¾ï¾™å¤‰æ›´
 			elsif ($country_mark ne $in{country_mark}) {
-				&error("“¯‚¶À²ÄÙ‚Ì¼İÎŞÙ‚ª‚·‚Å‚Ég‚í‚ê‚Ä‚¢‚Ü‚·") if -f "$icondir/$in{country_mark}";
-				&error("$non_title‚Ì•¨‚ğ¼İÎŞÙ‚É‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ") if $in{country_mark} =~ /^_/;
-				&error("‘I‘ğ‚µ‚½ŠG‚ª‘¶İ‚µ‚Ü‚¹‚ñ") unless -f "$userdir/$id/picture/$in{country_mark}";
+				&error("åŒã˜ï¾€ï½²ï¾„ï¾™ã®ï½¼ï¾ï¾ï¾ï¾™ãŒã™ã§ã«ä½¿ã‚ã‚Œã¦ã„ã¾ã™") if -f "$icondir/$in{country_mark}";
+				&error("$non_titleã®ç‰©ã‚’ï½¼ï¾ï¾ï¾ï¾™ã«ã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“") if $in{country_mark} =~ /^_/;
+				&error("é¸æŠã—ãŸçµµãŒå­˜åœ¨ã—ã¾ã›ã‚“") unless -f "$userdir/$id/picture/$in{country_mark}";
 
 				$is_rewrite = 1;
-				rename "$icondir/$country_mark", "$userdir/$id/picture/$country_mark" or &error("¼İÎŞÙ‚Ì‘‚«Š·‚¦‚É¸”s‚µ‚Ü‚µ‚½") if -f "$icondir/$country_mark";
-				rename "$userdir/$id/picture/$in{country_mark}", "$icondir/$in{country_mark}" or &error("¼İÎŞÙ‚Ì‘‚«Š·‚¦‚É¸”s‚µ‚Ü‚µ‚½");
+				rename "$icondir/$country_mark", "$userdir/$id/picture/$country_mark" or &error("ï½¼ï¾ï¾ï¾ï¾™ã®æ›¸ãæ›ãˆã«å¤±æ•—ã—ã¾ã—ãŸ") if -f "$icondir/$country_mark";
+				rename "$userdir/$id/picture/$in{country_mark}", "$icondir/$in{country_mark}" or &error("ï½¼ï¾ï¾ï¾ï¾™ã®æ›¸ãæ›ãˆã«å¤±æ•—ã—ã¾ã—ãŸ");
 				
 				my $file_title = &get_goods_title($in{country_mark});
-				$mes .= qq|‘‚Ì¼İÎŞÙ‚ğ$file_title<img src="$icondir/$in{country_mark}">‚É•ÏX‚µ‚Ü‚µ‚½<br>|;
+				$mes .= qq|å›½ã®ï½¼ï¾ï¾ï¾ï¾™ã‚’$file_title<img src="$icondir/$in{country_mark}">ã«å¤‰æ›´ã—ã¾ã—ãŸ<br>|;
 			}
 			
 			if ($is_rewrite) {
 				$line = "$in{country_mes}<>$in{country_mark}<>$in{country_rule}<>\n";
 			}
 			else {
-				$mes .= "‚â‚ß‚Ü‚µ‚½<br>";
+				$mes .= "ã‚„ã‚ã¾ã—ãŸ<br>";
 				last;
 			}
 		}
 		push @lines, $line;
 		++$country;
 	}
-	if ($country < $m{country}) { # ƒoƒO‚Å‘‚Ì•ûj‚Ì”‚Æ‘‚Ì”‚ª‡‚í‚È‚¢
+	if ($country < $m{country}) { # ãƒã‚°ã§å›½ã®æ–¹é‡ã®æ•°ã¨å›½ã®æ•°ãŒåˆã‚ãªã„æ™‚
 		$is_rewrite = 1;
 		push @lines, "$in{country_mes}<><><>\n";
 	}
@@ -243,10 +243,10 @@ sub tp_210 {
 
 
 #================================================
-# NPC–¼•ÏX
+# NPCåå¤‰æ›´
 #================================================
 sub tp_300 {
-	$mes .= "NPC–¼•ÏX";
+	$mes .= "NPCåå¤‰æ›´";
 	$mes .= qq|<form method="$method" action="$script">|;
 
 	require "$datadir/npc_war_$m{country}.cgi";
@@ -254,19 +254,19 @@ sub tp_300 {
 		$mes .= qq|<input type="text" name="npc_$i" value="$npcs[$i]{name}" class="text_box1" style="text-align:right"><br>|;
 	}
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="•ÏX‚·‚é/‚â‚ß‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="å¤‰æ›´ã™ã‚‹/ã‚„ã‚ã‚‹" class="button1"></p></form>|;
 	$m{tp} += 10;
 	&n_menu;
 }
 sub tp_310 {
 	require "$datadir/npc_war_$m{country}.cgi";
 	for my $i (0..$#npcs){
-		&error("NPC–¼‚É•s³‚È•¶š( ,;\"\'&<>\\\/ )‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·") if $in{"npc_$i"} =~ /[,;\"\'&<>\\\/]/;
+		&error("NPCåã«ä¸æ­£ãªæ–‡å­—( ,;\"\'&<>\\\/ )ãŒå«ã¾ã‚Œã¦ã„ã¾ã™") if $in{"npc_$i"} =~ /[,;\"\'&<>\\\/]/;
 		#"
-		&error("NPC–¼‚É•s³‚È‹ó”’‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·") if $in{"npc_$i"} =~ /@/ || $in{"npc_$i"} =~ /\s/;
-		&error("NPC–¼‚Í‘SŠp7(”¼Šp14)•¶š‚Ü‚Å‚Å‚·") if length $in{"npc_$i"} > 14;
+		&error("NPCåã«ä¸æ­£ãªç©ºç™½ãŒå«ã¾ã‚Œã¦ã„ã¾ã™") if $in{"npc_$i"} =~ /ã€€/ || $in{"npc_$i"} =~ /\s/;
+		&error("NPCåã¯å…¨è§’7(åŠè§’14)æ–‡å­—ã¾ã§ã§ã™") if length $in{"npc_$i"} > 14;
 		unless (defined $in{"npc_$i"}) {
-			$mes .= "‚â‚ß‚Ü‚µ‚½<br>";
+			$mes .= "ã‚„ã‚ã¾ã—ãŸ<br>";
 			&begin;
 			return;
 		}
@@ -285,14 +285,15 @@ sub tp_310 {
 		rank   => [$#ranks, $#ranks-2, 8, 5, 3],
 	);
 	my @npc_weas = (
-	#	[0]‘®«[1]•ŠíNo	[2]•KE‹Z
-		['–³', [0],			[61..65],],
-		['Œ•', [1 .. 5],	[1 .. 5],],
-		['‘„', [6 ..10],	[11..15],],
-		['•€', [11..15],	[21..25],],
-		['‰Š', [16..20],	[31..35],],
-		['•—', [21..25],	[41..45],],
-		['—‹', [26..30],	[51..55],],
+	#	[0]å±æ€§[1]æ­¦å™¨No	[2]å¿…æ®ºæŠ€
+		['ç„¡', [0],			[61..65],],
+		['å‰£', [1 .. 5],	[1 .. 5],],
+		['æ§', [6 ..10],	[11..15],],
+		['æ–§', [11..15],	[21..25],],
+		['ç‚', [16..20],	[31..35],],
+		['é¢¨', [21..25],	[41..45],],
+		['é›·', [26..30],	[51..55],],
+		['éŠƒ', [34],			[71..75],],
 	);
 	
 	my $line = qq|\@npcs = (\n|;
@@ -323,31 +324,31 @@ sub tp_310 {
 }
 
 #================================================
-# ‘ŒÉİ’è
+# å›½åº«è¨­å®š
 #================================================
 sub tp_400 {
-	$mes .= "‘ŒÉİ’è";
+	$mes .= "å›½åº«è¨­å®š";
 	$mes .= qq|<form method="$method" action="$script">|;
 	
-	open my $fh, "< $logdir/$m{country}/depot.cgi" or &error("$logdir/$m{country}/depot.cgi ‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	open my $fh, "< $logdir/$m{country}/depot.cgi" or &error("$logdir/$m{country}/depot.cgi ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	my $head_line = <$fh>;
 	my($lv_s,$sedai_s,$message_s) = split /<>/, $head_line;
 	close $fh;
-	$mes .= qq|—˜—p‰Â”\\ƒŒƒxƒ‹<input type="text" name="lv_s" value="$lv_s" class="text_box1" style="text-align:right"><br>|;
-	$mes .= qq|—˜—p‰Â”\\¢‘ã<input type="text" name="sedai_s" value="$sedai_s" class="text_box1" style="text-align:right"><br>|;
-	$mes .= qq|ƒƒbƒZ[ƒW[‘SŠp100(”¼Šp200)•¶š‚Ü‚Å]<br>E‰üs‚Ííœ‚³‚ê‚Ü‚·<br>|;
+	$mes .= qq|åˆ©ç”¨å¯èƒ½\ãƒ¬ãƒ™ãƒ«<input type="text" name="lv_s" value="$lv_s" class="text_box1" style="text-align:right"><br>|;
+	$mes .= qq|åˆ©ç”¨å¯èƒ½\ä¸–ä»£<input type="text" name="sedai_s" value="$sedai_s" class="text_box1" style="text-align:right"><br>|;
+	$mes .= qq|ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸[å…¨è§’100(åŠè§’200)æ–‡å­—ã¾ã§]<br>ãƒ»æ”¹è¡Œã¯å‰Šé™¤ã•ã‚Œã¾ã™<br>|;
 	$mes .= qq|<textarea name="message_s" cols="60" rows="3" class="textarea1">$message_s</textarea><br>|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="•ÏX‚·‚é/‚â‚ß‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="å¤‰æ›´ã™ã‚‹/ã‚„ã‚ã‚‹" class="button1"></p></form>|;
 	$m{tp} += 10;
 	&n_menu;
 }
 
 sub tp_410 {
-	&error("‘‚Ì•ûj‚Í‘SŠp100(”¼Šp200)•¶š‚Ü‚Å‚Å‚·") if length $in{message_s} > 200;
+	&error("å›½ã®æ–¹é‡ã¯å…¨è§’100(åŠè§’200)æ–‡å­—ã¾ã§ã§ã™") if length $in{message_s} > 200;
 	if (($in{lv_s} > 0 && $in{lv_s} < 99 && $in{lv_s} !~ /[^0-9]/) && ($in{sedai_s} > 0 && $in{sedai_s} < 99 && $in{sedai_s} !~ /[^0-9]/)) {
 		my @lines = ();
-		open my $fh, "+< $logdir/$m{country}/depot.cgi" or &error("$logdir/$m{country}/depot.cgi‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "+< $logdir/$m{country}/depot.cgi" or &error("$logdir/$m{country}/depot.cgiãŒé–‹ã‘ã¾ã›ã‚“");
 		eval { flock $fh, 2; };
 		my $head_line = <$fh>;
 		push @lines, "$in{lv_s}<>$in{sedai_s}<>$in{message_s}<>\n";
@@ -361,22 +362,22 @@ sub tp_410 {
 }
 
 #================================================
-# Še‘İ’è
+# å„å›½è¨­å®š
 #================================================
 sub tp_500 {
 	if ($time > $w{reset_time}) {
-		$mes .= "Še‘İ’è‚ÍIíŠúŠÔ’†‚Ì‚İs‚¦‚Ü‚·<br>";
+		$mes .= "å„å›½è¨­å®šã¯çµ‚æˆ¦æœŸé–“ä¸­ã®ã¿è¡Œãˆã¾ã™<br>";
 		&begin;
 		return;
 	}
-	$mes .= "Še‘İ’è";
+	$mes .= "å„å›½è¨­å®š";
 	$mes .= qq|<form method="$method" action="$script">|;
 	my $point = 0;
 	unless (-f "$logdir/$m{country}/additional_investment.cgi") {
-		open my $fh, "> $logdir/$m{country}/additional_investment.cgi" or &error("$logdir/$m{country}/additional_investment.cgi ‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+		open my $fh, "> $logdir/$m{country}/additional_investment.cgi" or &error("$logdir/$m{country}/additional_investment.cgi ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 		close $fh;
 	}
-	open my $fh, "< $logdir/$m{country}/additional_investment.cgi" or &error("$logdir/$m{country}/additional_investment.cgi ‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	open my $fh, "< $logdir/$m{country}/additional_investment.cgi" or &error("$logdir/$m{country}/additional_investment.cgi ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		my($since,$name) = split /<>/, $line;
 		if ($since + $valid_investment > $w{year}) {
@@ -384,25 +385,25 @@ sub tp_500 {
 		}
 	}
 	close $fh;
-	$mes .= qq|U‚è•ª‚¯‰Â”\\ptF$point pt<br>|;
-	$mes .= qq|í‘ˆ<input type="text" name="war" value="5" class="text_box1" style="text-align:right"><br>|;
-	$mes .= qq|“à­<input type="text" name="dom" value="5" class="text_box1" style="text-align:right"><br>|;
-	$mes .= qq|ŒR–<input type="text" name="mil" value="5" class="text_box1" style="text-align:right"><br>|;
-	$mes .= qq|ŠOŒğ<input type="text" name="pro" value="5" class="text_box1" style="text-align:right"><br>|;
+	$mes .= qq|æŒ¯ã‚Šåˆ†ã‘å¯èƒ½\ptï¼š$point pt<br>|;
+	$mes .= qq|æˆ¦äº‰<input type="text" name="war" value="5" class="text_box1" style="text-align:right"><br>|;
+	$mes .= qq|å†…æ”¿<input type="text" name="dom" value="5" class="text_box1" style="text-align:right"><br>|;
+	$mes .= qq|è»äº‹<input type="text" name="mil" value="5" class="text_box1" style="text-align:right"><br>|;
+	$mes .= qq|å¤–äº¤<input type="text" name="pro" value="5" class="text_box1" style="text-align:right"><br>|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="•ÏX‚·‚é/‚â‚ß‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="å¤‰æ›´ã™ã‚‹/ã‚„ã‚ã‚‹" class="button1"></p></form>|;
 	$m{tp} += 10;
 	&n_menu;
 }
 
 sub tp_510 {
 	if ($in{war} < 0 || $in{dom} < 0 || $in{mil} < 0 || $in{pro} < 0) {
-		$mes .= "0ƒ|ƒCƒ“ƒg–¢–‚É‚Íİ’è‚Å‚«‚Ü‚¹‚ñ";
+		$mes .= "0ãƒã‚¤ãƒ³ãƒˆæœªæº€ã«ã¯è¨­å®šã§ãã¾ã›ã‚“";
 		&begin;
 		return;
 	}
 	my $point = 0;
-	open my $fh, "< $logdir/$m{country}/additional_investment.cgi" or &error("$logdir/$m{country}/additional_investment.cgi ‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	open my $fh, "< $logdir/$m{country}/additional_investment.cgi" or &error("$logdir/$m{country}/additional_investment.cgi ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		my($since,$name) = split /<>/, $line;
 		if ($since + $valid_investment > $w{year}) {
@@ -414,12 +415,12 @@ sub tp_510 {
 		$point = 15;
 	}
 	if ($in{war} + $in{dom} + $in{mil} + $in{pro} != 20) {
-		$mes .= "‡Œv20ƒ|ƒCƒ“ƒg‚Éİ’è‚µ‚Ä‚­‚¾‚³‚¢";
+		$mes .= "åˆè¨ˆ20ãƒã‚¤ãƒ³ãƒˆã«è¨­å®šã—ã¦ãã ã•ã„";
 		&begin;
 		return;
 	}
 	if (cut_minus($in{war} - 5) + cut_minus($in{dom} - 5) + cut_minus($in{mil} - 5) + cut_minus($in{pro} - 5) > $point) {
-		$mes .= "‡Œv$pointƒ|ƒCƒ“ƒgˆÈ“à‚Ì•Ï“®‚Éİ’è‚µ‚Ä‚­‚¾‚³‚¢";
+		$mes .= "åˆè¨ˆ$pointãƒã‚¤ãƒ³ãƒˆä»¥å†…ã®å¤‰å‹•ã«è¨­å®šã—ã¦ãã ã•ã„";
 		&begin;
 		return;
 	}
@@ -430,9 +431,9 @@ sub tp_510 {
 	$cs{modify_pro}[$m{country}] = $in{pro} - 5;
 	
 	&write_cs;
-	$mes .= "İ’è‚µ‚Ü‚µ‚½<br>";
+	$mes .= "è¨­å®šã—ã¾ã—ãŸ<br>";
 	
-	$mes .= "í‘ˆF$cs{modify_war}[$m{country}]<br>“à­F$cs{modify_dom}[$m{country}]<br>ŒR–F$cs{modify_mil}[$m{country}]<br>ŠOŒğF$cs{modify_pro}[$m{country}]<br>";
+	$mes .= "æˆ¦äº‰ï¼š$cs{modify_war}[$m{country}]<br>å†…æ”¿ï¼š$cs{modify_dom}[$m{country}]<br>è»äº‹ï¼š$cs{modify_mil}[$m{country}]<br>å¤–äº¤ï¼š$cs{modify_pro}[$m{country}]<br>";
 	&begin;
 }
 
@@ -445,39 +446,39 @@ sub cut_minus {
 }
 
 #================================================
-# ‰ï‹cº–¼•ÏX
+# ä¼šè­°å®¤åå¤‰æ›´
 #================================================
 sub tp_600 {
-	my $bbs_name = $cs{bbs_name}[$m{country}] eq '' ? "$cs{name}[$m{country}]ìí‰ï‹cº" : $cs{bbs_name}[$m{country}];
+	my $bbs_name = $cs{bbs_name}[$m{country}] eq '' ? "$cs{name}[$m{country}]ä½œæˆ¦ä¼šè­°å®¤" : $cs{bbs_name}[$m{country}];
 
-	$mes .= qq|‰ï‹cº–¼‚Í‘SŠp12(”¼Šp24)•¶š‚Ü‚ÅB”¼Šp‹L†(,;"'&)A‹ó”’(½Íß°½)‚Íg‚¦‚Ü‚¹‚ñ<br>|;
+	$mes .= qq|ä¼šè­°å®¤åã¯å…¨è§’12(åŠè§’24)æ–‡å­—ã¾ã§ã€‚åŠè§’è¨˜å·(,;"'&)ã€ç©ºç™½(ï½½ï¾ï¾Ÿï½°ï½½)ã¯ä½¿ãˆã¾ã›ã‚“<br>|;
 	#"
 	$mes .= qq|<form method="$method" action="$script">|;
-	$mes .= qq|‰ï‹cº–¼F<input type="text" name="bbs_name" value="$bbs_name" class="text_box1"><br>|;
-	$mes .= qq|<input type="checkbox" name="default" value="1">ÃŞÌ«ÙÄ‚É‚·‚é<br>|;
+	$mes .= qq|ä¼šè­°å®¤åï¼š<input type="text" name="bbs_name" value="$bbs_name" class="text_box1"><br>|;
+	$mes .= qq|<input type="checkbox" name="default" value="1">ï¾ƒï¾ï¾Œï½«ï¾™ï¾„ã«ã™ã‚‹<br>|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="•ÏX‚·‚é/‚â‚ß‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="å¤‰æ›´ã™ã‚‹/ã‚„ã‚ã‚‹" class="button1"></p></form>|;
 	$m{tp} += 10;
 	&n_menu;
 }
 sub tp_610 {
 	my $is_rewrite = 0;
 	if ($in{default} eq '1') {
-		$cs{bbs_name}[$m{country}] = ''; # ÃŞÌ«ÙÄ
+		$cs{bbs_name}[$m{country}] = ''; # ï¾ƒï¾ï¾Œï½«ï¾™ï¾„
 
-		$mes .= "‰ï‹cº–¼‚ğÃŞÌ«ÙÄ‚É•ÏX‚µ‚Ü‚µ‚½<br>";
+		$mes .= "ä¼šè­°å®¤åã‚’ï¾ƒï¾ï¾Œï½«ï¾™ï¾„ã«å¤‰æ›´ã—ã¾ã—ãŸ<br>";
 
 		$is_rewrite = 1;
 	}
 	elsif ($in{bbs_name}) {
 		unless ($cs{bbs_name}[$m{country}] eq $in{bbs_name}) {
-			&error("‰ï‹cº–¼‚ğ‹L“ü‚µ‚Ä‚­‚¾‚³‚¢") if $in{bbs_name} eq '';
-			&error("‰ï‹cº–¼‚É•s³‚È•¶š( ,;\"\'&<>\\\/ )‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·") if $in{bbs_name} =~ /[,;\"\'&<>\\\/]/;
+			&error("ä¼šè­°å®¤åã‚’è¨˜å…¥ã—ã¦ãã ã•ã„") if $in{bbs_name} eq '';
+			&error("ä¼šè­°å®¤åã«ä¸æ­£ãªæ–‡å­—( ,;\"\'&<>\\\/ )ãŒå«ã¾ã‚Œã¦ã„ã¾ã™") if $in{bbs_name} =~ /[,;\"\'&<>\\\/]/;
 			#"
-			&error("‰ï‹cº–¼‚É•s³‚È‹ó”’‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·") if $in{bbs_name} =~ /@/ || $in{bbs_name} =~ /\s/;
-			&error("‰ï‹cº–¼‚Í‘SŠp12(”¼Šp24)•¶š‚Ü‚Å‚Å‚·") if length $in{bbs_name} > 24;
+			&error("ä¼šè­°å®¤åã«ä¸æ­£ãªç©ºç™½ãŒå«ã¾ã‚Œã¦ã„ã¾ã™") if $in{bbs_name} =~ /ã€€/ || $in{bbs_name} =~ /\s/;
+			&error("ä¼šè­°å®¤åã¯å…¨è§’12(åŠè§’24)æ–‡å­—ã¾ã§ã§ã™") if length $in{bbs_name} > 24;
 
-			$mes .= "‰ï‹cº–¼‚ğ$in{bbs_name}‚É•ÏX‚µ‚Ü‚µ‚½<br>";
+			$mes .= "ä¼šè­°å®¤åã‚’$in{bbs_name}ã«å¤‰æ›´ã—ã¾ã—ãŸ<br>";
 			
 			$cs{bbs_name}[$m{country}] = $in{bbs_name};
 			$is_rewrite = 1;
@@ -488,46 +489,46 @@ sub tp_610 {
 		&write_cs;
 	}
 	else {
-		$mes .= '‚â‚ß‚Ü‚µ‚½<br>';
+		$mes .= 'ã‚„ã‚ã¾ã—ãŸ<br>';
 	}
 	
 	&begin;
 }
 
 #================================================
-# ˜S––¼•ÏX
+# ç‰¢ç„åå¤‰æ›´
 #================================================
 sub tp_700 {
-	my $prison_name = $cs{prison_name}[$m{country}] ? $cs{prison_name}[$m{country}] : '˜S–';
+	my $prison_name = $cs{prison_name}[$m{country}] ? $cs{prison_name}[$m{country}] : 'ç‰¢ç„';
 
-	$mes .= qq|˜S––¼‚Í‘SŠp7(”¼Šp14)•¶š‚Ü‚ÅB”¼Šp‹L†(,;"'&)A‹ó”’(½Íß°½)‚Íg‚¦‚Ü‚¹‚ñ<br>|;
+	$mes .= qq|ç‰¢ç„åã¯å…¨è§’7(åŠè§’14)æ–‡å­—ã¾ã§ã€‚åŠè§’è¨˜å·(,;"'&)ã€ç©ºç™½(ï½½ï¾ï¾Ÿï½°ï½½)ã¯ä½¿ãˆã¾ã›ã‚“<br>|;
 	#"
 	$mes .= qq|<form method="$method" action="$script">|;
-	$mes .= qq|‰ï‹cº–¼F<input type="text" name="prison_name" value="$prison_name" class="text_box1"><br>|;
-	$mes .= qq|<input type="checkbox" name="default" value="1">ÃŞÌ«ÙÄ‚É‚·‚é<br>|;
+	$mes .= qq|ä¼šè­°å®¤åï¼š<input type="text" name="prison_name" value="$prison_name" class="text_box1"><br>|;
+	$mes .= qq|<input type="checkbox" name="default" value="1">ï¾ƒï¾ï¾Œï½«ï¾™ï¾„ã«ã™ã‚‹<br>|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="•ÏX‚·‚é/‚â‚ß‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="å¤‰æ›´ã™ã‚‹/ã‚„ã‚ã‚‹" class="button1"></p></form>|;
 	$m{tp} += 10;
 	&n_menu;
 }
 sub tp_710 {
 	my $is_rewrite = 0;
 	if ($in{default} eq '1') {
-		$cs{prison_name}[$m{country}] = '˜S–'; # ÃŞÌ«ÙÄ
+		$cs{prison_name}[$m{country}] = 'ç‰¢ç„'; # ï¾ƒï¾ï¾Œï½«ï¾™ï¾„
 
-		$mes .= "˜S––¼‚ğÃŞÌ«ÙÄ‚É•ÏX‚µ‚Ü‚µ‚½<br>";
+		$mes .= "ç‰¢ç„åã‚’ï¾ƒï¾ï¾Œï½«ï¾™ï¾„ã«å¤‰æ›´ã—ã¾ã—ãŸ<br>";
 
 		$is_rewrite = 1;
 	}
 	elsif ($in{prison_name}) {
 		unless ($cs{prison_name}[$m{country}] eq $in{prison_name}) {
-			&error("˜S––¼‚ğ‹L“ü‚µ‚Ä‚­‚¾‚³‚¢") if $in{prison_name} eq '';
-			&error("˜S––¼‚É•s³‚È•¶š( ,;\"\'&<>\\\/ )‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·") if $in{prison_name} =~ /[,;\"\'&<>\\\/]/;
+			&error("ç‰¢ç„åã‚’è¨˜å…¥ã—ã¦ãã ã•ã„") if $in{prison_name} eq '';
+			&error("ç‰¢ç„åã«ä¸æ­£ãªæ–‡å­—( ,;\"\'&<>\\\/ )ãŒå«ã¾ã‚Œã¦ã„ã¾ã™") if $in{prison_name} =~ /[,;\"\'&<>\\\/]/;
 			#"
-			&error("˜S––¼‚É•s³‚È‹ó”’‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·") if $in{prison_name} =~ /@/ || $in{prison_name} =~ /\s/;
-			&error("˜S––¼‚Í‘SŠp7(”¼Šp14)•¶š‚Ü‚Å‚Å‚·") if length $in{prison_name} > 14;
+			&error("ç‰¢ç„åã«ä¸æ­£ãªç©ºç™½ãŒå«ã¾ã‚Œã¦ã„ã¾ã™") if $in{prison_name} =~ /ã€€/ || $in{prison_name} =~ /\s/;
+			&error("ç‰¢ç„åã¯å…¨è§’7(åŠè§’14)æ–‡å­—ã¾ã§ã§ã™") if length $in{prison_name} > 14;
 
-			$mes .= "˜S––¼‚ğ$in{prison_name}‚É•ÏX‚µ‚Ü‚µ‚½<br>";
+			$mes .= "ç‰¢ç„åã‚’$in{prison_name}ã«å¤‰æ›´ã—ã¾ã—ãŸ<br>";
 			
 			$cs{prison_name}[$m{country}] = $in{prison_name};
 			$is_rewrite = 1;
@@ -538,21 +539,21 @@ sub tp_710 {
 		&write_cs;
 	}
 	else {
-		$mes .= '‚â‚ß‚Ü‚µ‚½<br>';
+		$mes .= 'ã‚„ã‚ã¾ã—ãŸ<br>';
 	}
 
 	&begin;
 }
 
 #================================================
-# ˆÀŠy€
+# å®‰æ¥½æ­»
 #================================================
 sub tp_800 {
 	my @lines = &get_country_members($m{country});
-	$mes .= 'ˆÈ‰º‚ÌƒvƒŒƒCƒ„[‚ªƒLƒƒƒ‰ƒNƒ^[íœ‚ğ–]‚ñ‚Å‚¢‚Ü‚·';
+	$mes .= 'ä»¥ä¸‹ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼å‰Šé™¤ã‚’æœ›ã‚“ã§ã„ã¾ã™';
 	$mes .= qq|<form method="$method" action="$script">|;
-	$mes .= qq|<table><tr><th></th><th>–¼‘O</th></tr>|;
-	$mes .= qq|<tr><th><input type="radio" name="suicide" value="" checked/></th><th>‚¢‚¢‚¦</th></tr>|;
+	$mes .= qq|<table><tr><th></th><th>åå‰</th></tr>|;
+	$mes .= qq|<tr><th><input type="radio" name="suicide" value="" checked/></th><th>ã„ã„ãˆ</th></tr>|;
 	for my $name (@lines) {
 		$name =~ tr/\x0D\x0A//d;
 		my %you_datas = &get_you_datas($name);
@@ -562,7 +563,7 @@ sub tp_800 {
 	}
 	$mes .= qq|</table>|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<input type="submit" value="ˆÀŠy€" class="button_s"></form>|;
+	$mes .= qq|<input type="submit" value="å®‰æ¥½æ­»" class="button_s"></form>|;
 
 	$m{tp} += 10;
 }
@@ -570,7 +571,7 @@ sub tp_810 {
 	if ($in{suicide}) {
 		my %you_datas = &get_you_datas($in{suicide});
 		if ($pets[$you_datas{pet}][2] eq 'life_down') {
-			$mes .= "$you_datas{name}‚³‚ñ‚ğˆÀŠy€‚³‚¹‚Ü‚µ‚½";
+			$mes .= "$you_datas{name}ã•ã‚“ã‚’å®‰æ¥½æ­»ã•ã›ã¾ã—ãŸ";
 			&move_player($you_datas{name}, $you_datas{country}, 'del');
 		}
 	}
@@ -578,11 +579,11 @@ sub tp_810 {
 }
 
 #================================================
-# —¬ŒYÒ‹cŒˆ
+# æµåˆ‘è€…è­°æ±º
 #================================================
 sub tp_900 {
 	unless ($is_ceo_delete && $is_delete) {
-		$mes .= "Q“ü’¼Œã‚ÌÌßÚ²Ô°‚É‚ÍŒˆ‹cŒ ‚ª‚ ‚è‚Ü‚¹‚ñ<br>";
+		$mes .= "å‚å…¥ç›´å¾Œã®ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã«ã¯æ±ºè­°æ¨©ãŒã‚ã‚Šã¾ã›ã‚“<br>";
 		&begin;
 		return;
 	}
@@ -590,14 +591,14 @@ sub tp_900 {
 	$layout = 1;
 	$mes .= qq|<form method="$method" action="$script">|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<input type="submit" value="‚â‚ß‚é" class="button1"></form>|;
+	$mes .= qq|<input type="submit" value="ã‚„ã‚ã‚‹" class="button1"></form>|;
 
-	$mes .= "Še‘$e2j{ceo}‚Ì‹cŒˆ‚É‚æ‚èr‚ç‚µ‚â‘½d“o˜^Ò‚È‚Ç‚ğ—¬ŒY“™‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·<br>";
-	$mes .= "©ŒÈ“I‚Èl‚¦‚ÍNGB‚Ü‚¸‚ÍŠe‘‘ã•\\•]‹c‰ï‚Å‘Š’k<br>";
-	$mes .= "‰ÂŒˆF—¬ŒYÒ‚ğ—¬ŒY<br>";
-	$mes .= "”ÛŒˆF\\¿‚µ‚½$e2j{ceo}‚ª‘‚©‚ç’Ç•ú<br>";
-	$mes .= '<hr>—¬ŒYÒØ½Ä<br>';
-	open my $fh, "< $this_file" or &error("$logdir/suspect.cgiÌ§²Ù‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	$mes .= "å„å›½$e2j{ceo}ã®è­°æ±ºã«ã‚ˆã‚Šè’ã‚‰ã—ã‚„å¤šé‡ç™»éŒ²è€…ãªã©ã‚’æµåˆ‘ç­‰ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™<br>";
+	$mes .= "è‡ªå·±çš„ãªè€ƒãˆã¯NGã€‚ã¾ãšã¯å„å›½ä»£è¡¨\è©•è­°ä¼šã§ç›¸è«‡<br>";
+	$mes .= "å¯æ±ºï¼šæµåˆ‘è€…ã‚’æµåˆ‘<br>";
+	$mes .= "å¦æ±ºï¼šç”³\è«‹ã—ãŸ$e2j{ceo}ãŒå›½ã‹ã‚‰è¿½æ”¾<br>";
+	$mes .= '<hr>æµåˆ‘è€…ï¾˜ï½½ï¾„<br>';
+	open my $fh, "< $this_file" or &error("$logdir/suspect.cgiï¾Œï½§ï½²ï¾™ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		my($no, $name, $country, $violator, $message, $yess, $nos, $lv) = split /<>/, $line;
 		
@@ -609,12 +610,12 @@ sub tp_900 {
 		$lv |= 0;
 		
 		$mes .= qq|<form method="$method" action="$script"><input type="hidden" name="cmd" value="$no">|;
-		$mes .= qq|<font color="$cs{color}[$country]">$cs{name}[$country]</font>‚Ì$e2j{ceo}$name‚ªw$violatorx‚ğ$violate[$lv]‚·‚×‚«‚Æv‚Á‚Ä‚¢‚Ü‚·<br>|;
-		$mes .= qq|——RF$message<br>|;
-		$mes .= qq|<input type="radio" name="answer" value="1">^¬ $yes_c•[F$yess<br>|;
-		$mes .= qq|<input type="radio" name="answer" value="2">”½‘Î $no_c•[F$nos<br>|;
+		$mes .= qq|<font color="$cs{color}[$country]">$cs{name}[$country]</font>ã®$e2j{ceo}$nameãŒã€$violatorã€ã‚’$violate[$lv]ã™ã¹ãã¨æ€ã£ã¦ã„ã¾ã™<br>|;
+		$mes .= qq|ç†ç”±ï¼š$message<br>|;
+		$mes .= qq|<input type="radio" name="answer" value="1">è³›æˆ $yes_cç¥¨ï¼š$yess<br>|;
+		$mes .= qq|<input type="radio" name="answer" value="2">åå¯¾ $no_cç¥¨ï¼š$nos<br>|;
 		$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-		$mes .= qq|<input type="submit" value="“Š•[" class="button_s"></form><hr>|;
+		$mes .= qq|<input type="submit" value="æŠ•ç¥¨" class="button_s"></form><hr>|;
 	}
 	close $fh;
 
@@ -622,40 +623,40 @@ sub tp_900 {
 }
 sub tp_910 {
 	unless ($is_ceo_delete && $is_delete) {
-		$mes .= "Q“ü’¼Œã‚ÌÌßÚ²Ô°‚É‚ÍŒˆ‹cŒ ‚ª‚ ‚è‚Ü‚¹‚ñ<br>";
+		$mes .= "å‚å…¥ç›´å¾Œã®ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã«ã¯æ±ºè­°æ¨©ãŒã‚ã‚Šã¾ã›ã‚“<br>";
 		&begin;
 		return;
 	}
 	if (!$in{answer} || $in{answer} =~ /[^12]/) {
-		$mes .= '‚â‚ß‚Ü‚µ‚½<br>';
+		$mes .= 'ã‚„ã‚ã¾ã—ãŸ<br>';
 		&begin;
 		return;
 	}
 	
 	my @lines = ();
-	open my $fh, "+< $this_file" or &error("$this_fileÌ§²Ù‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	open my $fh, "+< $this_file" or &error("$this_fileï¾Œï½§ï½²ï¾™ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		my($no, $name, $country, $violator, $message, $yess, $nos, $lv) = split /<>/, $line;
 		$lv |= 0;
 		
 		if ($cmd eq $no) {
-			# \¿‚µ‚½‚Ì‚ª©•ª‚Å”½‘Î‚È‚ç\¿‚ğæÁ
+			# ç”³è«‹ã—ãŸã®ãŒè‡ªåˆ†ã§åå¯¾ãªã‚‰ç”³è«‹ã‚’å–æ¶ˆ
 			if ($m{name} eq $name && $in{answer} eq '2') {
-				$mes .= "$violator‚Ì$violate[$lv]Ò\\¿‚ğæÁ‚Ü‚µ‚½<br>";
+				$mes .= "$violatorã®$violate[$lv]è€…ç”³\è«‹ã‚’å–æ¶ˆã¾ã—ãŸ<br>";
 				next;
 			}
 			elsif ($m{name} eq $violator) {
-				&error("©•ª‚Ì•]‹c‚É‚Í“Š•[‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
+				&error("è‡ªåˆ†ã®è©•è­°ã«ã¯æŠ•ç¥¨ã™ã‚‹ã“ã¨ãŒã§ãã¾ã›ã‚“");
 			}
 
 			my $v_id = unpack 'H*', $violator;
-			# ©“®íœ‚È‚Ç‚ÅÁ‚¦‚Ä‚¢‚½ê‡‚ÍœŠO
+			# è‡ªå‹•å‰Šé™¤ãªã©ã§æ¶ˆãˆã¦ã„ãŸå ´åˆã¯é™¤å¤–
 			if (!-f "$userdir/$v_id/user.cgi") {
-				$mes .= "$violator‚Æ‚¢‚¤ÌßÚ²Ô°‚ª‘¶İ‚µ‚Ü‚¹‚ñ<br>";
+				$mes .= "$violatorã¨ã„ã†ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ãŒå­˜åœ¨ã—ã¾ã›ã‚“<br>";
 				next;
 			}
 
-			# ‚·‚Å‚É©•ª‚ª‚Ç‚¿‚ç‚©‚É“ü‚ê‚Ä‚¢‚½ê‡‚Ì‚½‚ß‚ÉAˆê‰ñ”’†‚É‚·‚é
+			# ã™ã§ã«è‡ªåˆ†ãŒã©ã¡ã‚‰ã‹ã«å…¥ã‚Œã¦ã„ãŸå ´åˆã®ãŸã‚ã«ã€ä¸€å›ç™½ç´™ã«ã™ã‚‹
 			my $new_yess = '';
 			my $new_nos  = '';
 			for my $n (split /,/, $yess) {
@@ -669,11 +670,11 @@ sub tp_910 {
 			
 			if ($in{answer} eq '1') {
 				$new_yess .= "$m{country},";
-				$mes .= "$violator‚Ì$violate[$lv]‚É^¬‚µ‚Ü‚·<br>";
+				$mes .= "$violatorã®$violate[$lv]ã«è³›æˆã—ã¾ã™<br>";
 			}
 			elsif ($in{answer} eq '2') {
 				$new_nos .= "$m{country},";
-				$mes .= "$violator‚Ì$violate[$lv]‚É”½‘Î‚µ‚Ü‚·<br>";
+				$mes .= "$violatorã®$violate[$lv]ã«åå¯¾ã—ã¾ã™<br>";
 			}
 
 			my @yes_c = split /,/, $new_yess;
@@ -683,20 +684,20 @@ sub tp_910 {
 			
 			if ($yes_c >= $need_vote_violator[$lv]) {
 				if($violator eq $admin_name){
-					&write_world_news("<b>y‹cŒˆzŠe‘‚Ì$e2j{ceo}’B‚Ì•]‹c‚É‚æ‚èA$cs{name}[$datas{country}]‚Ì$violator‚ª$violate[$lv]‚É‚È‚è‚Ü‚µ‚½c‚Æv‚Á‚½‚©AƒoƒJ‚ß</b>");
-					$mes .= "^¬‚ª$need_vote_violator•[ˆÈã‚É‚È‚Á‚½‚Ì‚Å$violator‚Í$violate[$lv]‚Æ‚È‚è‚Ü‚·c‚Æv‚Á‚½‚ÌHƒoƒJ‚È‚ÌH€‚Ê‚ÌH<br>";
+					&write_world_news("<b>ã€è­°æ±ºã€‘å„å›½ã®$e2j{ceo}é”ã®è©•è­°ã«ã‚ˆã‚Šã€$cs{name}[$datas{country}]ã®$violatorãŒ$violate[$lv]ã«ãªã‚Šã¾ã—ãŸâ€¦ã¨æ€ã£ãŸã‹ã€ãƒã‚«ã‚</b>");
+					$mes .= "è³›æˆãŒ$need_vote_violatorç¥¨ä»¥ä¸Šã«ãªã£ãŸã®ã§$violatorã¯$violate[$lv]ã¨ãªã‚Šã¾ã™â€¦ã¨æ€ã£ãŸã®ï¼Ÿãƒã‚«ãªã®ï¼Ÿæ­»ã¬ã®ï¼Ÿ<br>";
 					for my $n (@yes_c) {
-						&regist_you_data($cs{ceo}[$n],'shogo','š”½‹tÒ');
-						&regist_you_data($cs{ceo}[$n],'shogo_t','š”½‹tÒ');
+						&regist_you_data($cs{ceo}[$n],'shogo','â˜…åé€†è€…');
+						&regist_you_data($cs{ceo}[$n],'shogo_t','â˜…åé€†è€…');
 						&regist_you_data($cs{ceo}[$n],'trick_time',$time + 30*24*3600);
 					}
 				}else{
 					if ($lv > 0) {
 						my %datas = &get_you_datas($v_id, 1);
 						if ($lv > 1) {
-							# ˆá”½ÒƒŠƒXƒg‚É’Ç‰Á
-							open my $fh2, ">> $logdir/deny_addr.cgi" or &error("$logdir/deny_addr.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
-							open my $afh, "< $userdir/$v_id/access_log.cgi" or &error("$userdir/$v_id/access_log.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+							# é•åè€…ãƒªã‚¹ãƒˆã«è¿½åŠ 
+							open my $fh2, ">> $logdir/deny_addr.cgi" or &error("$logdir/deny_addr.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
+							open my $afh, "< $userdir/$v_id/access_log.cgi" or &error("$userdir/$v_id/access_log.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 							while ($aline = <$afh>) {
 								my ($aaddr, $ahost, $aagent)  = split /<>/, $aline;
 								print $fh2 $aagent =~ /DoCoMo/ || $aagent =~ /KDDI|UP\.Browser/
@@ -718,13 +719,13 @@ sub tp_910 {
 						&regist_you_data($datas{name},'silent_time',$time+7*24*3600);
 						&regist_you_data($datas{name},'silent_kind',0);
 					}
-					&write_world_news("<b>y‹cŒˆzŠe‘‚Ì$e2j{ceo}’B‚Ì•]‹c‚É‚æ‚èA$cs{name}[$datas{country}]‚Ì$violator‚ª$violate[$lv]‚É‚È‚è‚Ü‚µ‚½<br>——RF$message</b>");
-					$mes .= "^¬‚ª$need_vote_violator•[ˆÈã‚É‚È‚Á‚½‚Ì‚Å$violator‚Í$violate[$lv]‚Æ‚È‚è‚Ü‚·<br>";
+					&write_world_news("<b>ã€è­°æ±ºã€‘å„å›½ã®$e2j{ceo}é”ã®è©•è­°ã«ã‚ˆã‚Šã€$cs{name}[$datas{country}]ã®$violatorãŒ$violate[$lv]ã«ãªã‚Šã¾ã—ãŸ<br>ç†ç”±ï¼š$message</b>");
+					$mes .= "è³›æˆãŒ$need_vote_violatorç¥¨ä»¥ä¸Šã«ãªã£ãŸã®ã§$violatorã¯$violate[$lv]ã¨ãªã‚Šã¾ã™<br>";
 				}
 			}
 			elsif ($no_c > $w{country} - $need_vote_violator[$lv]) {
 				my $y_id = unpack 'H*', $name;
-				next unless -f "$userdir/$y_id/user.cgi"; # \¿‚µ‚½l‚ªÁ‚¦‚Ä‚¢‚½ê‡
+				next unless -f "$userdir/$y_id/user.cgi"; # ç”³è«‹ã—ãŸäººãŒæ¶ˆãˆã¦ã„ãŸå ´åˆ
 				&move_player($name, $country, 0);
 
 				&regist_you_data($name, 'wt', 3 * 24 * 3600);
@@ -732,8 +733,8 @@ sub tp_910 {
 				&regist_you_data($name, 'lib', '');
 				&regist_you_data($name, 'tp', 0);
 
-				&write_world_news("y‹cŒˆzŠe‘‚Ì$e2j{ceo}’B‚Ì•]‹c‚É‚æ‚èA$cs{name}[$country]‚Ì$e2j{ceo}$name‚ª‘ŠO’Ç•ú‚Æ‚È‚è‚Ü‚µ‚½</b>", 1, $name);
-				$mes .= "”½‘Î‚ª$need_vote_violator•[ˆÈã‚É‚È‚Á‚½‚Ì‚Å$name‚ª‘ŠO’Ç•ú‚Æ‚È‚è‚Ü‚·<br>";
+				&write_world_news("ã€è­°æ±ºã€‘å„å›½ã®$e2j{ceo}é”ã®è©•è­°ã«ã‚ˆã‚Šã€$cs{name}[$country]ã®$e2j{ceo}$nameãŒå›½å¤–è¿½æ”¾ã¨ãªã‚Šã¾ã—ãŸ</b>", 1, $name);
+				$mes .= "åå¯¾ãŒ$need_vote_violatorç¥¨ä»¥ä¸Šã«ãªã£ãŸã®ã§$nameãŒå›½å¤–è¿½æ”¾ã¨ãªã‚Šã¾ã™<br>";
 			}
 			else {
 				push @lines, "$no<>$name<>$country<>$violator<>$message<>$new_yess<>$new_nos<>$lv<>\n";
@@ -752,43 +753,43 @@ sub tp_910 {
 }
 
 #================================================
-# —¬ŒYÒ\¿
+# æµåˆ‘è€…ç”³è«‹
 #================================================
 sub tp_1000 {
 	unless ($is_ceo_delete && $is_delete) {
-		$mes .= "Q“ü’¼Œã‚ÌÌßÚ²Ô°‚É‚Í\\¿Œ ‚ª‚ ‚è‚Ü‚¹‚ñ<br>";
+		$mes .= "å‚å…¥ç›´å¾Œã®ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã«ã¯ç”³\è«‹æ¨©ãŒã‚ã‚Šã¾ã›ã‚“<br>";
 		&begin;
 		return;
 	}
-	$mes .= qq|©•ª‚ª\\¿‚µ‚½‚Ì‚ğæÁê‡‚ÍA—¬ŒYÒ‹cŒˆ‚Å”½‘Î‚É“ü‚ê‚Ä‚­‚¾‚³‚¢<br>|;
-	$mes .= qq|<hr>—¬ŒYÒ\\¿<br>|;
+	$mes .= qq|è‡ªåˆ†ãŒç”³\è«‹ã—ãŸã®ã‚’å–æ¶ˆå ´åˆã¯ã€æµåˆ‘è€…è­°æ±ºã§åå¯¾ã«å…¥ã‚Œã¦ãã ã•ã„<br>|;
+	$mes .= qq|<hr>æµåˆ‘è€…ç”³\è«‹<br>|;
 	$mes .= qq|<form method="$method" action="$script">|;
-	$mes .= qq|–¼‘OF<input type="text" name="violator" value="$in{violator}" class="text_box1"><br>|;
-	$mes .= qq|——R[‘SŠp40(”¼Šp80)•¶š‚Ü‚Å]F<br><input type="text" name="message" class="text_box_b">|;
+	$mes .= qq|åå‰ï¼š<input type="text" name="violator" value="$in{violator}" class="text_box1"><br>|;
+	$mes .= qq|ç†ç”±[å…¨è§’40(åŠè§’80)æ–‡å­—ã¾ã§]ï¼š<br><input type="text" name="message" class="text_box_b">|;
 	for my $i (0..$#violate) {
 		$mes .= qq|<input type="radio" name="lv" value="$i">$violate[$i]|;
 	}
 	$mes .= qq|<br>|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="\\¿‚·‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="ç”³\è«‹ã™ã‚‹" class="button1"></p></form>|;
 	
 	$m{tp} += 10;
 	&n_menu;
 }
 sub tp_1010 {
 	unless ($is_ceo_delete && $is_delete) {
-		$mes .= "Q“ü’¼Œã‚ÌÌßÚ²Ô°‚É‚Í\\¿Œ ‚ª‚ ‚è‚Ü‚¹‚ñ<br>";
+		$mes .= "å‚å…¥ç›´å¾Œã®ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã«ã¯ç”³\è«‹æ¨©ãŒã‚ã‚Šã¾ã›ã‚“<br>";
 		&begin;
 		return;
 	}
 	if ($in{violator} && $in{message}) {
-		&error('•¶š”‚ª’·‚·‚¬‚Ü‚·‘SŠp40(”¼Šp80)•¶š‚Ü‚Å') if length $in{message} > 80;
+		&error('æ–‡å­—æ•°ãŒé•·ã™ãã¾ã™å…¨è§’40(åŠè§’80)æ–‡å­—ã¾ã§') if length $in{message} > 80;
 
 		my $y_id = unpack 'H*', $in{violator};
 		
 		if (-f "$userdir/$y_id/user.cgi") {
 			my @lines = ();
-			open my $fh, "+< $this_file" or &error("$this_fileÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+			open my $fh, "+< $this_file" or &error("$this_fileï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 			eval { flock $fh, 2; };
 			push @lines, $_ while <$fh>;
 			my($last_no) = (split /<>/, $lines[0])[0];
@@ -799,21 +800,21 @@ sub tp_1010 {
 			print $fh @lines;
 			close $fh;
 			
-			$mes .= "$in{violator}‚ğ$in{message}‚Ì——R‚Å$violate[$in{lv}]Ò‚Æ‚µ‚Ä\\¿‚µ‚Ü‚µ‚½<br>";
+			$mes .= "$in{violator}ã‚’$in{message}ã®ç†ç”±ã§$violate[$in{lv}]è€…ã¨ã—ã¦ç”³\è«‹ã—ã¾ã—ãŸ<br>";
 		}
 		else {
-			$mes .= "$in{violator}‚Æ‚¢‚¤ÌßÚ²Ô°‚ª‘¶İ‚µ‚Ü‚¹‚ñ<br>";
+			$mes .= "$in{violator}ã¨ã„ã†ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ãŒå­˜åœ¨ã—ã¾ã›ã‚“<br>";
 		}
 	}
 	else {
-		$mes .= '‚â‚ß‚Ü‚µ‚½<br>';
+		$mes .= 'ã‚„ã‚ã¾ã—ãŸ<br>';
 	}
 	
 	&begin;
 }
 
 #================================================
-# ‘½dÒÁª¯¸
+# å¤šé‡è€…ï¾ï½ªï½¯ï½¸
 #================================================
 sub tp_1100 {
 	if (!$is_ceo_delete || !$is_ceo_watch_multi) {
@@ -822,11 +823,11 @@ sub tp_1100 {
 	}
 
 	my @lines = ();
-	opendir my $dh, "$userdir" or &error("Õ°»Ş°ÃŞ¨Ú¸ÄØ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	opendir my $dh, "$userdir" or &error("ï¾•ï½°ï½»ï¾ï½°ï¾ƒï¾ï½¨ï¾šï½¸ï¾„ï¾˜ãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $id = readdir $dh) {
 		next if $id =~ /\./;
 		next if $id =~ /backup/;
-		open my $fh, "< $userdir/$id/user.cgi" or &error("‚»‚Ì‚æ‚¤‚ÈÌßÚ²Ô°‚Í‘¶İ‚µ‚Ü‚¹‚ñ");
+		open my $fh, "< $userdir/$id/user.cgi" or &error("ãã®ã‚ˆã†ãªï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã¯å­˜åœ¨ã—ã¾ã›ã‚“");
 		my $line_data = <$fh>;
 		my $line_info = <$fh>;
 		close $fh;
@@ -852,17 +853,17 @@ sub tp_1100 {
 			map { [$_, split /<>/] } @lines;
 	
 	$layout = 1;
-	$mes .= "IP±ÄŞÚ½AÎ½Ä–¼AÌŞ×³»Ş‚ª“¯‚¶lØ½Ä<br>";
-	$mes .= "ˆÈ‰º‚Ìó‹µ‚É‚æ‚èØ½Ä‚ÉÚ‚é‚±‚Æ‚ª‚ ‚é‚Ì‚ÅA‚±‚ÌØ½Ä‚É•\¦‚³‚ê‚½l‘½d‚ÆŠÖ˜A•t‚¯‚é‚Ì‚Í’ˆÓ!!<br>";
-	$mes .= "¦ŠÇ—Œ ŒÀ‚ğ‚Á‚Ä‚¢‚éÌßÚ²Ô°‚ÍA‘¼ÌßÚ²Ô°‚ÅÛ¸Ş²İ‚·‚é‚±‚Æ‚ª‚Å‚«‚é<br>";
-	$mes .= "¦“¯‚¶’nˆæ‚âŠwZ‚È‚Ç‚ÌŒö‹¤{İ‚©‚çÛ¸Ş²İ‚µ‚Ä‚¢‚éê‡<br>";
-	$mes .= "¦Œg‘ÑÌßÚ²Ô°‚Ìê‡‚Í‚à‚µ‚©‚µ‚½‚ç”í‚é‰Â”\\«‚ª‚ ‚é‚Ì‚Å—vŠm”F!(Œg‘Ñ‚Ì”»•Ê‚ÍÎ½Ä–¼‚ÅŠm”F)<br>";
-	$mes .= "‚ ‚©‚ç‚³‚Ü‚È‘½dˆÈŠO‚ÍA‚Æ‚è‚ ‚¦‚¸–{l‚ÉŠm”F‚µ‚Ä‚İ‚é‚±‚Æ<br>";
+	$mes .= "IPï½±ï¾„ï¾ï¾šï½½ã€ï¾ï½½ï¾„åã€ï¾Œï¾ï¾—ï½³ï½»ï¾ãŒåŒã˜äººï¾˜ï½½ï¾„<br>";
+	$mes .= "ä»¥ä¸‹ã®çŠ¶æ³ã«ã‚ˆã‚Šï¾˜ï½½ï¾„ã«è¼‰ã‚‹ã“ã¨ãŒã‚ã‚‹ã®ã§ã€ã“ã®ï¾˜ï½½ï¾„ã«è¡¨ç¤ºã•ã‚ŒãŸäººï¼å¤šé‡ã¨é–¢é€£ä»˜ã‘ã‚‹ã®ã¯æ³¨æ„!!<br>";
+	$mes .= "â€»ç®¡ç†æ¨©é™ã‚’æŒã£ã¦ã„ã‚‹ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã¯ã€ä»–ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã§ï¾›ï½¸ï¾ï½²ï¾ã™ã‚‹ã“ã¨ãŒã§ãã‚‹<br>";
+	$mes .= "â€»åŒã˜åœ°åŸŸã‚„å­¦æ ¡ãªã©ã®å…¬å…±æ–½è¨­ã‹ã‚‰ï¾›ï½¸ï¾ï½²ï¾ã—ã¦ã„ã‚‹å ´åˆ<br>";
+	$mes .= "â€»æºå¸¯ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã®å ´åˆã¯ã‚‚ã—ã‹ã—ãŸã‚‰è¢«ã‚‹å¯èƒ½\æ€§ãŒã‚ã‚‹ã®ã§è¦ç¢ºèª!(æºå¸¯ã®åˆ¤åˆ¥ã¯ï¾ï½½ï¾„åã§ç¢ºèª)<br>";
+	$mes .= "ã‚ã‹ã‚‰ã•ã¾ãªå¤šé‡ä»¥å¤–ã¯ã€ã¨ã‚Šã‚ãˆãšæœ¬äººã«ç¢ºèªã—ã¦ã¿ã‚‹ã“ã¨<br>";
 
 	$mes .= qq|<form method="$method" action="$script">|;
-	$mes .= qq|<input type="radio" name="violator" value="" checked>‚â‚ß‚é|;
-	$mes .= $is_mobile ? qq|<hr>–¼‘O/Š‘®‘/IP±ÄŞÚ½/Î½Ä–¼/ÌŞ×³»Ş/XV“ú<br>|
-		: qq|<table class="table1"><tr><th>–¼‘O</th><th>Š‘®‘</th><th>IP±ÄŞÚ½</th><th>Î½Ä–¼</th><th>XV“ú<br></th></tr>|;
+	$mes .= qq|<input type="radio" name="violator" value="" checked>ã‚„ã‚ã‚‹|;
+	$mes .= $is_mobile ? qq|<hr>åå‰/æ‰€å±å›½/IPï½±ï¾„ï¾ï¾šï½½/ï¾ï½½ï¾„å/ï¾Œï¾ï¾—ï½³ï½»ï¾/æ›´æ–°æ—¥<br>|
+		: qq|<table class="table1"><tr><th>åå‰</th><th>æ‰€å±å›½</th><th>IPï½±ï¾„ï¾ï¾šï½½</th><th>ï¾ï½½ï¾„å</th><th>æ›´æ–°æ—¥<br></th></tr>|;
 	
 	my $b_line  = '';
 	my $b_addr  = '';
@@ -896,7 +897,7 @@ sub tp_1100 {
 	
 	$mes .= qq|</table>| unless $is_mobile;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="—¬ŒYÒ\\¿" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="æµåˆ‘è€…ç”³\è«‹" class="button1"></p></form>|;
 	
 	$m{tp} += 10;
 }
@@ -910,4 +911,4 @@ sub tp_1110 {
 	}
 }
 
-1; # íœ•s‰Â
+1; # å‰Šé™¤ä¸å¯
