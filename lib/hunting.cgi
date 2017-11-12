@@ -1,31 +1,32 @@
 require "$datadir/hunting.cgi";
 #=================================================
-# “¢”° Created by Merino
+# è¨ä¼ Created by Merino
 #=================================================
 
-# ±²ÃÑE‚¤Šm—¦(•ª‚Ì1)
+# ï½±ï½²ï¾ƒï¾‘æ‹¾ã†ç¢ºç‡(åˆ†ã®1)
 my $get_item_par = 200;
 
-# ’´ƒ{ƒX‚à‚µ‚­‚ªo‚Ä‚­‚éŠm—¦(•ª‚Ì1)
+# è¶…ãƒœã‚¹ã‚‚ã—ããŒå‡ºã¦ãã‚‹ç¢ºç‡(åˆ†ã®1)
 my $boss_par = $pets[$m{pet}][2] eq 'hunt_lv' ? 5:
 				$pets[$m{pet}][2] eq 'no_boss' ? 100:
 				20;
 
-# ‚Í‚®‚êƒƒ^ƒ‹‚ªo‚Ä‚­‚éŠm—¦(•ª‚Ì1)
+# ã¯ãã‚Œãƒ¡ã‚¿ãƒ«ãŒå‡ºã¦ãã‚‹ç¢ºç‡(åˆ†ã®1)
 my $metal_par = $pets[$m{pet}][2] eq 'no_boss' ? (50-2*$m{pet_c}) :50;
 
-# ƒ{ƒX‚ª“¦‚°‚éŠm—¦(•ª‚Ì1)
-# ƒƒOƒCƒ“‚µ’¼‚µ‚ğ‘±‚¯‚é‚±‚Æ‚Åƒ{ƒX‚©‚ç•K‚¸“¦‚°‚ç‚ê‚½ ”²‚¯ŒŠÇ‚¢‚¾‘ã‚í‚è‚É“¦‘–—¦‚¤‚
-# ‚à‚¤‚¿‚å‚Á‚Æ“¦‘–—¦ã‚°‚Ä‚à—Ç‚¢‚©‚à‚µ‚ê‚È‚¢‚ªA‚±‚ê‚Æ‚Í‚Ü‚½•ÊŒ‚ÅÎŞ°Å½Óİ½À°‚ªo‚Ä‚±‚È‚¢ó‘Ô‚¾‚Á‚½‚Ì‚àC³
-# ÎŞ½‚ªŠÈ’P‚É“¦‚°‚·‚¬‚ÄÎŞ°Å½Óİ½À°ë‚è‚ª‚µ‚â‚·‚­‚È‚Á‚Ä‚à¢‚é‚Ì‚Å‚¿‚å‚Á‚Æ‚¤‚
-my $boss_run_away = 40; # Œ³‚Í 50
+# ãƒœã‚¹ãŒé€ƒã’ã‚‹ç¢ºç‡(åˆ†ã®1)
+# ãƒ­ã‚°ã‚¤ãƒ³ã—ç›´ã—ã‚’ç¶šã‘ã‚‹ã“ã¨ã§ãƒœã‚¹ã‹ã‚‰å¿…ãšé€ƒã’ã‚‰ã‚ŒãŸ æŠœã‘ç©´å¡ã„ã ä»£ã‚ã‚Šã«é€ƒèµ°ç‡ã†ï½
+# ã‚‚ã†ã¡ã‚‡ã£ã¨é€ƒèµ°ç‡ä¸Šã’ã¦ã‚‚è‰¯ã„ã‹ã‚‚ã—ã‚Œãªã„ãŒã€ã“ã‚Œã¨ã¯ã¾ãŸåˆ¥ä»¶ã§ï¾ï¾ï½°ï¾…ï½½ï¾“ï¾ï½½ï¾€ï½°ãŒå‡ºã¦ã“ãªã„çŠ¶æ…‹ã ã£ãŸã®ã‚‚ä¿®æ­£
+# ï¾ï¾ï½½ãŒç°¡å˜ã«é€ƒã’ã™ãã¦ï¾ï¾ï½°ï¾…ï½½ï¾“ï¾ï½½ï¾€ï½°ç‹©ã‚ŠãŒã—ã‚„ã™ããªã£ã¦ã‚‚å›°ã‚‹ã®ã§ã¡ã‚‡ã£ã¨ã†ï½
+my $boss_run_away = 40; # å…ƒã¯ 50
 
-# •’Ê‚ÌNPCƒ‚ƒ“ƒXƒ^[‚ªo‚éŠm—¦(•ª‚Ì1)
+# æ™®é€šã®NPCãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ãŒå‡ºã‚‹ç¢ºç‡(åˆ†ã®1)
 my $npc_par = 5;
 
-# ’´ƒ{ƒXŸ—˜ƒ{[ƒiƒX
+# è¶…ãƒœã‚¹å‹åˆ©ãƒœãƒ¼ãƒŠã‚¹
 my @bonus = (
-	['weapon', 33, 0, 0], # Ğ»²Ù
+	['weapon', 33, 0, 0], # ï¾ï½»ï½²ï¾™
+	['weapon', 37, 0, 0], # ï½»ï¾ƒï¾—ï½²ï¾„
 	['money', 1000000, 0, 0],
 	['money', 500000, 0, 0],
 	['money', 100000, 0, 0],
@@ -36,20 +37,20 @@ my @bonus = (
 
 my @no_boss_eggs = (4..29);
 
-# V•ºŒP—ûŠ—˜—p‰Â”\¢‘ã
+# æ–°å…µè¨“ç·´æ‰€åˆ©ç”¨å¯èƒ½ä¸–ä»£
 my $new_sedai = 5;
 
 #=================================================
-# —˜—pğŒ
+# åˆ©ç”¨æ¡ä»¶
 #=================================================
 sub is_satisfy {
 	if ($m{tp} <= 1 && $m{hp} < 10) {
-		$mes .= "“¢”°‚·‚é‚Ì‚É$e2j{hp}‚ª­‚È‚·‚¬‚Ü‚·<br>";
+		$mes .= "è¨ä¼ã™ã‚‹ã®ã«$e2j{hp}ãŒå°‘ãªã™ãã¾ã™<br>";
 		&refresh;
 		&n_menu;
 		return 0;
 	}
-	elsif (&is_act_satisfy) { # ”æ˜J‚µ‚Ä‚¢‚éê‡‚Ís‚¦‚È‚¢
+	elsif (&is_act_satisfy) { # ç–²åŠ´ã—ã¦ã„ã‚‹å ´åˆã¯è¡Œãˆãªã„
 		return 0;
 	}
 	return 1;
@@ -59,11 +60,11 @@ sub is_satisfy {
 sub begin {
 	$m{turn} = 0;
 	$m{tp} = 1 if $m{tp} > 1;
-	$mes .= '–‚•¨‚ğ“¢”°‚µ‚És‚«‚Ü‚·<br>';
-	$mes .= '‚Ç‚±‚ÉŒü‚©‚¢‚Ü‚·‚©?<br>';
+	$mes .= 'é­”ç‰©ã‚’è¨ä¼ã—ã«è¡Œãã¾ã™<br>';
+	$mes .= 'ã©ã“ã«å‘ã‹ã„ã¾ã™ã‹?<br>';
 	
 	my $m_st = &m_st;
-	my @menus = ('‚â‚ß‚é');
+	my @menus = ('ã‚„ã‚ã‚‹');
 	for my $i (0..$#places) {
 		next if $i == 0 && $m{sedai} > $new_sedai;
 		push @menus, "$places[$i][2]" if $m_st * 2 >= $places[$i][1] || $pets[$m{pet}][2] eq 'hunt_lv';
@@ -78,31 +79,31 @@ sub tp_1 {
 		&_get_hunt_you_data;
 	}
 	else {
-		$mes .= '‚â‚ß‚Ü‚µ‚½<br>';
+		$mes .= 'ã‚„ã‚ã¾ã—ãŸ<br>';
 		&begin;
 	}
 }
 
 #=================================================
-# Get ‘Šèƒf[ƒ^
+# Get ç›¸æ‰‹ãƒ‡ãƒ¼ã‚¿
 #=================================================
 sub _get_hunt_you_data {
 	my $line = '';
-	# ['boss',	999999,	'ŒN‚Ì‹â‚Ì’ë',	[2,3,38,40,41],],
-	my $data_num = $places[$m{stock}][0]; # ŒN‚Ì‹â‚Ì’ë‚¾‚¯ $data_num ‚ª 'boss' ‚É‚È‚é
+	# ['boss',	999999,	'å›ã®éŠ€ã®åº­',	[2,3,38,40,41],],
+	my $data_num = $places[$m{stock}][0]; # å›ã®éŠ€ã®åº­ã ã‘ $data_num ãŒ 'boss' ã«ãªã‚‹
 
-	if (-f "$datadir/metal.cgi" && (!$m{no_boss} || $data_num eq 'boss') && 5 < $m{stock} && rand($metal_par) < 1) { # ÎŞ°Å½Óİ½À°
+	if (-f "$datadir/metal.cgi" && (!$m{no_boss} || $data_num eq 'boss') && 5 < $m{stock} && rand($metal_par) < 1) { # ï¾ï¾ï½°ï¾…ï½½ï¾“ï¾ï½½ï¾€ï½°
 		require "$datadir/metal.cgi";
 		for my $k (qw/name country max_hp max_mp at df mat mdf ag cha wea skills mes_win mes_lose icon wea_name/) {
 			$y{$k} = $metal[$m{stock}]{$k};
 		}
 		$y{icon} = $default_icon unless -f "$icondir/$y{icon}"; # $y{icon} = &random_icon;
 		$m{tp} = 500;
-		$mes .= "ƒ{[ƒiƒXƒ‚ƒ“ƒXƒ^[ $y{name} ‚É‘˜‹ö‚µ‚½I<br>";
+		$mes .= "ãƒœãƒ¼ãƒŠã‚¹ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ $y{name} ã«é­é‡ã—ãŸï¼<br>";
 		&n_menu;
 	}
-	elsif ($data_num eq 'boss' || (!$m{no_boss} && 5 < $m{stock} && rand($boss_par) < 1 && -f "$logdir/monster/boss.cgi")) { # ÎŞ½Óİ½À°
-		open my $bfh, "< $logdir/monster/boss.cgi" or &error("$logdir/monster/boss.cgiÌ§²Ù‚ª‚ ‚è‚Ü‚¹‚ñ");
+	elsif ($data_num eq 'boss' || (!$m{no_boss} && 5 < $m{stock} && rand($boss_par) < 1 && -f "$logdir/monster/boss.cgi")) { # ï¾ï¾ï½½ï¾“ï¾ï½½ï¾€ï½°
+		open my $bfh, "< $logdir/monster/boss.cgi" or &error("$logdir/monster/boss.cgiï¾Œï½§ï½²ï¾™ãŒã‚ã‚Šã¾ã›ã‚“");
 		$line = <$bfh>;
 		close $bfh;
 		my @datas = split /<>/, $line;
@@ -114,16 +115,16 @@ sub _get_hunt_you_data {
 		$y{icon} = $default_icon unless -f "$icondir/$y{icon}"; # $y{icon} = &random_icon;
 		if ( rand($m{cha}) < rand(2000) ) {
 			$m{tp} = 400;
-			$mes .= "’´ƒ{ƒX $y{name} ‚ªP‚¢‚©‚©‚Á‚Ä‚«‚Ü‚µ‚½<br>";
+			$mes .= "è¶…ãƒœã‚¹ $y{name} ãŒè¥²ã„ã‹ã‹ã£ã¦ãã¾ã—ãŸ<br>";
 			&n_menu;
 		}
 		else {
 			$m{tp} = 300;
-			$mes .= "’´ƒ{ƒX $y{name} ‚ª‚¢‚Ü‚·<br>";
-			&menu('í‚¤','“¦‚°‚é');
+			$mes .= "è¶…ãƒœã‚¹ $y{name} ãŒã„ã¾ã™<br>";
+			&menu('æˆ¦ã†','é€ƒã’ã‚‹');
 		}
 	}
-	elsif (rand($npc_par) < 1) { # NPCÓİ½À°
+	elsif (rand($npc_par) < 1) { # NPCï¾“ï¾ï½½ï¾€ï½°
 		require "$datadir/npc_hunting.cgi";
 		my $stock_npcs_ref = $npc[$m{stock}];
 		my @stock_npcs = @$stock_npcs_ref;
@@ -133,18 +134,18 @@ sub _get_hunt_you_data {
 		}
 		if ( rand($m{cha}) < rand($y{cha}) ) {
 			$m{tp} = 200;
-			$mes .= "$y{name} ‚ªP‚¢‚©‚©‚Á‚Ä‚«‚Ü‚µ‚½<br>";
+			$mes .= "$y{name} ãŒè¥²ã„ã‹ã‹ã£ã¦ãã¾ã—ãŸ<br>";
 			&n_menu;
 		}
 		else {
 			$m{tp} = 100;
-			$mes .= "$y{name} ‚ª‚¢‚Ü‚·<br>";
-			&menu('í‚¤','“¦‚°‚é');
+			$mes .= "$y{name} ãŒã„ã¾ã™<br>";
+			&menu('æˆ¦ã†','é€ƒã’ã‚‹');
 		}
 	}
-	else { # Óİ½À°
-		open my $fh, "< $logdir/monster/$data_num.cgi" or &error("$logdir/monster/$data_num.cgiÌ§²Ù‚ª‚ ‚è‚Ü‚¹‚ñ");
-		# $. “Ç‚İ‚ñ‚¾s”‚¾‚©‚ª‘ã“ü‚³‚ê‚Ä‚¢‚é 1s–Ú‚Í•K‚¸‘ã“ü‚³‚êA‚»‚êˆÈ~‚Ìs‚É‚Â‚¢‚Ä‚ÍŠm—¦ o‚Ä—ˆ‚éÓİ½À°•Î‚Á‚Ä‚»‚¤‚¾‚¯‚ÇA‚©‚È‚èƒGƒNƒZƒŒƒ“ƒg‚ÈƒR[ƒh
+	else { # ï¾“ï¾ï½½ï¾€ï½°
+		open my $fh, "< $logdir/monster/$data_num.cgi" or &error("$logdir/monster/$data_num.cgiï¾Œï½§ï½²ï¾™ãŒã‚ã‚Šã¾ã›ã‚“");
+		# $. èª­ã¿è¾¼ã‚“ã è¡Œæ•°ã ã‹ãŒä»£å…¥ã•ã‚Œã¦ã„ã‚‹ 1è¡Œç›®ã¯å¿…ãšä»£å…¥ã•ã‚Œã€ãã‚Œä»¥é™ã®è¡Œã«ã¤ã„ã¦ã¯ç¢ºç‡ å‡ºã¦æ¥ã‚‹ï¾“ï¾ï½½ï¾€ï½°åã£ã¦ãã†ã ã‘ã©ã€ã‹ãªã‚Šã‚¨ã‚¯ã‚»ãƒ¬ãƒ³ãƒˆãªã‚³ãƒ¼ãƒ‰
 		rand($.) < 1 and $line = $_ while <$fh>;
 		close $fh;
 
@@ -158,13 +159,13 @@ sub _get_hunt_you_data {
 		$y{wea_name} = '';
 		if ( rand($m{cha}) < rand($y{cha}) ) {
 			$m{tp} = 200;
-			$mes .= "$y{name} ‚ªP‚¢‚©‚©‚Á‚Ä‚«‚Ü‚µ‚½<br>";
+			$mes .= "$y{name} ãŒè¥²ã„ã‹ã‹ã£ã¦ãã¾ã—ãŸ<br>";
 			&n_menu;
 		}
 		else {
 			$m{tp} = 100;
-			$mes .= "$y{name} ‚ª‚¢‚Ü‚·<br>";
-			&menu('í‚¤','“¦‚°‚é');
+			$mes .= "$y{name} ãŒã„ã¾ã™<br>";
+			&menu('æˆ¦ã†','é€ƒã’ã‚‹');
 		}
 	}
 
@@ -174,32 +175,32 @@ sub _get_hunt_you_data {
 }
 
 #=================================================
-# í‚¤ or “¦‚°‚é
+# æˆ¦ã† or é€ƒã’ã‚‹
 #=================================================
 sub tp_100 {
 	if ($cmd eq '0') {
-		$mes .= "$y{name} ‚Æí‚¢‚Ü‚·<br>";
+		$mes .= "$y{name} ã¨æˆ¦ã„ã¾ã™<br>";
 		$m{tp} = 200;
 		&n_menu;
 	}
 	elsif ( rand($m{ag}) > rand($y{ag}) ) {
-		$mes .= '“¦‚°‚Ü‚µ‚½<br>';
+		$mes .= 'é€ƒã’ã¾ã—ãŸ<br>';
 		&begin;
 	}
 	else {
-		$mes .= '“¦‚°‚ç‚ê‚Ü‚¹‚ñ‚Å‚µ‚½Bí“¬‘Ô¨‚É“ü‚è‚Ü‚·<br>';
+		$mes .= 'é€ƒã’ã‚‰ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚æˆ¦é—˜æ…‹å‹¢ã«å…¥ã‚Šã¾ã™<br>';
 		$m{tp} = 200;
 		&n_menu;
 	}
 }
 
 #=================================================
-# í“¬
+# æˆ¦é—˜
 #=================================================
 sub tp_200 {
 	require './lib/hunting_battle.cgi';
 
-	# •‰‚¯
+	# è² ã‘
 	if ($m{hp} <= 0) {
 		if($m{stock} == 0){
 			$m{act} += 8;
@@ -210,7 +211,7 @@ sub tp_200 {
 					0.01;
 	   		my $vloss = $m{money} < 0 ? 10000 :int($m{money} * $lossp);
 	   		$m{money} -= $vloss;
-			$mes .= "$vloss G‚ğ¸‚¢‚Ü‚µ‚½<br>";
+			$mes .= "$vloss Gã‚’å¤±ã„ã¾ã—ãŸ<br>";
 			$m{act} += 12;
 		}
 
@@ -220,9 +221,9 @@ sub tp_200 {
 		&n_menu;
 		
 	}
-	# Ÿ‚¿
+	# å‹ã¡
 	elsif ($y{hp} <= 0) {
-		# Ä°ÀÙ½Ã°À½‚ª©•ª‚æ‚èãÒ‚¾‚ÆŒoŒ±’l­‚È‚ß
+		# ï¾„ï½°ï¾€ï¾™ï½½ï¾ƒï½°ï¾€ï½½ãŒè‡ªåˆ†ã‚ˆã‚Šå¼±è€…ã ã¨çµŒé¨“å€¤å°‘ãªã‚
 		my $y_st = &y_st;
 		my $st_lv = &st_lv($y_st);
 		my $v = $st_lv eq '2' ? int( rand(10) + 10) 
@@ -246,10 +247,10 @@ sub tp_200 {
 			$m{egg_c} += int(rand($m{stock}-1)+$m{stock}) if $m{egg};
 		}
 		$m{money} += $vv;
-		$mes .= "$v ‚Ì$e2j{exp}‚Æ $vv G‚ğè‚É“ü‚ê‚Ü‚µ‚½<br>";
+		$mes .= "$v ã®$e2j{exp}ã¨ $vv Gã‚’æ‰‹ã«å…¥ã‚Œã¾ã—ãŸ<br>";
 		
-		# ±²ÃÑ¹Ş¯Ä(“ÁêÍß¯ÄE‹Æ‚¾‚Ææ“¾—¦up)
-		$get_item_par *= 0.4 if $pets[$m{pet}][2] eq 'get_item' || $jobs[$m{job}][1] eq '—V‚Ñl' || $m{master_c} eq 'tou_c';
+		# ï½±ï½²ï¾ƒï¾‘ï½¹ï¾ï½¯ï¾„(ç‰¹æ®Šï¾ï¾Ÿï½¯ï¾„è·æ¥­ã ã¨å–å¾—ç‡up)
+		$get_item_par *= 0.4 if $pets[$m{pet}][2] eq 'get_item' || $jobs[$m{job}][1] eq 'éŠã³äºº' || $m{master_c} eq 'tou_c';
 		$get_item_par = 400 if $m{stock} == 0;
 		$get_item_par = 1000 if $m{no_boss};
 		&_get_item if int(rand($get_item_par)) == 0;
@@ -259,8 +260,8 @@ sub tp_200 {
 			&super_attack('hunting');
 		}
 		
-		$mes .= '“¢”°‚ğ‘±‚¯‚Ü‚·‚©?<br>';
-		&menu('‘±‚¯‚é','‚â‚ß‚é','“¢”°’n•ÏX');
+		$mes .= 'è¨ä¼ã‚’ç¶šã‘ã¾ã™ã‹?<br>';
+		&menu('ç¶šã‘ã‚‹','ã‚„ã‚ã‚‹','è¨ä¼åœ°å¤‰æ›´');
 
 		&run_tutorial_quest('tutorial_hunting_1');
 
@@ -269,7 +270,7 @@ sub tp_200 {
 }
 
 #=================================================
-# Œp‘± or ‚â‚ß‚é
+# ç¶™ç¶š or ã‚„ã‚ã‚‹
 #=================================================
 sub tp_210 {
 	if ($cmd eq '0') {
@@ -277,41 +278,41 @@ sub tp_210 {
 	}elsif ($cmd eq '2') {
 		&begin;
 	}else {
-		$mes .= '“¢”°‚ğI—¹‚µ‚Ü‚·<br>';
+		$mes .= 'è¨ä¼ã‚’çµ‚äº†ã—ã¾ã™<br>';
 		&refresh;
 		&n_menu;
 	}
 }
 
 #=================================================
-# í‚¤ or “¦‚°‚é(’´ƒ{ƒX)
+# æˆ¦ã† or é€ƒã’ã‚‹(è¶…ãƒœã‚¹)
 #=================================================
 sub tp_300 {
 	if ($cmd eq '0') {
-		$mes .= "$y{name} ‚Æí‚¢‚Ü‚·<br>";
+		$mes .= "$y{name} ã¨æˆ¦ã„ã¾ã™<br>";
 		$m{tp} = 400;
 		&n_menu;
 	}
 	elsif ( rand($m{ag}) > rand(2000) ) {
-		$mes .= '“¦‚°‚Ü‚µ‚½<br>';
+		$mes .= 'é€ƒã’ã¾ã—ãŸ<br>';
 		&begin;
 	}
 	else {
-		$mes .= '“¦‚°‚ç‚ê‚Ü‚¹‚ñ‚Å‚µ‚½Bí“¬‘Ô¨‚É“ü‚è‚Ü‚·<br>';
+		$mes .= 'é€ƒã’ã‚‰ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚æˆ¦é—˜æ…‹å‹¢ã«å…¥ã‚Šã¾ã™<br>';
 		$m{tp} = 400;
 		&n_menu;
 	}
 }
 
 #=================================================
-# ’´ƒ{ƒXí“¬
+# è¶…ãƒœã‚¹æˆ¦é—˜
 #=================================================
 sub tp_400 {
 	require './lib/boss_battle.cgi';
 
-	# •‰‚¯
+	# è² ã‘
 	if ($m{hp} <= 0) {
-		open my $bfh, "+< $logdir/monster/boss.cgi" or &error("$logdir/monster/boss.cgiÌ§²Ù‚ª‚ ‚è‚Ü‚¹‚ñ");
+		open my $bfh, "+< $logdir/monster/boss.cgi" or &error("$logdir/monster/boss.cgiï¾Œï½§ï½²ï¾™ãŒã‚ã‚Šã¾ã›ã‚“");
 		my $head_line = <$bfh>;
 		my $is_added = 1;
 		my @lines = ();
@@ -345,22 +346,22 @@ sub tp_400 {
 					$m{stock} > 1 ? 0.05:
 					0.01;
 			if ($y{at} > 999999 && $m{stock} < 9) {
-				$mes .= "Ÿ‚Ìƒ{ƒX‚ªŒ»‚ê‚é‚Ì‚ğ‘Ò‚Á‚Ä‚ËB<br>";
+				$mes .= "æ¬¡ã®ãƒœã‚¹ãŒç¾ã‚Œã‚‹ã®ã‚’å¾…ã£ã¦ã­ã€‚<br>";
 			} else {
 		   		my $vloss = $m{money} < 0 ? 10000 :int($m{money} * $lossp);
 		   		$m{money} -= $vloss;
-				$mes .= "$vloss G‚ğ¸‚¢‚Ü‚µ‚½<br>";
+				$mes .= "$vloss Gã‚’å¤±ã„ã¾ã—ãŸ<br>";
 				$m{act} += $m{stock} >= 9 ? 100 : 12;
 			}
 		}
 		&refresh;
 		&n_menu;
 	}
-	# Ÿ‚¿
+	# å‹ã¡
 	elsif ($y{hp} <= 0) {
 		&win_boss_bonus;
 		
-		# Ä°ÀÙ½Ã°À½‚ª©•ª‚æ‚èãÒ‚¾‚ÆŒoŒ±’l­‚È‚ß
+		# ï¾„ï½°ï¾€ï¾™ï½½ï¾ƒï½°ï¾€ï½½ãŒè‡ªåˆ†ã‚ˆã‚Šå¼±è€…ã ã¨çµŒé¨“å€¤å°‘ãªã‚
 		my $y_st = &y_st;
 		my $st_lv = &st_lv($y_st);
 		my $v = $st_lv eq '2' ? int( rand(10) + 10) 
@@ -381,10 +382,10 @@ sub tp_400 {
 			$m{egg_c} += int(rand($m{stock}-1)+$m{stock}) if $m{egg};
 		}
 		$m{money} += $vv;
-		$mes .= "$v ‚Ì$e2j{exp}‚Æ $vv G‚ğè‚É“ü‚ê‚Ü‚µ‚½<br>";
+		$mes .= "$v ã®$e2j{exp}ã¨ $vv Gã‚’æ‰‹ã«å…¥ã‚Œã¾ã—ãŸ<br>";
 		
-		# ±²ÃÑ¹Ş¯Ä(“ÁêÍß¯ÄE‹Æ‚¾‚Ææ“¾—¦up)
-		$get_item_par *= 0.4 if $pets[$m{pet}][2] eq 'get_item' || $jobs[$m{job}][1] eq '—V‚Ñl';
+		# ï½±ï½²ï¾ƒï¾‘ï½¹ï¾ï½¯ï¾„(ç‰¹æ®Šï¾ï¾Ÿï½¯ï¾„è·æ¥­ã ã¨å–å¾—ç‡up)
+		$get_item_par *= 0.4 if $pets[$m{pet}][2] eq 'get_item' || $jobs[$m{job}][1] eq 'éŠã³äºº';
 		$get_item_par = 400 if $m{stock} == 0;
 		&_get_item if int(rand($get_item_par)) == 0;
 		
@@ -393,12 +394,12 @@ sub tp_400 {
 			&super_attack('boss');
 		}
 		
-		$mes .= '“¢”°‚ğ‘±‚¯‚Ü‚·‚©?<br>';
-		&menu('‘±‚¯‚é','‚â‚ß‚é','“¢”°’n•ÏX');
+		$mes .= 'è¨ä¼ã‚’ç¶šã‘ã¾ã™ã‹?<br>';
+		&menu('ç¶šã‘ã‚‹','ã‚„ã‚ã‚‹','è¨ä¼åœ°å¤‰æ›´');
 		$m{tp} = 210;
 	}
 	elsif (defined($cmd) && rand($boss_run_away) < 1) {
-		open my $bfh, "+< $logdir/monster/boss.cgi" or &error("$logdir/monster/boss.cgiÌ§²Ù‚ª‚ ‚è‚Ü‚¹‚ñ");
+		open my $bfh, "+< $logdir/monster/boss.cgi" or &error("$logdir/monster/boss.cgiï¾Œï½§ï½²ï¾™ãŒã‚ã‚Šã¾ã›ã‚“");
 		my $head_line = <$bfh>;
 		my $is_added = 1;
 		my @lines = ();
@@ -423,19 +424,19 @@ sub tp_400 {
 		close $bfh;
 
 		$m{act} += 8;
-		$mes .= "$y{name}u”æ‚ê‚½‚©‚ç‹A‚éB‰^‚ª‚æ‚©‚Á‚½‚ÈIv<br>";
+		$mes .= "$y{name}ã€Œç–²ã‚ŒãŸã‹ã‚‰å¸°ã‚‹ã€‚é‹ãŒã‚ˆã‹ã£ãŸãªï¼ã€<br>";
 		&refresh;
 		&n_menu;
 	}
 }
 
 #=================================================
-# ƒ{[ƒiƒXí“¬
+# ãƒœãƒ¼ãƒŠã‚¹æˆ¦é—˜
 #=================================================
 sub tp_500 {
 	require './lib/bonus_battle.cgi';
 
-	# •‰‚¯
+	# è² ã‘
 	if ($m{hp} <= 0) {
 		if($m{stock} == 0){
 			$m{act} += 8;
@@ -447,15 +448,15 @@ sub tp_500 {
 					0.01;
 	   		my $vloss = $m{money} < 0 ? 10000 :int($m{money} * $lossp);
 	   		$m{money} -= $vloss;
-			$mes .= "$vloss G‚ğ¸‚¢‚Ü‚µ‚½<br>";
+			$mes .= "$vloss Gã‚’å¤±ã„ã¾ã—ãŸ<br>";
 			$m{act} += $m{stock} >= 9 ? 100 : 12;
 		}
 		&refresh;
 		&n_menu;
 	}
-	# Ÿ‚¿
+	# å‹ã¡
 	elsif ($y{hp} <= 0) {
-		# Ä°ÀÙ½Ã°À½‚ª©•ª‚æ‚èãÒ‚¾‚ÆŒoŒ±’l­‚È‚ß
+		# ï¾„ï½°ï¾€ï¾™ï½½ï¾ƒï½°ï¾€ï½½ãŒè‡ªåˆ†ã‚ˆã‚Šå¼±è€…ã ã¨çµŒé¨“å€¤å°‘ãªã‚
 		my $y_st = &y_st;
 		my $st_lv = &st_lv($y_st);
 		my $v = 30 * $m{stock};
@@ -472,43 +473,43 @@ sub tp_500 {
 			$m{egg_c} += int(rand(25)) + int($m{stock} - 4) * 25 if $m{egg};
 		}
 		$m{money} += $vv;
-		$mes .= "$v ‚Ì$e2j{exp}‚Æ $vv G‚ğè‚É“ü‚ê‚Ü‚µ‚½<br>";
+		$mes .= "$v ã®$e2j{exp}ã¨ $vv Gã‚’æ‰‹ã«å…¥ã‚Œã¾ã—ãŸ<br>";
 		
-		# ±²ÃÑ¹Ş¯Ä(“ÁêÍß¯ÄE‹Æ‚¾‚Ææ“¾—¦up)
+		# ï½±ï½²ï¾ƒï¾‘ï½¹ï¾ï½¯ï¾„(ç‰¹æ®Šï¾ï¾Ÿï½¯ï¾„è·æ¥­ã ã¨å–å¾—ç‡up)
 		$get_item_par = 80;
 		&_get_item if int(rand($get_item_par)) == 0;
 		
-		$mes .= '“¢”°‚ğ‘±‚¯‚Ü‚·‚©?<br>';
-		&menu('‘±‚¯‚é','‚â‚ß‚é','“¢”°’n•ÏX');
+		$mes .= 'è¨ä¼ã‚’ç¶šã‘ã¾ã™ã‹?<br>';
+		&menu('ç¶šã‘ã‚‹','ã‚„ã‚ã‚‹','è¨ä¼åœ°å¤‰æ›´');
 		$m{tp} = 210;
 	}
 }
 
 #=================================================
-# ±²ÃÑ(ÀÏºŞ)E‚¤ˆ—
+# ï½±ï½²ï¾ƒï¾‘(ï¾€ï¾ï½ºï¾)æ‹¾ã†å‡¦ç†
 #=================================================
 sub _get_item {
 	my @egg_nos = @{ $places[$m{stock}][3] };
 	@egg_nos = @no_boss_eggs if $m{no_boss};
 	my $egg_no = $egg_nos[int(rand(@egg_nos))];
 	
-	$mes .= qq|<font color="#FFCC00">$eggs[$egg_no][1]‚ğE‚¢‚Ü‚µ‚½!</font><br>|;
+	$mes .= qq|<font color="#FFCC00">$eggs[$egg_no][1]ã‚’æ‹¾ã„ã¾ã—ãŸ!</font><br>|;
 	if ($m{is_full}) {
-		$mes .= "‚µ‚©‚µA—a‚©‚èŠ‚ª‚¢‚Á‚Ï‚¢‚È‚Ì‚Å$eggs[$egg_no][1]‚ğ‚ ‚«‚ç‚ß‚Ü‚µ‚½<br>";
+		$mes .= "ã—ã‹ã—ã€é ã‹ã‚Šæ‰€ãŒã„ã£ã±ã„ãªã®ã§$eggs[$egg_no][1]ã‚’ã‚ãã‚‰ã‚ã¾ã—ãŸ<br>";
 	}
 	else {
-		$mes .="$eggs[$egg_no][1]‚ğ—a‚©‚èŠ‚É‘—‚è‚Ü‚µ‚½!<br>";
+		$mes .="$eggs[$egg_no][1]ã‚’é ã‹ã‚Šæ‰€ã«é€ã‚Šã¾ã—ãŸ!<br>";
 		&send_item($m{name}, 2, $egg_no);
 	}
 }
 
 #=================================================
-# “K“–‚ÈƒAƒCƒRƒ“‚ğ•\¦
+# é©å½“ãªã‚¢ã‚¤ã‚³ãƒ³ã‚’è¡¨ç¤º
 #=================================================
 sub random_icon {
 	my $ricon;
 	my @icons = ();
-	opendir my $dh, "$icondir" or &error('ƒAƒCƒRƒ“ƒtƒHƒ‹ƒ_‚ªŠJ‚¯‚Ü‚¹‚ñ');
+	opendir my $dh, "$icondir" or &error('ã‚¢ã‚¤ã‚³ãƒ³ãƒ•ã‚©ãƒ«ãƒ€ãŒé–‹ã‘ã¾ã›ã‚“');
 	while(my $file_name = readdir $dh){
 		next if $file_name =~ /^\./;
 		next if $file_name =~ /\.html$/;
@@ -523,24 +524,24 @@ sub random_icon {
 	return $ricon;
 }
 #=================================================
-# ’´ƒ{ƒX‚ÉŸ—˜
+# è¶…ãƒœã‚¹ã«å‹åˆ©
 #=================================================
 sub win_boss_bonus {
 	my $w_name = &name_link($m{name});
 	if ($w{world} eq '16' || ($w{world} eq '19' && $w{world_sub} eq '16')) {
-		$w_name = '–¼–³‚µ';
+		$w_name = 'åç„¡ã—';
 	}
-	my $message = "<b>$m{name}‚Æ‚»‚Ì’‡ŠÔ‚½‚¿‚ªƒ{ƒX‚ğŒ‚”j‚µ‚Ü‚µ‚½</b>";
+	my $message = "<b>$m{name}ã¨ãã®ä»²é–“ãŸã¡ãŒãƒœã‚¹ã‚’æ’ƒç ´ã—ã¾ã—ãŸ</b>";
 	$mes .= "$message<br>";
-	&write_world_news("<b>$c_m‚Ì$w_name‚Æ‚»‚Ì’‡ŠÔ‚½‚¿‚ªƒ{ƒX‚ğŒ‚”j‚µ‚Ü‚µ‚½</b>", 1);
-	&send_twitter("$c_m‚Ì$w_name‚Æ‚»‚Ì’‡ŠÔ‚½‚¿‚ªƒ{ƒX‚ğŒ‚”j‚µ‚Ü‚µ‚½");
+	&write_world_news("<b>$c_mã®$w_nameã¨ãã®ä»²é–“ãŸã¡ãŒãƒœã‚¹ã‚’æ’ƒç ´ã—ã¾ã—ãŸ</b>", 1);
+	&send_twitter("$c_mã®$w_nameã¨ãã®ä»²é–“ãŸã¡ãŒãƒœã‚¹ã‚’æ’ƒç ´ã—ã¾ã—ãŸ");
 #	&mes_and_world_news("", 1);
 
-	open my $bfh, "+< $logdir/monster/boss.cgi" or &error("$logdir/monster/boss.cgiÌ§²Ù‚ª‚ ‚è‚Ü‚¹‚ñ");
+	open my $bfh, "+< $logdir/monster/boss.cgi" or &error("$logdir/monster/boss.cgiï¾Œï½§ï½²ï¾™ãŒã‚ã‚Šã¾ã›ã‚“");
 	my $head_line = <$bfh>;
 	my @lines = ();
 	my @attackers = ();
-	push @lines, "•‰‚¯ƒCƒxƒ“ƒg<>0<>999999999999<>999999999999<>99999999<>99999999<>99999999<>99999999<>99999999<>99999999<>32<>67,67,67,67,67<>‹­§•‰‚¯ƒCƒxƒ“ƒg‚¾‚©‚çŸ‚Ì’´ƒ{ƒXƒCƒxƒ“ƒg‚ğ‘Ò‚Á‚Ä‚Ë<>‚È‚ºŸ‚Ä‚½‚µ<>$default_icon<>ƒpƒ“ƒ`i–‚–@j<>\n";
+	push @lines, "è² ã‘ã‚¤ãƒ™ãƒ³ãƒˆ<>0<>999999999999<>999999999999<>99999999<>99999999<>99999999<>99999999<>99999999<>99999999<>32<>67,67,67,67,67<>å¼·åˆ¶è² ã‘ã‚¤ãƒ™ãƒ³ãƒˆã ã‹ã‚‰æ¬¡ã®è¶…ãƒœã‚¹ã‚¤ãƒ™ãƒ³ãƒˆã‚’å¾…ã£ã¦ã­<>ãªãœå‹ã¦ãŸã—<>$default_icon<>ãƒ‘ãƒ³ãƒï¼ˆé­”æ³•ï¼‰<>\n";
 	my $is_find = 0;
 	while(my $line = <$bfh>){
 		my($bname, $bdamage) = split /<>/, $line;
@@ -569,10 +570,10 @@ sub win_boss_bonus {
 	for my $line (@attackers){
 		my($bname, $bdamage) = split /<>/, $line;
 		if($rank >= @bonus){
-			&send_money($bname, "’´ƒ{ƒXŒ‚”jvŒ£", 1000);
+			&send_money($bname, "è¶…ãƒœã‚¹æ’ƒç ´è²¢çŒ®", 1000);
 		}else{
 			if($bonus[$rank][0] eq 'money'){
-				&send_money($bname, "’´ƒ{ƒXŒ‚”jvŒ£", $bonus[$rank][1]);
+				&send_money($bname, "è¶…ãƒœã‚¹æ’ƒç ´è²¢çŒ®", $bonus[$rank][1]);
 			}elsif($bonus[$rank][0] eq 'weapon'){
 				&send_item($bname, 1, $bonus[$rank][1], $bonus[$rank][2], $bonus[$rank][3]);
 			}elsif($bonus[$rank][0] eq 'egg'){
@@ -584,4 +585,4 @@ sub win_boss_bonus {
 		$rank++;
 	}
 }
-1; # íœ•s‰Â
+1; # å‰Šé™¤ä¸å¯
