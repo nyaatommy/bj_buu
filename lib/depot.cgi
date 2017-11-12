@@ -3,40 +3,40 @@ my $this_file = "$userdir/$id/depot.cgi";
 my $this_log = "$userdir/$id/depot_log.cgi";
 my $this_lock_file = "$userdir/$id/depot_lock.cgi";
 #=================================================
-# —a‚©‚èŠ Created by Merino
+# é ã‹ã‚Šæ‰€ Created by Merino
 #=================================================
 
-# Å‘å•Û‘¶”
+# æœ€å¤§ä¿å­˜æ•°
 my $max_depot = $m{sedai} > 7 ? 50 : $m{sedai} * 5 + 15;
 $max_depot += $m{depot_bonus} if $m{depot_bonus};
 
-# Šeˆ—‚ÌŠJn‚É‘qŒÉ‚ÌC‚èØ‚è‚ğs‚¤‚Æˆ—‚ÌŒ„ŠÔ‚Å‘qŒÉÃŞ°À‚ª‘‚«Š·‚¦‚ç‚ê‚Ä‚¢‚½ê‡‚ÉˆÓ}‚¹‚Ê±²ÃÑ‚ÌÁ¸‚ª‹N‚«‚é‚½‚ßAC‚èØ‚èˆ—‚ğŠJn‚Å‚Í‚È‚­’¼‘O‚É•ÏX
-# —áFˆø‚«o‚·‰æ–Ê‚ğŠJ‚¢‚½Œã‚É‰×•¨‚ª“Í‚¢‚½ê‡AÕ°»Ş°‚Í±²ÃÑ‚ğŒğŠ·‚µ‚½‚Â‚à‚è‚Å‚à‚Á‚Ä‚¢‚½Íß¯Ä‚ªÁ¸‚µ“Í‚¢‚½‰×•¨‚ª––”ö‚É’Ç‰Á‚³‚ê‚é
-# C‚èØ‚èˆ—‚ª‘–‚é‚Ì‚Íˆø‚«o‚µ‚½‚Æ®—‚ğ‚µ‚½@æ‚É”„‚é‚©Ì‚Ä‚é‚©‚µ‚Ä‘qŒÉ‚ğŠJ‚¯‚ê‚ÎC‚èØ‚è‘ÎÛ‚Ì±²ÃÑ‚ğ“ü‰×‚Å‚«‚é
-# C‚èØ‚è‘ÎÛ‚Ì±²ÃÑ‚ÍƒƒbƒN‚ğ–³‹‚µ‚Ä”„‚Á‚½‚èÌ‚Ä‚½‚è‚Å‚«‚é
+# å„å‡¦ç†ã®é–‹å§‹æ™‚ã«å€‰åº«ã®æ“¦ã‚Šåˆ‡ã‚Šã‚’è¡Œã†ã¨å‡¦ç†ã®éš™é–“ã§å€‰åº«ï¾ƒï¾ï½°ï¾€ãŒæ›¸ãæ›ãˆã‚‰ã‚Œã¦ã„ãŸå ´åˆã«æ„å›³ã›ã¬ï½±ï½²ï¾ƒï¾‘ã®æ¶ˆå¤±ãŒèµ·ãã‚‹ãŸã‚ã€æ“¦ã‚Šåˆ‡ã‚Šå‡¦ç†ã‚’é–‹å§‹æ™‚ã§ã¯ãªãç›´å‰ã«å¤‰æ›´
+# ä¾‹ï¼šå¼•ãå‡ºã™ç”»é¢ã‚’é–‹ã„ãŸå¾Œã«è·ç‰©ãŒå±Šã„ãŸå ´åˆã€ï¾•ï½°ï½»ï¾ï½°ã¯ï½±ï½²ï¾ƒï¾‘ã‚’äº¤æ›ã—ãŸã¤ã‚‚ã‚Šã§ã‚‚æŒã£ã¦ã„ãŸï¾ï¾Ÿï½¯ï¾„ãŒæ¶ˆå¤±ã—å±Šã„ãŸè·ç‰©ãŒæœ«å°¾ã«è¿½åŠ ã•ã‚Œã‚‹
+# æ“¦ã‚Šåˆ‡ã‚Šå‡¦ç†ãŒèµ°ã‚‹ã®ã¯å¼•ãå‡ºã—ãŸæ™‚ã¨æ•´ç†ã‚’ã—ãŸæ™‚ã€€å…ˆã«å£²ã‚‹ã‹æ¨ã¦ã‚‹ã‹ã—ã¦å€‰åº«ã‚’é–‹ã‘ã‚Œã°æ“¦ã‚Šåˆ‡ã‚Šå¯¾è±¡ã®ï½±ï½²ï¾ƒï¾‘ã‚’å…¥è·ã§ãã‚‹
+# æ“¦ã‚Šåˆ‡ã‚Šå¯¾è±¡ã®ï½±ï½²ï¾ƒï¾‘ã¯ãƒ­ãƒƒã‚¯ã‚’ç„¡è¦–ã—ã¦å£²ã£ãŸã‚Šæ¨ã¦ãŸã‚Šã§ãã‚‹
 my $lost_depot = $max_depot * 2;
 
-# ‘Šè‚É‘—‚é‚Æ‚«‚Ìè”—¿(“¯‘)
+# ç›¸æ‰‹ã«é€ã‚‹ã¨ãã®æ‰‹æ•°æ–™(åŒå›½)
 my $need_money = 100;
 
-# ‘Šè‚É‘—‚é‚Æ‚«‚Ìè”—¿(‘¼‘)
+# ç›¸æ‰‹ã«é€ã‚‹ã¨ãã®æ‰‹æ•°æ–™(ä»–å›½)
 my $need_money_other = 1000;
 
-# ”„‚é’l’i
+# å£²ã‚‹å€¤æ®µ
 my $sall_price = 100;
 
-# –”t‚ğ’´‚¦‚½‚ÌÍßÅÙÃ¨‹à(ˆøo‚µA”„‚é‚ÉŒ¸‚ç‚³‚ê‚é)
+# æº€æ¯ã‚’è¶…ãˆãŸæ™‚ã®ï¾ï¾Ÿï¾…ï¾™ï¾ƒï½¨é‡‘(å¼•å‡ºã—ã€å£²ã‚‹æ™‚ã«æ¸›ã‚‰ã•ã‚Œã‚‹)
 my $penalty_money = $m{sedai} > 10 ? 3000 : $m{sedai} * 300;
 
-# ‘Šè‚É‘—‚é‚É•K—v‚ÈÚÍŞÙ(‚½‚¾‚µ1¢‘ã‚Ì‚İ)
+# ç›¸æ‰‹ã«é€ã‚‹æ™‚ã«å¿…è¦ãªï¾šï¾ï¾ï¾™(ãŸã ã—1ä¸–ä»£æ™‚ã®ã¿)
 my $need_lv = 10;
 
-# ‘Šè‚É‘—‚é‚Ì‹Ö~‚È±²ÃÑ
+# ç›¸æ‰‹ã«é€ã‚‹ã®ç¦æ­¢ãªï½±ï½²ï¾ƒï¾‘
 my %taboo_items = (
-	wea => [32,], # •Ší
-	egg => [], # ÀÏºŞ
-	pet => [127,188], # Íß¯Ä
-	gua => [], # –h‹ï
+	wea => [32,36], # æ­¦å™¨
+	egg => [], # ï¾€ï¾ï½ºï¾
+	pet => [127,188], # ï¾ï¾Ÿï½¯ï¾„
+	gua => [], # é˜²å…·
 );
 
 my @magic_words = ('a'..'z', 'A'..'Z', 0..9);
@@ -52,23 +52,23 @@ sub begin {
 		unlink "$userdir/$id/depot_flag.cgi";
 	}
 	unless (-f $this_lock_file) {
-		open my $lfh, "> $this_lock_file" or &error("$this_lock_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $lfh, "> $this_lock_file" or &error("$this_lock_fileãŒé–‹ã‘ã¾ã›ã‚“");
 		close $lfh;
 	}
 	if ($m{tp} > 1) {
-		$mes .= "‘¼‚É‰½‚©‚µ‚Ü‚·‚©?<br>";
+		$mes .= "ä»–ã«ä½•ã‹ã—ã¾ã™ã‹?<br>";
 		$m{tp} = 1;
 	}
 	else {
-		$mes .= "‚±‚±‚Í—a‚©‚èŠ‚Å‚·B$max_depotŒÂ‚Ü‚Å—a‚¯‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·<br>";
-		$mes .= "$max_depotŒÂ‚ğ’´‚¦‚Ä‚¢‚éê‡‚ÍA$penalty_money G‚Ì”±‹à‚ğx•¥‚Á‚Ä‚à‚ç‚¢‚Ü‚·<br>";
-		$mes .= "‚Ç‚¤‚µ‚Ü‚·‚©?<br>";
+		$mes .= "ã“ã“ã¯é ã‹ã‚Šæ‰€ã§ã™ã€‚$max_depotå€‹ã¾ã§é ã‘ã‚‹ã“ã¨ãŒã§ãã¾ã™<br>";
+		$mes .= "$max_depotå€‹ã‚’è¶…ãˆã¦ã„ã‚‹å ´åˆã¯ã€$penalty_money Gã®ç½°é‡‘ã‚’æ”¯æ‰•ã£ã¦ã‚‚ã‚‰ã„ã¾ã™<br>";
+		$mes .= "ã©ã†ã—ã¾ã™ã‹?<br>";
 	}
-	&menu('‚â‚ß‚é', 'ˆøo‚·', '—a‚¯‚é', '®—‚·‚é', '‘Šè‚É‘—‚é', 'ˆêŠ‡”„‹p', 'Ì‚Ä‚é', 'ƒƒbƒN‚ğ‚©‚¯‚é', '—š—ğ');
+	&menu('ã‚„ã‚ã‚‹', 'å¼•å‡ºã™', 'é ã‘ã‚‹', 'æ•´ç†ã™ã‚‹', 'ç›¸æ‰‹ã«é€ã‚‹', 'ä¸€æ‹¬å£²å´', 'æ¨ã¦ã‚‹', 'ãƒ­ãƒƒã‚¯ã‚’ã‹ã‘ã‚‹', 'å±¥æ­´');
 }
 sub tp_1 {
 	unless ($in{magic_word} eq $m{magic_word}) {
-		$mes .= "•s³‚Èˆ—‚É‚æ‚è‘qŒÉ‚Ì‘€ì‚ğ’†’f‚µ‚Ü‚µ‚½<br>";
+		$mes .= "ä¸æ­£ãªå‡¦ç†ã«ã‚ˆã‚Šå€‰åº«ã®æ“ä½œã‚’ä¸­æ–­ã—ã¾ã—ãŸ<br>";
 		&begin;
 		return;
 	}
@@ -79,11 +79,11 @@ sub tp_1 {
 }
 
 #=================================================
-# ˆøo‚·
+# å¼•å‡ºã™
 #=================================================
 sub tp_100 {
 	unless ($in{magic_word} eq $m{magic_word}) {
-		$mes .= "•s³‚Èˆ—‚É‚æ‚è‘qŒÉ‚Ì‘€ì‚ğ’†’f‚µ‚Ü‚µ‚½<br>";
+		$mes .= "ä¸æ­£ãªå‡¦ç†ã«ã‚ˆã‚Šå€‰åº«ã®æ“ä½œã‚’ä¸­æ–­ã—ã¾ã—ãŸ<br>";
 		&begin;
 		return;
 	}
@@ -96,33 +96,33 @@ sub tp_100 {
 	my $lost_count = ($count - $lost_depot) < 0 ? 0 : $count - $lost_depot;
 	$lost_mes = qq| / <font color="#FF0000">$lost_count</font>| if $lost_count;
 	$count -= $lost_count;
-	$mes .= "‚Ç‚ê‚ğˆøo‚µ‚Ü‚·‚©? [ $count / $max_depot$lost_mes ]<br>";
+	$mes .= "ã©ã‚Œã‚’å¼•å‡ºã—ã¾ã™ã‹? [ $count / $max_depot$lost_mes ]<br>";
 	$mes .= $sub_mes;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<input type="hidden" name="magic_word" value="$in{magic_word}">|; # ‘½‘‹‚³‚¹‚È‚¢‚½‚ß‚ÌˆêƒL[
-	$mes .= $is_mobile ? qq|<p><input type="submit" value="ˆøo‚·" class="button1" accesskey="#"></p>|:
-		qq|<p><input type="submit" value="ˆøo‚·" class="button1"></p>|;
-	$mes .= qq|<label><input type="checkbox" id="pet_summary" name="show_summary" value="1">Íß¯Ä‚ÌŒø‰Ê‚ğŠm”F‚·‚é</label></form>|;
+	$mes .= qq|<input type="hidden" name="magic_word" value="$in{magic_word}">|; # å¤šçª“ã•ã›ãªã„ãŸã‚ã®ä¸€æ™‚ã‚­ãƒ¼
+	$mes .= $is_mobile ? qq|<p><input type="submit" value="å¼•å‡ºã™" class="button1" accesskey="#"></p>|:
+		qq|<p><input type="submit" value="å¼•å‡ºã™" class="button1"></p>|;
+	$mes .= qq|<label><input type="checkbox" id="pet_summary" name="show_summary" value="1">ï¾ï¾Ÿï½¯ï¾„ã®åŠ¹æœã‚’ç¢ºèªã™ã‚‹</label></form>|;
 	$m{tp} += 10;
 }
 sub tp_110 {
 	unless ($in{magic_word} eq $m{magic_word}) {
-		$mes .= "•s³‚Èˆ—‚É‚æ‚è‘qŒÉ‚Ì‘€ì‚ğ’†’f‚µ‚Ü‚µ‚½<br>";
+		$mes .= "ä¸æ­£ãªå‡¦ç†ã«ã‚ˆã‚Šå€‰åº«ã®æ“ä½œã‚’ä¸­æ–­ã—ã¾ã—ãŸ<br>";
 		&begin;
 		return;
 	}
-	else { # ‚±‚±‚ÅƒL[‚ª•Ï‚í‚Á‚½uŠÔ‚©‚ç‚ ‚Æ‚É‘±‚­ŒÄ‚Ño‚µ‚ª’e‚©‚ê‚é‚ªAƒL[‚ª•Ï‚í‚éuŠÔ‚É“ü‚ç‚ê‚é‚Æ‚¨‚»‚ç‚­Œ‹‹Ç“¯ˆ—‚³‚ê‚»‚¤‚È‹C‚ª‚·‚é
+	else { # ã“ã“ã§ã‚­ãƒ¼ãŒå¤‰ã‚ã£ãŸç¬é–“ã‹ã‚‰ã‚ã¨ã«ç¶šãå‘¼ã³å‡ºã—ãŒå¼¾ã‹ã‚Œã‚‹ãŒã€ã‚­ãƒ¼ãŒå¤‰ã‚ã‚‹ç¬é–“ã«å…¥ã‚‰ã‚Œã‚‹ã¨ãŠãã‚‰ãçµå±€åŒæ™‚å‡¦ç†ã•ã‚Œãã†ãªæ°—ãŒã™ã‚‹
 		my $magic_word = '';
 		$magic_word .= $magic_words[int(rand($#magic_words+1))] for (0 .. 12);
 		$in{magic_word} = $magic_word;
 		$m{magic_word} = $magic_word;
 		&write_user;
 	}
-	if ($in{show_summary} && $cmd && $cmd <= $lost_depot) { # Íß¯Ä‚Ìà–¾Ó°ÄŞ‚©‚Â”ñ•\¦ÃŞ°À‚ÉƒAƒNƒZƒX‚µ‚Ä‚È‚¢
+	if ($in{show_summary} && $cmd && $cmd <= $lost_depot) { # ï¾ï¾Ÿï½¯ï¾„ã®èª¬æ˜ï¾“ï½°ï¾„ï¾ã‹ã¤éè¡¨ç¤ºï¾ƒï¾ï½°ï¾€ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¦ãªã„
 		require './data/pet.cgi';
 		my $count = 0;
 		my $new_line = '';
-		open my $fh, "< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 		while (my $line = <$fh>) {
 			my($rkind, $ritem_no, $ritem_c, $ritem_lv) = split /<>/, $line;
 			++$count;
@@ -131,11 +131,11 @@ sub tp_110 {
 				my($kind, $item_no, $item_c, $item_lv) = split /<>/, $line;
 				my $item_name = &get_item_name($kind, $item_no);
 				if($kind eq '3' && $item_no > 0) {
-					$mes .= "$item_nameF$pet_effects[$item_no]<br>";
+					$mes .= "$item_nameï¼š$pet_effects[$item_no]<br>";
 					last;
 				}
 				else {
-					$mes .= "$item_name‚ÍÍß¯Ä‚Å‚Í‚ ‚è‚Ü‚¹‚ñ<br>";
+					$mes .= "$item_nameã¯ï¾ï¾Ÿï½¯ï¾„ã§ã¯ã‚ã‚Šã¾ã›ã‚“<br>";
 					last;
 				}
 			}
@@ -146,19 +146,19 @@ sub tp_110 {
 		&{ 'tp_'. $m{tp} }($cmd);
 		return;
 	}
-	else { # ˆø‚«o‚µÓ°ÄŞ
-		if ($cmd && $cmd <= $lost_depot) { # ”ñ•\¦ÃŞ°À‚ÉƒAƒNƒZƒX‚µ‚Ä‚È‚¢
+	else { # å¼•ãå‡ºã—ï¾“ï½°ï¾„ï¾
+		if ($cmd && $cmd <= $lost_depot) { # éè¡¨ç¤ºï¾ƒï¾ï½°ï¾€ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¦ãªã„
 			my $count = 0;
 			my $new_line = '';
 			my $add_line = '';
 			my $depot_line = '';
 			my @lines = ();
 			my $l_mes = "";
-			open my $fh, "+< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+			open my $fh, "+< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 			eval { flock $fh, 2; };
 			while (my $line = <$fh>) {
-				if ($in{magic_word} ne $m{magic_word}) { # ‚±‚±‚Å’e‚­‚ÆŒø‰ÊƒeƒLƒƒ“‚ç‚µ‚¢ •s‹ï‡‚ç‚µ‚¢“ä‚ÌŒø‚«–Ú
-					$mes = "•s³‚Èˆ—‚É‚æ‚è‘qŒÉ‚Ì‘€ì‚ğ’†’f‚µ‚Ü‚µ‚½<br>";
+				if ($in{magic_word} ne $m{magic_word}) { # ã“ã“ã§å¼¾ãã¨åŠ¹æœãƒ†ã‚­ãƒ¡ãƒ³ã‚‰ã—ã„ ä¸å…·åˆã‚‰ã—ã„è¬ã®åŠ¹ãç›®
+					$mes = "ä¸æ­£ãªå‡¦ç†ã«ã‚ˆã‚Šå€‰åº«ã®æ“ä½œã‚’ä¸­æ–­ã—ã¾ã—ãŸ<br>";
 					close $fh;
 					&begin;
 					return;
@@ -175,31 +175,31 @@ sub tp_110 {
 							$m{wea} = 32;
 							$m{wea_c} = 0;
 							$m{wea_lv} = 0;
-							$mes .= "‚¿å‚Ìè‚ğ—£‚ê‚½“r’[$m{wea_name}‚Í‚½‚¾‚Ì$weas[$m{wea}][1]‚É‚È‚Á‚Ä‚µ‚Ü‚Á‚½<br>";
+							$mes .= "æŒã¡ä¸»ã®æ‰‹ã‚’é›¢ã‚ŒãŸé€”ç«¯$m{wea_name}ã¯ãŸã ã®$weas[$m{wea}][1]ã«ãªã£ã¦ã—ã¾ã£ãŸ<br>";
 							$m{wea_name} = "";
 						}
 						$add_line = "$kind<>$m{wea}<>$m{wea_c}<>$m{wea_lv}<>\n";
-						$mes .= $l_mes = "$weas[$m{wea}][1]‚ğ—a‚¯";
+						$mes .= $l_mes = "$weas[$m{wea}][1]ã‚’é ã‘";
 					}
 					elsif ($kind eq '2' && $m{egg}) {
 						$add_line = "$kind<>$m{egg}<>$m{egg_c}<>0<>\n";
-						$mes .= $l_mes = "$eggs[$m{egg}][1]‚ğ—a‚¯";
+						$mes .= $l_mes = "$eggs[$m{egg}][1]ã‚’é ã‘";
 					}
 					elsif($kind eq '3' && $m{pet} > 0) {
 						$add_line = "$kind<>$m{pet}<>$m{pet_c}<>0<>\n";
-						$mes .= $l_mes = "$pets[$m{pet}][1]š$m{pet_c}‚ğ—a‚¯";
+						$mes .= $l_mes = "$pets[$m{pet}][1]â˜…$m{pet_c}ã‚’é ã‘";
 					}
 					elsif($kind eq '4' && $m{gua}) {
 						$add_line = "$kind<>$m{gua}<>0<>0<>\n";
-						$mes .= $l_mes = "$guas[$m{gua}][1]‚ğ—a‚¯";
+						$mes .= $l_mes = "$guas[$m{gua}][1]ã‚’é ã‘";
 					}
 				}
-				elsif ($count <= $lost_depot) { # C‚èØ‚èˆ—
+				elsif ($count <= $lost_depot) { # æ“¦ã‚Šåˆ‡ã‚Šå‡¦ç†
 					push @lines, $line;
 				}
 			}
-			if ($in{magic_word} ne $m{magic_word}) { # ‚±‚±‚½‚Ô‚ñ—v‚ç‚È‚¢H ”O‚Ì‚½‚ß
-				$mes = "•s³‚Èˆ—‚É‚æ‚è‘qŒÉ‚Ì‘€ì‚ğ’†’f‚µ‚Ü‚µ‚½<br>";
+			if ($in{magic_word} ne $m{magic_word}) { # ã“ã“ãŸã¶ã‚“è¦ã‚‰ãªã„ï¼Ÿ å¿µã®ãŸã‚
+				$mes = "ä¸æ­£ãªå‡¦ç†ã«ã‚ˆã‚Šå€‰åº«ã®æ“ä½œã‚’ä¸­æ–­ã—ã¾ã—ãŸ<br>";
 				close $fh;
 				&begin;
 				return;
@@ -217,31 +217,31 @@ sub tp_110 {
 					$m{wea}    = $item_no;
 					$m{wea_c}  = $item_c;
 					$m{wea_lv} = $item_lv;
-					$mes .= "$weas[$m{wea}][1]‚ğˆøo‚µ‚Ü‚µ‚½<br>";
+					$mes .= "$weas[$m{wea}][1]ã‚’å¼•å‡ºã—ã¾ã—ãŸ<br>";
 					$l_mes .= $s_mes = "$weas[$m{wea}][1]";
 				}
 				elsif ($kind eq '2') {
 					$m{egg}    = $item_no;
 					$m{egg_c}  = $item_c;
-					$mes .= "$eggs[$m{egg}][1]‚ğˆøo‚µ‚Ü‚µ‚½<br>";
+					$mes .= "$eggs[$m{egg}][1]ã‚’å¼•å‡ºã—ã¾ã—ãŸ<br>";
 					$l_mes .= $s_mes = "$eggs[$m{egg}][1]";
 				}
 				elsif ($kind eq '3') {
 					$m{pet}    = $item_no;
 					$m{pet_c}  = $item_c;
-					$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ğˆøo‚µ‚Ü‚µ‚½<br>";
-					$l_mes .= $s_mes = "$pets[$m{pet}][1]š$m{pet_c}";
+					$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã‚’å¼•å‡ºã—ã¾ã—ãŸ<br>";
+					$l_mes .= $s_mes = "$pets[$m{pet}][1]â˜…$m{pet_c}";
 
 					&get_icon_pet;
 				}
 				elsif ($kind eq '4') {
 					$m{gua}    = $item_no;
-					$mes .= "$guas[$m{gua}][1]‚ğˆøo‚µ‚Ü‚µ‚½<br>";
+					$mes .= "$guas[$m{gua}][1]ã‚’å¼•å‡ºã—ã¾ã—ãŸ<br>";
 					$l_mes .= $s_mes = "$guas[$m{gua}][1]";
 				}
 				my($tmin,$thour,$tmday,$tmon,$tyear) = (localtime($time))[1..4];
 				$tdate = sprintf("%d/%d %02d:%02d", $tmon+1,$tmday,$thour,$tmin);
-				$s_mes .= "ˆøo‚µ ($tdate)";
+				$s_mes .= "å¼•å‡ºã— ($tdate)";
 				if(-f "$userdir/$id/depot_watch.cgi"){
 					open my $wfh, ">> $userdir/$id/depot_watch.cgi";
 					print $wfh "$s_mes<>$depot_line\n";
@@ -249,9 +249,9 @@ sub tp_110 {
 				}
 				&penalty_depot($count);
 	
-				&add_log("ˆøo", $l_mes);
+				&add_log("å¼•å‡º", $l_mes);
 	
-				# ˆøo‚·À²Ğİ¸Ş‚ÅV‚µ‚¢±²ÃÑ‚ª‚ ‚ê‚ÎºÚ¸¼®İ‚É’Ç‰Á
+				# å¼•å‡ºã™ï¾€ï½²ï¾ï¾ï½¸ï¾ã§æ–°ã—ã„ï½±ï½²ï¾ƒï¾‘ãŒã‚ã‚Œã°ï½ºï¾šï½¸ï½¼ï½®ï¾ã«è¿½åŠ 
 				require './lib/add_collection.cgi';
 				&add_collection;
 
@@ -267,12 +267,12 @@ sub tp_110 {
 }
 
 #=================================================
-# —a‚¯‚é
+# é ã‘ã‚‹
 #=================================================
 sub tp_200 {
-	$mes .= '‚Ç‚ê‚ğ—a‚¯‚Ü‚·‚©?';
+	$mes .= 'ã©ã‚Œã‚’é ã‘ã¾ã™ã‹?';
 
-	my @menus = ('‚â‚ß‚é');
+	my @menus = ('ã‚„ã‚ã‚‹');
 	push @menus, $m{wea} ? $weas[$m{wea}][1] : '';
 	push @menus, $m{egg} ? $eggs[$m{egg}][1] : '';
 	push @menus, $m{pet} > 0 ? $pets[$m{pet}][1] : '';
@@ -286,8 +286,8 @@ sub tp_210 {
 
 	my $line;
 	if ($cmd eq '1' && $m{wea}) {
-		# ‚±‚±‚ÅƒIƒŠ•Ší—p‚É©ƒf[ƒ^‚ğ‘‚«Š·‚¦‚Ä‚Í‚¢‚¯‚È‚¢
-		# ”š”­ˆ—‚ÅˆÓ}‚¹‚¸ return ‚·‚é‰Â”\«‚ª‚ ‚é
+		# ã“ã“ã§ã‚ªãƒªæ­¦å™¨ç”¨ã«è‡ªãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãæ›ãˆã¦ã¯ã„ã‘ãªã„
+		# çˆ†ç™ºå‡¦ç†ã§æ„å›³ã›ãš return ã™ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹
 		$line = $m{wea_name} ? "$cmd<>32<>0<>0<>\n" : "$cmd<>$m{wea}<>$m{wea_c}<>$m{wea_lv}<>\n";
 	}
 	elsif ($cmd eq '2' && $m{egg}) {
@@ -305,13 +305,13 @@ sub tp_210 {
 	}
 	
 	my @lines = ();
-	open my $fh, "+< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	push @lines, $_ while <$fh>;
 	
 	if (@lines >= $max_depot) {
 		close $fh;
-		$mes .= '‚±‚êˆÈã—a‚¯‚é‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ<br>';
+		$mes .= 'ã“ã‚Œä»¥ä¸Šé ã‘ã‚‹ã“ã¨ãŒã§ãã¾ã›ã‚“<br>';
 		$m{is_full} = 1;
 	}
 	else {
@@ -325,38 +325,38 @@ sub tp_210 {
 		if ($cmd eq '1') {
 			if($m{wea_name}){
 				$m{wea} = 32;
-				$mes .= "‚¿å‚Ìè‚ğ—£‚ê‚½“r’[$m{wea_name}‚Í‚½‚¾‚Ì$weas[$m{wea}][1]‚É‚È‚Á‚Ä‚µ‚Ü‚Á‚½<br>";
+				$mes .= "æŒã¡ä¸»ã®æ‰‹ã‚’é›¢ã‚ŒãŸé€”ç«¯$m{wea_name}ã¯ãŸã ã®$weas[$m{wea}][1]ã«ãªã£ã¦ã—ã¾ã£ãŸ<br>";
 				$m{wea_name} = "";
 			}
-			$mes .= "$weas[$m{wea}][1]‚ğ—a‚¯‚Ü‚µ‚½<br>";
+			$mes .= "$weas[$m{wea}][1]ã‚’é ã‘ã¾ã—ãŸ<br>";
 			$l_mes = "$weas[$m{wea}][1]";
 			$m{wea} = $m{wea_c} = $m{wea_lv} = 0;
 		}
 		elsif ($cmd eq '2') {
-			$mes .= "$eggs[$m{egg}][1]‚ğ—a‚¯‚Ü‚µ‚½<br>";
+			$mes .= "$eggs[$m{egg}][1]ã‚’é ã‘ã¾ã—ãŸ<br>";
 			$l_mes = "$eggs[$m{egg}][1]";
 			$m{egg} = $m{egg_c} = 0;
 		}
 		elsif ($cmd eq '3') {
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ğ—a‚¯‚Ü‚µ‚½<br>";
-			$l_mes = "$pets[$m{pet}][1]š$m{pet_c}";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã‚’é ã‘ã¾ã—ãŸ<br>";
+			$l_mes = "$pets[$m{pet}][1]â˜…$m{pet_c}";
 			&remove_pet;
 		}
 		elsif ($cmd eq '4') {
-			$mes .= "$guas[$m{gua}][1]‚ğ—a‚¯‚Ü‚µ‚½<br>";
+			$mes .= "$guas[$m{gua}][1]ã‚’é ã‘ã¾ã—ãŸ<br>";
 			$l_mes = "$guas[$m{gua}][1]";
 			$m{gua} = 0;
 		}
 		
 		$m{is_full} = 1 if @lines >= $max_depot;
 
-		&add_log("—a“ü", $l_mes);
+		&add_log("é å…¥", $l_mes);
 	}
 	&begin;
 }
 
 #=================================================
-# ®—
+# æ•´ç†
 #=================================================
 sub tp_300 {
 	my @lines = ();
@@ -365,7 +365,7 @@ sub tp_300 {
 	my $n_egg = 0;
 	my $n_man = 0;
 	my $n_hero = 0;	
-	open my $fh, "+< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	while (my $line = <$fh>){
 		++$count;
@@ -382,7 +382,7 @@ sub tp_300 {
 			$line = "3<>77<>$item_c<>$item_lv<>\n";
 			$n_hero++;
 		}
-		push @lines, $line if $count <= $lost_depot; # C‚èØ‚èˆ—
+		push @lines, $line if $count <= $lost_depot; # æ“¦ã‚Šåˆ‡ã‚Šå‡¦ç†
 	}
 	@lines = map { $_->[0] }
 				sort { $a->[1] <=> $b->[1] || $a->[2] <=> $b->[2] }
@@ -410,49 +410,49 @@ sub tp_300 {
 	print $fh @lines;
 	close $fh;
 	
-	$mes .= "—a‚¯‚Ä‚¢‚é‚à‚Ì‚ğ®—‚µ‚Ü‚µ‚½<br>";
+	$mes .= "é ã‘ã¦ã„ã‚‹ã‚‚ã®ã‚’æ•´ç†ã—ã¾ã—ãŸ<br>";
 	&begin;
 }
 
 #=================================================
-# ‘Šè‚É‘—‚é
+# ç›¸æ‰‹ã«é€ã‚‹
 #=================================================
 sub tp_400 {
 	$layout = 1;
-	$mes .= "’N‚É‰½‚ğ‘—‚è‚Ü‚·‚©?<br>‘“àè”—¿F$need_money G<br>‘ŠOè”—¿F$need_money_other G<br>";
-	$mes .= '‚¨‹à‚ğ‘—‚éê‡‚Í‹àŠz‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢<br>';
+	$mes .= "èª°ã«ä½•ã‚’é€ã‚Šã¾ã™ã‹?<br>å›½å†…æ‰‹æ•°æ–™ï¼š$need_money G<br>å›½å¤–æ‰‹æ•°æ–™ï¼š$need_money_other G<br>";
+	$mes .= 'ãŠé‡‘ã‚’é€ã‚‹å ´åˆã¯é‡‘é¡ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„<br>';
 
-	$mes .= qq|<form method="$method" action="$script"><p>‘—MæF<input type="text" name="send_name" class="text_box1"></p>|;
-	$mes .= qq|<input type="radio" name="cmd" value="0" checked>‚â‚ß‚é<br>|;
-	$mes .= qq|<input type="radio" name="cmd" value="1">[$weas[$m{wea}][2]]$weas[$m{wea}][1]š$m{wea_lv}($m{wea_c}/$weas[$m{wea}][4])<br>| if $m{wea};
-	$mes .= qq|<input type="radio" name="cmd" value="2">[—‘]$eggs[$m{egg}][1]($m{egg_c}/$eggs[$m{egg}][2])<br>| if $m{egg};
-	$mes .= qq|<input type="radio" name="cmd" value="3">[ƒy]$pets[$m{pet}][1]š$m{pet_c}<br>| if $m{pet} > 0;
+	$mes .= qq|<form method="$method" action="$script"><p>é€ä¿¡å…ˆï¼š<input type="text" name="send_name" class="text_box1"></p>|;
+	$mes .= qq|<input type="radio" name="cmd" value="0" checked>ã‚„ã‚ã‚‹<br>|;
+	$mes .= qq|<input type="radio" name="cmd" value="1">[$weas[$m{wea}][2]]$weas[$m{wea}][1]â˜…$m{wea_lv}($m{wea_c}/$weas[$m{wea}][4])<br>| if $m{wea};
+	$mes .= qq|<input type="radio" name="cmd" value="2">[åµ]$eggs[$m{egg}][1]($m{egg_c}/$eggs[$m{egg}][2])<br>| if $m{egg};
+	$mes .= qq|<input type="radio" name="cmd" value="3">[ãƒš]$pets[$m{pet}][1]â˜…$m{pet_c}<br>| if $m{pet} > 0;
 	$mes .= qq|<input type="radio" name="cmd" value="4">[$guas[$m{gua}][2]]$guas[$m{gua}][1]<br>| if $m{gua};
-	$mes .= qq|<input type="radio" name="cmd" value="5">‚¨‹à<input type="text" name="send_money" value="0" class="text_box1" style="text-align:right">G<br>| if $m{money} > 0;
+	$mes .= qq|<input type="radio" name="cmd" value="5">ãŠé‡‘<input type="text" name="send_money" value="0" class="text_box1" style="text-align:right">G<br>| if $m{money} > 0;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="‘—‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="é€ã‚‹" class="button1"></p></form>|;
 	
 	$m{tp} += 10;
 }
 sub tp_410 {
 	return if &is_ng_cmd(1..5);
 	if ($m{shogo} eq $shogos[1][0]) {
-		$mes .= "$shogos[1][0]‚Ì•û‚Í‘—‚é‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ<br>";
+		$mes .= "$shogos[1][0]ã®æ–¹ã¯é€ã‚‹ã“ã¨ãŒã§ãã¾ã›ã‚“<br>";
 		&begin;
 		return;
 	}
 	elsif ($in{send_name} eq '') {
-		$mes .= '‘—‚èæ‚ª‹L“ü‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ<br>';
+		$mes .= 'é€ã‚Šå…ˆãŒè¨˜å…¥ã•ã‚Œã¦ã„ã¾ã›ã‚“<br>';
 		&begin;
 		return;
 	}
 	elsif ($m{sedai} <= 1 && $m{lv} < $need_lv) {
-		$mes .= "1¢‘ã–Ú‚ÅÚÍŞÙ$need_lv–¢–‚Ìl‚Í‘—‚é‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ<br>";
+		$mes .= "1ä¸–ä»£ç›®ã§ï¾šï¾ï¾ï¾™$need_lvæœªæº€ã®äººã¯é€ã‚‹ã“ã¨ãŒã§ãã¾ã›ã‚“<br>";
 		&begin;
 		return;
 	}
 	elsif ($cmd eq '1' && $m{wea_name}) {
-		$mes .= "—Bˆê–³“ñ‚Ì•Ší‚ğ‘—‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ<br>";
+		$mes .= "å”¯ä¸€ç„¡äºŒã®æ­¦å™¨ã‚’é€ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“<br>";
 		&begin;
 		return;
 	}
@@ -460,9 +460,9 @@ sub tp_410 {
 	my $send_id = unpack 'H*', $in{send_name};
 	my %datas = &get_you_datas($send_id, 1);
 	
-	# ‚±‚±‚Ìˆ—‚ğ•Ï‚¦‚é‚Æ‚±‚ë‚©‚ç
+	# ã“ã“ã®å‡¦ç†ã‚’å¤‰ãˆã‚‹ã¨ã“ã‚ã‹ã‚‰
 	if ($datas{is_full} && $cmd ne '5' && !&is_sabakan) {
-		$mes .= "$in{send_name}‚Ì—a‚©‚èŠ‚ª–”t‚Å‘—‚é‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ<br>";
+		$mes .= "$in{send_name}ã®é ã‹ã‚Šæ‰€ãŒæº€æ¯ã§é€ã‚‹ã“ã¨ãŒã§ãã¾ã›ã‚“<br>";
 		&begin;
 		return;
 	}
@@ -470,7 +470,7 @@ sub tp_410 {
 	my $pay = $datas{country} eq $m{country} ? $need_money : $need_money_other;
 	
 	if ($m{money} < $pay) {
-		$mes .= "—X‘—è”—¿( $pay G)‚ª‘«‚è‚Ü‚¹‚ñ<br>";
+		$mes .= "éƒµé€æ‰‹æ•°æ–™( $pay G)ãŒè¶³ã‚Šã¾ã›ã‚“<br>";
 		&begin;
 		return;
 	}
@@ -483,7 +483,7 @@ sub tp_410 {
 							: $cmd eq '3' ? $pets[$m{pet}][1]
 							:               $guas[$m{gua}][1]
 							;
-			$mes .= "$t_item_name‚Í‘¼‚Ìl‚É‘—‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ<br>";
+			$mes .= "$t_item_nameã¯ä»–ã®äººã«é€ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“<br>";
 			&begin;
 			return;
 		}
@@ -496,50 +496,50 @@ sub tp_410 {
 					:               "$cmd<>$m{gua}<>"
 					;
 	if ($lock{$check_line}) {
-			$mes .= "ƒƒbƒN‚³‚ê‚Ä‚¢‚éƒAƒCƒeƒ€‚Í‘¼‚Ìl‚É‘—‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ<br>";
+			$mes .= "ãƒ­ãƒƒã‚¯ã•ã‚Œã¦ã„ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã¯ä»–ã®äººã«é€ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“<br>";
 			&begin;
 			return;
 	}
 	
 	if ($cmd eq '1' && $m{wea}) {
 		&send_item($in{send_name}, $cmd, $m{wea}, $m{wea_c}, $m{wea_lv}, &is_sabakan);
-		&mes_and_send_news("$in{send_name}‚É$weas[$m{wea}][1]‚ğ‘—‚è‚Ü‚µ‚½");
+		&mes_and_send_news("$in{send_name}ã«$weas[$m{wea}][1]ã‚’é€ã‚Šã¾ã—ãŸ");
 		$m{wea} = $m{wea_c} = $m{wea_lv} = 0;
 		$m{money} -= $pay;
 	}
 	elsif ($cmd eq '2' && $m{egg}) {
 		&send_item($in{send_name}, $cmd, $m{egg}, $m{egg_c}, 0, &is_sabakan);
-		&mes_and_send_news("$in{send_name}‚É$eggs[$m{egg}][1]‚ğ‘—‚è‚Ü‚µ‚½");
+		&mes_and_send_news("$in{send_name}ã«$eggs[$m{egg}][1]ã‚’é€ã‚Šã¾ã—ãŸ");
 		$m{egg} = $m{egg_c} = 0;
 		$m{money} -= $pay;
 	}
 	elsif ($cmd eq '3' && $m{pet}) {
 		&send_item($in{send_name}, $cmd, $m{pet}, $m{pet_c}, 0, &is_sabakan);
-		&mes_and_send_news("$in{send_name}‚É$pets[$m{pet}][1]š$m{pet_c}‚ğ‘—‚è‚Ü‚µ‚½");
+		&mes_and_send_news("$in{send_name}ã«$pets[$m{pet}][1]â˜…$m{pet_c}ã‚’é€ã‚Šã¾ã—ãŸ");
 		&remove_pet;
 		$m{money} -= $pay;
 	}
 	elsif ($cmd eq '4' && $m{gua}) {
 		&send_item($in{send_name}, $cmd, $m{gua}, 0, 0, &is_sabakan);
-		&mes_and_send_news("$in{send_name}‚É$guas[$m{gua}][1]‚ğ‘—‚è‚Ü‚µ‚½");
+		&mes_and_send_news("$in{send_name}ã«$guas[$m{gua}][1]ã‚’é€ã‚Šã¾ã—ãŸ");
 		$m{gua} = 0;
 		$m{money} -= $pay;
 	}
 	elsif ($cmd eq '5' && $in{send_money} > 0 && $in{send_money} !~ /[^0-9]/) {
 		if ($m{money} + $pay > $in{send_money}) {
 			&send_money($in{send_name}, $m{name}, $in{send_money});
-			&mes_and_send_news("$in{send_name}‚É $in{send_money} G‚ğ‘—‚è‚Ü‚µ‚½");
+			&mes_and_send_news("$in{send_name}ã« $in{send_money} Gã‚’é€ã‚Šã¾ã—ãŸ");
 			$m{money} -= $in{send_money} + $pay;
 		}
 		else {
-			$mes .= "è”—¿‘ã‚àŠÜ‚ß‚Ä‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ<br>";
+			$mes .= "æ‰‹æ•°æ–™ä»£ã‚‚å«ã‚ã¦ãŠé‡‘ãŒè¶³ã‚Šã¾ã›ã‚“<br>";
 		}
 	}
 	&begin;
 }
 
 #=================================================
-# ¼Ş¬İ¸¼®¯Ìß‚É”„‚é
+# ï½¼ï¾ï½¬ï¾ï½¸ï½¼ï½®ï½¯ï¾Œï¾Ÿã«å£²ã‚‹
 #=================================================
 sub tp_500 {
 	$layout = 2;
@@ -549,11 +549,11 @@ sub tp_500 {
 	my $lost_count = ($count - $lost_depot) < 0 ? 0 : $count - $lost_depot;
 	$lost_mes = qq| / <font color="#FF0000">$lost_count</font>| if $lost_count;
 	$count -= $lost_count;
-	$mes .= "‚Ç‚ê‚ğ”„‚è‚Ü‚·‚©? [ $count / $max_depot$lost_mes ]<br>";
-#	$mes .= "‚Ç‚ê‚ğ”„‚è‚Ü‚·‚©?[ $count / $max_depot ]<br>";
+	$mes .= "ã©ã‚Œã‚’å£²ã‚Šã¾ã™ã‹? [ $count / $max_depot$lost_mes ]<br>";
+#	$mes .= "ã©ã‚Œã‚’å£²ã‚Šã¾ã™ã‹?[ $count / $max_depot ]<br>";
 	$mes .= $sub_mes;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="”„‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="å£²ã‚‹" class="button1"></p></form>|;
 
 	$m{tp} += 10;
 }
@@ -570,7 +570,7 @@ sub tp_510 {
 	my @junk_log = ();
 	my @depot_log = ();
 	my %lock = &get_lock_item;
-	open my $fh, "+< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	while (my $line = <$fh>) {
 		++$count;
@@ -578,17 +578,17 @@ sub tp_510 {
 			my($kind, $item_no, $item_c, $item_lv) = split /<>/, $line;
 			if ($count <= $lost_depot && $lock{"$kind<>$item_no<>"}) {
 				push @lines, $line;
-			} else { # C‚èØ‚è‘ÎÛ‚Ì±²ÃÑ‚ÍƒƒbƒN–³‹
+			} else { # æ“¦ã‚Šåˆ‡ã‚Šå¯¾è±¡ã®ï½±ï½²ï¾ƒï¾‘ã¯ãƒ­ãƒƒã‚¯ç„¡è¦–
 				$is_rewrite = 1;
 
-				# Íß¯Ä‚¾‚¯šî•ñ’Ç‹L ‘¼‚Í–¼‘O‚¾‚¯
+				# ï¾ï¾Ÿï½¯ï¾„ã ã‘â˜…æƒ…å ±è¿½è¨˜ ä»–ã¯åå‰ã ã‘
 				my $l_mes = &get_item_name($kind, $item_no, $item_c);
 				push @depot_log, "$l_mes";
-				$mes .= "$l_mes‚ğ”„‚è‚Ü‚µ‚½<br>";
-				$item_c = 0 if $kind eq '3'; # ¼Ş¬İ¸‚ÉÍß¯Ä‚ğ—¬‚·‚ÍƒŒƒxƒ‹‚ğ‰Šú‰»
+				$mes .= "$l_mesã‚’å£²ã‚Šã¾ã—ãŸ<br>";
+				$item_c = 0 if $kind eq '3'; # ï½¼ï¾ï½¬ï¾ï½¸ã«ï¾ï¾Ÿï½¯ï¾„ã‚’æµã™æ™‚ã¯ãƒ¬ãƒ™ãƒ«ã‚’åˆæœŸåŒ–
 				$m{money} += $sall_price;
 
-				# ‘å—Ê‚ÉˆêŠ‡”„‹p‚·‚é‚Æ‚»‚Ì”‚¾‚¯Ì§²Ùµ°Ìßİ‚·‚é‚Ì‚Å1‰ñ‚ÅÏ‚Ş‚æ‚¤‚É•ÏX
+				# å¤§é‡ã«ä¸€æ‹¬å£²å´ã™ã‚‹ã¨ãã®æ•°ã ã‘ï¾Œï½§ï½²ï¾™ï½µï½°ï¾Œï¾Ÿï¾ã™ã‚‹ã®ã§1å›ã§æ¸ˆã‚€ã‚ˆã†ã«å¤‰æ›´
 #				if (rand(2) < 1) {
 					push @junk, "$kind<>$item_no<>$item_c<>\n";
 #				}
@@ -601,19 +601,19 @@ sub tp_510 {
 		}
 	}
 	if ($is_rewrite) {
-		# ©•ª‚Ì‘qŒÉ‚Ì‘‚«‚İ
+		# è‡ªåˆ†ã®å€‰åº«ã®æ›¸ãè¾¼ã¿
 		seek  $fh, 0, 0;
 		truncate $fh, 0; 
 		print $fh @lines;
 		close $fh;
 
-		# ¼Ş¬İ¸‚É‘‚«‚İ
-		open my $fh2, ">> $logdir/junk_shop.cgi" or &error("$logdir/junk_shop.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		# ï½¼ï¾ï½¬ï¾ï½¸ã«æ›¸ãè¾¼ã¿
+		open my $fh2, ">> $logdir/junk_shop.cgi" or &error("$logdir/junk_shop.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 		print $fh2 @junk;
 		close $fh2;
 
-		# ¼Ş¬İ¸Û¸Ş‚É‘‚«‚İ
-		open my $fh3, ">> $logdir/junk_shop_sub.cgi" or &error("$logdir/junk_shop_sub.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		# ï½¼ï¾ï½¬ï¾ï½¸ï¾›ï½¸ï¾ã«æ›¸ãè¾¼ã¿
+		open my $fh3, ">> $logdir/junk_shop_sub.cgi" or &error("$logdir/junk_shop_sub.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 		print $fh3 @junk_log;
 		close $fh3;
 	}
@@ -621,8 +621,8 @@ sub tp_510 {
 		close $fh;
 	}
 
-	if ($is_rewrite) { # ŒJ‚è•Ô‚µ‚É‚È‚é‚ªAflock’†‚Ìflock‚ğ‰ñ”ğ‚·‚é‚½‚ß
-		&add_log("”„‹p", @depot_log);
+	if ($is_rewrite) { # ç¹°ã‚Šè¿”ã—ã«ãªã‚‹ãŒã€flockä¸­ã®flockã‚’å›é¿ã™ã‚‹ãŸã‚
+		&add_log("å£²å´", @depot_log);
 		&run_tutorial_quest('tutorial_junk_shop_sell_1');
 	}
 
@@ -630,7 +630,7 @@ sub tp_510 {
 }
 
 #=================================================
-# Ì‚Ä‚é
+# æ¨ã¦ã‚‹
 #=================================================
 sub tp_600 {
 	$layout = 2;
@@ -640,11 +640,11 @@ sub tp_600 {
 	my $lost_count = ($count - $lost_depot) < 0 ? 0 : $count - $lost_depot;
 	$lost_mes = qq| / <font color="#FF0000">$lost_count</font>| if $lost_count;
 	$count -= $lost_count;
-	$mes .= "‚Ç‚ê‚ğÌ‚Ä‚Ü‚·‚©? [ $count / $max_depot$lost_mes ]<br>";
-#	$mes .= "‚Ç‚ê‚ğÌ‚Ä‚Ü‚·‚©?[ $count / $max_depot ]<br>";
+	$mes .= "ã©ã‚Œã‚’æ¨ã¦ã¾ã™ã‹? [ $count / $max_depot$lost_mes ]<br>";
+#	$mes .= "ã©ã‚Œã‚’æ¨ã¦ã¾ã™ã‹?[ $count / $max_depot ]<br>";
 	$mes .= $sub_mes;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="Ì‚Ä‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="æ¨ã¦ã‚‹" class="button1"></p></form>|;
 
 	$m{tp} += 10;
 }
@@ -654,7 +654,7 @@ sub tp_610 {
 	my $is_rewrite = 0;
 	my %lock = &get_lock_item;
 	my $l_mes = "";
-	open my $fh, "+< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	while (my $line = <$fh>) {
 		++$count;
@@ -662,12 +662,12 @@ sub tp_610 {
 			my($kind, $item_no, $item_c, $item_lv) = split /<>/, $line;
 			if ($count <= $lost_depot && $lock{"$kind<>$item_no<>"}) {
 				push @lines, $line;
-			} else { # C‚èØ‚è‘ÎÛ‚Ì±²ÃÑ‚ÍƒƒbƒN–³‹
+			} else { # æ“¦ã‚Šåˆ‡ã‚Šå¯¾è±¡ã®ï½±ï½²ï¾ƒï¾‘ã¯ãƒ­ãƒƒã‚¯ç„¡è¦–
 				$is_rewrite = 1;
 
-				# Íß¯Ä‚¾‚¯šî•ñ’Ç‹L ‘¼‚Í–¼‘O‚¾‚¯
+				# ï¾ï¾Ÿï½¯ï¾„ã ã‘â˜…æƒ…å ±è¿½è¨˜ ä»–ã¯åå‰ã ã‘
 				$l_mes = &get_item_name($kind, $item_no, $item_c);
-				$mes .= "$l_mes‚ğÌ‚Ä‚Ü‚µ‚½<br>";
+				$mes .= "$l_mesã‚’æ¨ã¦ã¾ã—ãŸ<br>";
 			}
 		}
 		else {
@@ -680,12 +680,12 @@ sub tp_610 {
 		print $fh @lines;
 	}
 	close $fh;
-	&add_log("”jŠü", $l_mes) if $is_rewrite;
+	&add_log("ç ´æ£„", $l_mes) if $is_rewrite;
 	&begin;
 }
 
 #=================================================
-# ƒƒbƒN
+# ãƒ­ãƒƒã‚¯
 #=================================================
 sub tp_700 {
 	$layout = 2;
@@ -695,11 +695,11 @@ sub tp_700 {
 	my $lost_count = ($count - $lost_depot) < 0 ? 0 : $count - $lost_depot;
 	$lost_mes = qq| / <font color="#FF0000">$lost_count</font>| if $lost_count;
 	$count -= $lost_count;
-	$mes .= "‚Ç‚ê‚ğƒƒbƒN‚µ‚Ü‚·‚©? [ $count / $max_depot$lost_mes ]<br>";
-#	$mes .= "‚Ç‚ê‚ğƒƒbƒN‚µ‚Ü‚·‚©?[ $count / $max_depot ]<br>";
+	$mes .= "ã©ã‚Œã‚’ãƒ­ãƒƒã‚¯ã—ã¾ã™ã‹? [ $count / $max_depot$lost_mes ]<br>";
+#	$mes .= "ã©ã‚Œã‚’ãƒ­ãƒƒã‚¯ã—ã¾ã™ã‹?[ $count / $max_depot ]<br>";
 	$mes .= $sub_mes;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="ƒƒbƒN" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="ãƒ­ãƒƒã‚¯" class="button1"></p></form>|;
 
 	$m{tp} += 10;
 }
@@ -710,34 +710,34 @@ sub tp_710 {
 		return;
 	}
 
-	my %lock = (); # ƒƒbƒNî•ñ
+	my %lock = (); # ãƒ­ãƒƒã‚¯æƒ…å ±
 
-	# ‘qŒÉ“à‚É‘¶İ‚µ‚È‚¢‚Ì‚©ƒAƒ“ƒƒbƒN‚µ‚½‚Ì‚©‚Ì”»’f‚ª‚Å‚«‚È‚¢‚ÆƒAƒ“ƒƒbƒN‚Å‚«‚È‚¢ó‘Ô‚É‚È‚è‚¤‚é
-	# ‘qŒÉ“à‚ÅƒƒbƒNw’è¨ˆÈ‘O‚©‚çƒƒbƒN¨ƒƒbƒNi³‚µ‚¢j
-	# ‘qŒÉ“à‚É‘¶İ‚µ‚È‚¢¨ˆÈ‘O‚©‚çƒƒbƒN¨ƒƒbƒNiˆêŒ©³‚µ‚¢‚ªƒAƒ“ƒƒbƒN‚Æ”»•Ê‚µ‚È‚¢‚ÆƒAƒ“ƒƒbƒN‚µ‚Ä‚à‚³‚ê‚È‚¢j
-	# ‘qŒÉ“à‚ÅƒAƒ“ƒƒbƒNw’è¨ˆÈ‘O‚©‚çƒƒbƒN¨ƒAƒ“ƒƒbƒNi³‚µ‚¢j
+	# å€‰åº«å†…ã«å­˜åœ¨ã—ãªã„ã®ã‹ã‚¢ãƒ³ãƒ­ãƒƒã‚¯ã—ãŸã®ã‹ã®åˆ¤æ–­ãŒã§ããªã„ã¨ã‚¢ãƒ³ãƒ­ãƒƒã‚¯ã§ããªã„çŠ¶æ…‹ã«ãªã‚Šã†ã‚‹
+	# å€‰åº«å†…ã§ãƒ­ãƒƒã‚¯æŒ‡å®šâ†’ä»¥å‰ã‹ã‚‰ãƒ­ãƒƒã‚¯â†’ãƒ­ãƒƒã‚¯ï¼ˆæ­£ã—ã„ï¼‰
+	# å€‰åº«å†…ã«å­˜åœ¨ã—ãªã„â†’ä»¥å‰ã‹ã‚‰ãƒ­ãƒƒã‚¯â†’ãƒ­ãƒƒã‚¯ï¼ˆä¸€è¦‹æ­£ã—ã„ãŒã‚¢ãƒ³ãƒ­ãƒƒã‚¯ã¨åˆ¤åˆ¥ã—ãªã„ã¨ã‚¢ãƒ³ãƒ­ãƒƒã‚¯ã—ã¦ã‚‚ã•ã‚Œãªã„ï¼‰
+	# å€‰åº«å†…ã§ã‚¢ãƒ³ãƒ­ãƒƒã‚¯æŒ‡å®šâ†’ä»¥å‰ã‹ã‚‰ãƒ­ãƒƒã‚¯â†’ã‚¢ãƒ³ãƒ­ãƒƒã‚¯ï¼ˆæ­£ã—ã„ï¼‰
 
-	# ƒƒbƒNw’è‚³‚ê‚½ƒAƒCƒeƒ€‚Ìæ“¾
-	open my $fh, "< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	# ãƒ­ãƒƒã‚¯æŒ‡å®šã•ã‚ŒãŸã‚¢ã‚¤ãƒ†ãƒ ã®å–å¾—
+	open my $fh, "< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		++$count;
 		my($kind, $item_no, $item_c, $item_lv) = split /<>/, $line;
 		if ($in{$count} eq '1' && $lock{"$kind<>$item_no<>"} == 0) {
-			$lock{"$kind<>$item_no<>"} = 1; # ƒƒbƒN
+			$lock{"$kind<>$item_no<>"} = 1; # ãƒ­ãƒƒã‚¯
 		}
 		elsif ($in{$count} == 0 && $lock{"$kind<>$item_no<>"} == 0) {
-			$lock{"$kind<>$item_no<>"} = -1; # ƒAƒ“ƒƒbƒN
+			$lock{"$kind<>$item_no<>"} = -1; # ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 		}
-		# ‘qŒÉ“à‚É‘¶İ‚µ‚È‚¢ƒAƒCƒeƒ€‚É‚Â‚¢‚Ä‚Í]—ˆ‚ÌƒƒbƒNî•ñ‚ğ—˜—p«
+		# å€‰åº«å†…ã«å­˜åœ¨ã—ãªã„ã‚¢ã‚¤ãƒ†ãƒ ã«ã¤ã„ã¦ã¯å¾“æ¥ã®ãƒ­ãƒƒã‚¯æƒ…å ±ã‚’åˆ©ç”¨â†“
 	}
 	close $fh;
 
-	# ]—ˆ‚ÌƒƒbƒNî•ñ‚ğæ“¾‚µ‚Â‚ÂXV
-	open my $lfh, "+< $this_lock_file" or &error("$this_lock_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	# å¾“æ¥ã®ãƒ­ãƒƒã‚¯æƒ…å ±ã‚’å–å¾—ã—ã¤ã¤æ›´æ–°
+	open my $lfh, "+< $this_lock_file" or &error("$this_lock_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $lfh, 2; };
 	while (my $line = <$lfh>){
 		chomp $line;
-		$lock{$line} = 1 if $lock{$line} > -1; # ƒAƒ“ƒƒbƒNw’è‚³‚ê‚Ä‚È‚¢‚È‚çˆø‚«‘±‚«ƒƒbƒN
+		$lock{$line} = 1 if $lock{$line} > -1; # ã‚¢ãƒ³ãƒ­ãƒƒã‚¯æŒ‡å®šã•ã‚Œã¦ãªã„ãªã‚‰å¼•ãç¶šããƒ­ãƒƒã‚¯
 	}
 
 	seek  $lfh, 0, 0;
@@ -752,12 +752,12 @@ sub tp_710 {
 }
 
 #=================================================
-# —š—ğ
+# å±¥æ­´
 #=================================================
 sub tp_800 {
 	if (-f "$this_log") {
 		my @lines = ();
-		open my $fh, "< $this_log" or &error("$this_log‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "< $this_log" or &error("$this_logãŒé–‹ã‘ã¾ã›ã‚“");
 		while (my $line = <$fh>){
 			$mes .= "$line<br>";
 		}
@@ -767,7 +767,7 @@ sub tp_800 {
 }
 
 #=================================================
-# ”±‹àˆ—
+# ç½°é‡‘å‡¦ç†
 #=================================================
 sub penalty_depot {
 	my $count = shift;
@@ -775,7 +775,7 @@ sub penalty_depot {
 
 	if ($count > $max_depot) {
 		$m{is_full} = 1;
-		$mes .= "”±‹à $penalty_money G‚ğx•¥‚¢‚Ü‚µ‚½<br>";
+		$mes .= "ç½°é‡‘ $penalty_money Gã‚’æ”¯æ‰•ã„ã¾ã—ãŸ<br>";
 		$m{money} -= $penalty_money;
 	}
 	else {
@@ -785,17 +785,17 @@ sub penalty_depot {
 
 
 #=================================================
-# <input type="radio" •t‚Ì—a‚©‚èŠ‚Ì•¨
+# <input type="radio" ä»˜ã®é ã‹ã‚Šæ‰€ã®ç‰©
 #=================================================
 sub radio_my_depot {
-	my $no = shift; # ‘I‘ğó‘Ô‚É‚·‚é±²ÃÑ”Ô† 0 ‚Åu‚â‚ß‚év
-	my $is_show = shift; # ˆì‚ê‚Ä‚¢‚é±²ÑÃ‚ğ•\¦‚·‚é‚©‚Ç‚¤‚©
+	my $no = shift; # é¸æŠçŠ¶æ…‹ã«ã™ã‚‹ï½±ï½²ï¾ƒï¾‘ç•ªå· 0 ã§ã€Œã‚„ã‚ã‚‹ã€
+	my $is_show = shift; # æº¢ã‚Œã¦ã„ã‚‹ï½±ï½²ï¾‘ï¾ƒã‚’è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹
 	my $count = 0;
 	my %lock = &get_lock_item;
 	my $sub_mes = qq|<form method="$method" action="$script">|;
 	my $checked = " checked" unless $no;
-	$sub_mes .= qq|<label><input type="radio" name="cmd" value="0"$checked>‚â‚ß‚é</label><br>|;
-	open my $fh, "< $this_file" or &error("$this_file ‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	$sub_mes .= qq|<label><input type="radio" name="cmd" value="0"$checked>ã‚„ã‚ã‚‹</label><br>|;
+	open my $fh, "< $this_file" or &error("$this_file ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		++$count;
 		my($kind, $item_no, $item_c, $item_lv) = split /<>/, $line;
@@ -821,7 +821,7 @@ sub radio_my_depot {
 }
 
 #=================================================
-# <input type="checkbox" •t‚Ì—a‚©‚èŠ‚Ì•¨
+# <input type="checkbox" ä»˜ã®é ã‹ã‚Šæ‰€ã®ç‰©
 #=================================================
 sub checkbox_my_depot {
 	my $count = 0;
@@ -831,13 +831,13 @@ sub checkbox_my_depot {
 		$sub_mes .= qq|<form method="$method" action="$script">|;
 		$sub_mes .= qq|<input type="hidden" name="uncheck_flag" value="1">|;
 		$sub_mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-		$sub_mes .= qq|<p><input type="submit" value="ƒ`ƒFƒbƒN‚ğŠO‚·" class="button1"></p></form>|;
+		$sub_mes .= qq|<p><input type="submit" value="ãƒã‚§ãƒƒã‚¯ã‚’å¤–ã™" class="button1"></p></form>|;
 	}
 	$sub_mes .= qq|<form method="$method" action="$script">|;
 	if (!$is_mobile) {
-		$sub_mes .= qq|<input type="button" name="all_unchecked" value="ƒ`ƒFƒbƒN‚ğŠO‚·" class="button1" onclick="\$('input:checkbox').prop('checked',false); "><br>|;
+		$sub_mes .= qq|<input type="button" name="all_unchecked" value="ãƒã‚§ãƒƒã‚¯ã‚’å¤–ã™" class="button1" onclick="\$('input:checkbox').prop('checked',false); "><br>|;
 	}
-	open my $fh, "< $this_file" or &error("$this_file ‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	open my $fh, "< $this_file" or &error("$this_file ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		++$count;
 		my($kind, $item_no, $item_c, $item_lv) = split /<>/, $line;
@@ -856,7 +856,7 @@ sub checkbox_my_depot {
 }
 
 #=================================================
-# <input type="checkbox" •t‚Ì—a‚©‚èŠ‚Ì•¨
+# <input type="checkbox" ä»˜ã®é ã‹ã‚Šæ‰€ã®ç‰©
 #=================================================
 sub checkbox_my_depot_lock_checked {
 	my $count = 0;
@@ -866,18 +866,18 @@ sub checkbox_my_depot_lock_checked {
 		$sub_mes .= qq|<form method="$method" action="$script">|;
 		$sub_mes .= qq|<input type="hidden" name="uncheck_flag" value="1">|;
 		$sub_mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-		$sub_mes .= qq|<p><input type="submit" value="ƒ`ƒFƒbƒN‚ğŠO‚·" class="button1"></p></form>|;
+		$sub_mes .= qq|<p><input type="submit" value="ãƒã‚§ãƒƒã‚¯ã‚’å¤–ã™" class="button1"></p></form>|;
 	}
 	$sub_mes .= qq|<form method="$method" action="$script">|;
 	if (!$is_mobile) {
-		$sub_mes .= qq|<input type="button" name="all_unchecked" value="ƒ`ƒFƒbƒN‚ğŠO‚·" class="button1" onclick="\$('input:checkbox').prop('checked',false); "><br>|;
+		$sub_mes .= qq|<input type="button" name="all_unchecked" value="ãƒã‚§ãƒƒã‚¯ã‚’å¤–ã™" class="button1" onclick="\$('input:checkbox').prop('checked',false); "><br>|;
 	}
 	my %sames = ();
-	open my $fh, "< $this_file" or &error("$this_file ‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	open my $fh, "< $this_file" or &error("$this_file ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		++$count;
 		my($kind, $item_no, $item_c, $item_lv) = split /<>/, $line;
-		# d•¡‚·‚éƒAƒCƒeƒ€‚ÍÅ‰‚ÌˆêŒÂ–Ú‚¾‚¯•\¦
+		# é‡è¤‡ã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã¯æœ€åˆã®ä¸€å€‹ç›®ã ã‘è¡¨ç¤º
 		unless ($sames{"$kind<>$item_no<>"}) {
 			$sub_mes .= qq|<label>| unless $is_mobile;
 			$sub_mes .= qq|<input type="checkbox" name="$count" value="1"|;
@@ -898,11 +898,11 @@ sub checkbox_my_depot_lock_checked {
 }
 
 #=================================================
-# ƒƒbƒNƒAƒCƒeƒ€‚Ìæ“¾
+# ãƒ­ãƒƒã‚¯ã‚¢ã‚¤ãƒ†ãƒ ã®å–å¾—
 #=================================================
 sub get_lock_item {
 	my %lock = ();
-	open my $lfh, "< $this_lock_file" or &error("$this_lock_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $lfh, "< $this_lock_file" or &error("$this_lock_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $line = <$lfh>){
 		chomp $line;
 		$lock{$line}++;
@@ -913,8 +913,8 @@ sub get_lock_item {
 }
 
 #=================================================
-# ‘qŒÉÛ¸Ş
-# add_log("”„‚è‚Ü‚µ‚½", "item1"[, "item2", "item3"])
+# å€‰åº«ï¾›ï½¸ï¾
+# add_log("å£²ã‚Šã¾ã—ãŸ", "item1"[, "item2", "item3"])
 #=================================================
 sub add_log {
 	my $type = shift;
@@ -928,7 +928,7 @@ sub add_log {
 		$s_mes .= "," if @items > 1;
 	}
 	$s_mes = substr($s_mes, 0,  -1) if @items > 1;
-	$s_mes .= "‚ğ$type($tdate)";
+	$s_mes .= "ã‚’$type($tdate)";
 
 	if (-f $this_log) {
 		open my $wfh, "+< $this_log";
@@ -954,15 +954,15 @@ sub add_log {
 }
 
 #=================================================
-# ƒAƒCƒeƒ€ƒf[ƒ^‚Ì•\¦
+# ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿ã®è¡¨ç¤º
 #=================================================
 sub show_item_datas {
 	my ($item_name, $is_lock, $is_over) = @_;
 	my $item_datas = '';
 	$item_datas .= $item_name;
 	$item_datas .= qq|<img src="$icondir/emoji/1f512.png" width="14px" height="14px">| if $is_lock;
-	$item_datas .= ' ˆì‚ê‚Ä‚Ü‚·' if $is_over;
+	$item_datas .= ' æº¢ã‚Œã¦ã¾ã™' if $is_over;
 	return $item_datas;
 }
 
-1; # íœ•s‰Â
+1; # å‰Šé™¤ä¸å¯
