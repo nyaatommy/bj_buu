@@ -1,35 +1,35 @@
-$mes .= qq|•ó¸¼Şy$m{lot}z<br>| if $is_mobile && $m{lot};
+$mes .= qq|å®ï½¸ï½¼ï¾ã€$m{lot}ã€‘<br>| if $is_mobile && $m{lot};
 #================================================
-# •ó‚­‚¶ Created by Merino
+# å®ãã˜ Created by Merino
 #================================================
 
-# •ó‚­‚¶‚Ì’l’i
+# å®ãã˜ã®å€¤æ®µ
 my $need_money = 1000;
 
-# ‰½“ú‚¨‚«‚É“–‘I”­•\‚·‚é‚©(“ú)
+# ä½•æ—¥ãŠãã«å½“é¸ç™ºè¡¨ã™ã‚‹ã‹(æ—¥)
 my $lot_cycle_day = 7;
 
 my $lot_denominator = 100;
 
-# •ŠíÜ‚ÌÜ•i
-my @wea_nos = (5,10,15,20,25,31,32);
+# æ­¦å™¨è³ã®è³å“
+my @wea_nos = (5,10,15,20,25,31,32,35,36);
 my @wea_sub_nos = (4,9,14,19,24);
 
-# ÀÏºŞÜ‚ÌÜ•i
+# ï¾€ï¾ï½ºï¾è³ã®è³å“
 my @egg_nos = (37,38,40);
 my @egg_sub_nos = (3,35,36,39,41);
 
-# Íß¯ÄÜ‚ÌÜ•i
+# ï¾ï¾Ÿï½¯ï¾„è³ã®è³å“
 my @pet_nos = (21,62,63,125,127,168,183);
 my @pet_sub_nos = (7,8,17,18,64,151,184);
 
 
 #================================================
-# —˜—pğŒ
+# åˆ©ç”¨æ¡ä»¶
 #================================================
 sub is_satisfy {
-	if ($w{player} < 30) { # ÌßÚ²Ô°‚ª30l–¢–
-		$mes .= '€”õ’†‚¾‚æ<br>';
+	if ($w{player} < 30) { # ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ãŒ30äººæœªæº€
+		$mes .= 'æº–å‚™ä¸­ã ã‚ˆ<br>';
 		&refresh;
 		&n_menu;
 		return 0;
@@ -39,16 +39,16 @@ sub is_satisfy {
 
 #================================================
 sub begin {
-	open my $fh, "+< $logdir/lot.cgi" or &error('•ó‚­‚¶Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ');
+	open my $fh, "+< $logdir/lot.cgi" or &error('å®ãã˜ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“');
 	eval { flock $fh, 2; };
 	my $line = <$fh>;
 	my($lot_next_time, $round, $atari1,$no1,$no1_sub, $atari2,$no2,$no2_sub, $atari3,$no3,$no3_sub, $atari4,$no4,$no4_sub, $atari5,$no5,$no5_sub, $next_no1,$next_no2,$next_no3,$next_no4,$next_no5, $next_no1_sub,$next_no2_sub,$next_no3_sub,$next_no4_sub,$next_no5_sub) = split /<>/, $line;
 	$round++;
 	$round  = $round > 9 ? 1 : $round;
 	
-	# “–‘I”­•\ŠÔ
+	# å½“é¸ç™ºè¡¨æ™‚é–“
 	if ($time > $lot_next_time) {
-		# •ó‚­‚¶‚ÌŒi•iİ’è
+		# å®ãã˜ã®æ™¯å“è¨­å®š
 		$no1 = $next_no1;
 		$no2 = $next_no2;
 		$no3 = $next_no3;
@@ -82,69 +82,69 @@ sub begin {
 		print $fh "$lot_next_time<>$round<>$atari1<>$no1<>$no1_sub<>$atari2<>$no2<>$no2_sub<>$atari3<>$no3<>$no3_sub<>$atari4<>$no4<>$no4_sub<>$atari5<>$no5<>$no5_sub<>$next_no1<>$next_no2<>$next_no3<>$next_no4<>$next_no5<>$next_no1_sub<>$next_no2_sub<>$next_no3_sub<>$next_no4_sub<>$next_no5_sub<>";
 		close $fh;
 		
-		&write_send_news(qq|<font color="#FFCC00">y•ó‚­‚¶“–‘I”­•\\z<br>•ŠíÜy$atari1z$weas[$no1][1] (‘OŒã$weas[$no1_sub][1])<br>ÀÏºŞÜy$atari2z$eggs[$no2][1] (‘OŒã$eggs[$no2_sub][1])<br>‹à‰İÜy$atari3z$no3 G (‘OŒã$no3_sub G)<br>Íß¯ÄÜy$atari4z$pets[$no4][1] (‘OŒã$pets[$no4_sub][1])<br>º²İÜy$atari5z$no5 º²İ (‘OŒã$no5_sub º²İ)</font>|);
+		&write_send_news(qq|<font color="#FFCC00">ã€å®ãã˜å½“é¸ç™ºè¡¨\ã€‘<br>æ­¦å™¨è³ã€$atari1ã€‘$weas[$no1][1] (å‰å¾Œ$weas[$no1_sub][1])<br>ï¾€ï¾ï½ºï¾è³ã€$atari2ã€‘$eggs[$no2][1] (å‰å¾Œ$eggs[$no2_sub][1])<br>é‡‘è²¨è³ã€$atari3ã€‘$no3 G (å‰å¾Œ$no3_sub G)<br>ï¾ï¾Ÿï½¯ï¾„è³ã€$atari4ã€‘$pets[$no4][1] (å‰å¾Œ$pets[$no4_sub][1])<br>ï½ºï½²ï¾è³ã€$atari5ã€‘$no5 ï½ºï½²ï¾ (å‰å¾Œ$no5_sub ï½ºï½²ï¾)</font>|);
 	}
 	close $fh;
 	
-	# “–‘IÒ‚ª—ˆ‚½‚æÜ•i‚ğ‘—‚é‚æ
+	# å½“é¸è€…ãŒæ¥ãŸã‚ˆè³å“ã‚’é€ã‚‹ã‚ˆ
 	my $mylot = $m{lot};
 	if ($atari1 eq $mylot) {
-		$mes .= "‚¨‚¨!“–‘I‚¨‚ß‚Å‚Æ!Ü•i‚Ì $weas[$no1][1] ‚Í—a‚©‚èŠ‚É‘—‚Á‚Ä‚¨‚¢‚½‚æ<br>";
+		$mes .= "ãŠãŠ!å½“é¸ãŠã‚ã§ã¨!è³å“ã® $weas[$no1][1] ã¯é ã‹ã‚Šæ‰€ã«é€ã£ã¦ãŠã„ãŸã‚ˆ<br>";
 		&send_item($m{name}, 1, $no1, $weas[$no1][4], 10, 1);
-		&write_send_news(qq|$m{name}‚ª•ŠíÜ‚É“–‘I‚µ‚Ü‚µ‚½|);
-		&send_twitter("$m{name}‚ª•ŠíÜ‚É“–‘I‚µ‚Ü‚µ‚½");
+		&write_send_news(qq|$m{name}ãŒæ­¦å™¨è³ã«å½“é¸ã—ã¾ã—ãŸ|);
+		&send_twitter("$m{name}ãŒæ­¦å™¨è³ã«å½“é¸ã—ã¾ã—ãŸ");
 		$m{lot} = '';
 	} elsif ($atari1 == $mylot - 1 || $atari1 == $mylot + 1) {
-		$mes .= "É‚µ‚©‚Á‚½‚Ë!•›Ü‚Ì $weas[$no1_sub][1] ‚Í—a‚©‚èŠ‚É‘—‚Á‚Ä‚¨‚¢‚½‚æ<br>";
+		$mes .= "æƒœã—ã‹ã£ãŸã­!å‰¯è³ã® $weas[$no1_sub][1] ã¯é ã‹ã‚Šæ‰€ã«é€ã£ã¦ãŠã„ãŸã‚ˆ<br>";
 		&send_item($m{name}, 1, $no1_sub, $weas[$no1_sub][4], 10, 1);
-		&send_twitter("$m{name}‚ª•ŠíÜ‚Ì•›Ü‚É“–‘I‚µ‚Ü‚µ‚½");
+		&send_twitter("$m{name}ãŒæ­¦å™¨è³ã®å‰¯è³ã«å½“é¸ã—ã¾ã—ãŸ");
 		$m{lot} = '';
 	}
 	if ($atari2 eq $mylot) {
-		$mes .= "‚¨‚¨!“–‘I‚¨‚ß‚Å‚Æ!Ü•i‚Ì $eggs[$no2][1] ‚Í—a‚©‚èŠ‚É‘—‚Á‚Ä‚¨‚¢‚½‚æ<br>";
+		$mes .= "ãŠãŠ!å½“é¸ãŠã‚ã§ã¨!è³å“ã® $eggs[$no2][1] ã¯é ã‹ã‚Šæ‰€ã«é€ã£ã¦ãŠã„ãŸã‚ˆ<br>";
 		&send_item($m{name}, 2, $no2, 0, 0, 1);
-		&write_send_news(qq|$m{name}‚ªÀÏºŞÜ‚É“–‘I‚µ‚Ü‚µ‚½|);
-		&send_twitter("$m{name}‚ªÀÏºŞÜ‚É“–‘I‚µ‚Ü‚µ‚½");
+		&write_send_news(qq|$m{name}ãŒï¾€ï¾ï½ºï¾è³ã«å½“é¸ã—ã¾ã—ãŸ|);
+		&send_twitter("$m{name}ãŒï¾€ï¾ï½ºï¾è³ã«å½“é¸ã—ã¾ã—ãŸ");
 		$m{lot} = '';
 	} elsif ($atari2 == $mylot - 1 || $atari2 == $mylot + 1) {
-		$mes .= "É‚µ‚©‚Á‚½‚Ë!•›Ü‚Ì $eggs[$no2_sub][1] ‚Í—a‚©‚èŠ‚É‘—‚Á‚Ä‚¨‚¢‚½‚æ<br>";
+		$mes .= "æƒœã—ã‹ã£ãŸã­!å‰¯è³ã® $eggs[$no2_sub][1] ã¯é ã‹ã‚Šæ‰€ã«é€ã£ã¦ãŠã„ãŸã‚ˆ<br>";
 		&send_item($m{name}, 2, $no2_sub, 0, 0, 1);
-		&send_twitter("$m{name}‚ªÀÏºŞÜ‚Ì•›Ü‚É“–‘I‚µ‚Ü‚µ‚½");
+		&send_twitter("$m{name}ãŒï¾€ï¾ï½ºï¾è³ã®å‰¯è³ã«å½“é¸ã—ã¾ã—ãŸ");
 		$m{lot} = '';
 	}
 	if ($atari3 eq $mylot) {
-		$mes .= "‚¨‚¨!“–‘I‚¨‚ß‚Å‚Æ!Ü•i‚Ì $no3 G‚Í‘—‹à‚µ‚Ä‚¨‚¢‚½‚æ<br>";
-		&send_money($m{name}, '•ó‚­‚¶‰®', $no3);
-		&write_send_news(qq|$m{name}‚ª‹à‰İÜ‚É“–‘I‚µ‚Ü‚µ‚½|);
-		&send_twitter("$m{name}‚ª‹à‰İÜ‚É“–‘I‚µ‚Ü‚µ‚½");
+		$mes .= "ãŠãŠ!å½“é¸ãŠã‚ã§ã¨!è³å“ã® $no3 Gã¯é€é‡‘ã—ã¦ãŠã„ãŸã‚ˆ<br>";
+		&send_money($m{name}, 'å®ãã˜å±‹', $no3);
+		&write_send_news(qq|$m{name}ãŒé‡‘è²¨è³ã«å½“é¸ã—ã¾ã—ãŸ|);
+		&send_twitter("$m{name}ãŒé‡‘è²¨è³ã«å½“é¸ã—ã¾ã—ãŸ");
 		$m{lot} = '';
 	} elsif ($atari3 == $mylot - 1 || $atari3 == $mylot + 1) {
-		$mes .= "É‚µ‚©‚Á‚½‚Ë!•›Ü‚Ì $no3_sub G‚Í‘—‹à‚µ‚Ä‚¨‚¢‚½‚æ<br>";
-		&send_money($m{name}, '•ó‚­‚¶‰®', $no3_sub);
-		&send_twitter("$m{name}‚ª‹à‰İÜ‚Ì•›Ü‚É“–‘I‚µ‚Ü‚µ‚½");
+		$mes .= "æƒœã—ã‹ã£ãŸã­!å‰¯è³ã® $no3_sub Gã¯é€é‡‘ã—ã¦ãŠã„ãŸã‚ˆ<br>";
+		&send_money($m{name}, 'å®ãã˜å±‹', $no3_sub);
+		&send_twitter("$m{name}ãŒé‡‘è²¨è³ã®å‰¯è³ã«å½“é¸ã—ã¾ã—ãŸ");
 		$m{lot} = '';
 	}
 	if ($atari4 eq $mylot) {
-		$mes .= "‚¨‚¨!“–‘I‚¨‚ß‚Å‚Æ!Ü•i‚Ì $pets[$no4][1] ‚Í—a‚©‚èŠ‚É‘—‚Á‚Ä‚¨‚¢‚½‚æ<br>";
+		$mes .= "ãŠãŠ!å½“é¸ãŠã‚ã§ã¨!è³å“ã® $pets[$no4][1] ã¯é ã‹ã‚Šæ‰€ã«é€ã£ã¦ãŠã„ãŸã‚ˆ<br>";
 		&send_item($m{name}, 3, $no4, 0, 0, 1);
-		&write_send_news(qq|$m{name}‚ªÍß¯ÄÜ‚É“–‘I‚µ‚Ü‚µ‚½|);
-		&send_twitter("$m{name}‚ªÍß¯ÄÜ‚É“–‘I‚µ‚Ü‚µ‚½");
+		&write_send_news(qq|$m{name}ãŒï¾ï¾Ÿï½¯ï¾„è³ã«å½“é¸ã—ã¾ã—ãŸ|);
+		&send_twitter("$m{name}ãŒï¾ï¾Ÿï½¯ï¾„è³ã«å½“é¸ã—ã¾ã—ãŸ");
 		$m{lot} = '';
 	} elsif ($atari4 == $mylot - 1 || $atari4 == $mylot + 1) {
-		$mes .= "É‚µ‚©‚Á‚½‚Ë!•›Ü‚Ì $pets[$no4_sub][1] ‚Í—a‚©‚èŠ‚É‘—‚Á‚Ä‚¨‚¢‚½‚æ<br>";
+		$mes .= "æƒœã—ã‹ã£ãŸã­!å‰¯è³ã® $pets[$no4_sub][1] ã¯é ã‹ã‚Šæ‰€ã«é€ã£ã¦ãŠã„ãŸã‚ˆ<br>";
 		&send_item($m{name}, 3, $no4_sub, 0, 0, 1);
-		&send_twitter("$m{name}‚ªÍß¯ÄÜ‚Ì•›Ü‚É“–‘I‚µ‚Ü‚µ‚½");
+		&send_twitter("$m{name}ãŒï¾ï¾Ÿï½¯ï¾„è³ã®å‰¯è³ã«å½“é¸ã—ã¾ã—ãŸ");
 		$m{lot} = '';
 	}
 	if ($atari5 eq $mylot) {
-		$mes .= "‚¨‚¨!“–‘I‚¨‚ß‚Å‚Æ!Ü•i‚Ì $no5 º²İ‚ğ‚ ‚°‚é‚Ë<br>";
+		$mes .= "ãŠãŠ!å½“é¸ãŠã‚ã§ã¨!è³å“ã® $no5 ï½ºï½²ï¾ã‚’ã‚ã’ã‚‹ã­<br>";
 		$m{coin} += $no5;
-		&write_send_news(qq|$m{name}‚ªº²İÜ‚É“–‘I‚µ‚Ü‚µ‚½|);
-		&send_twitter("$m{name}‚ªº²İÜ‚É“–‘I‚µ‚Ü‚µ‚½");
+		&write_send_news(qq|$m{name}ãŒï½ºï½²ï¾è³ã«å½“é¸ã—ã¾ã—ãŸ|);
+		&send_twitter("$m{name}ãŒï½ºï½²ï¾è³ã«å½“é¸ã—ã¾ã—ãŸ");
 		$m{lot} = '';
 	} elsif ($atari5 == $mylot - 1 || $atari5 == $mylot + 1) {
-		$mes .= "É‚µ‚©‚Á‚½‚Ë!•›Ü‚Ì $no5_sub º²İ‚ğ‚ ‚°‚é‚Ë<br>";
-		&send_twitter("$m{name}‚ªº²İÜ‚Ì•›Ü‚É“–‘I‚µ‚Ü‚µ‚½");
+		$mes .= "æƒœã—ã‹ã£ãŸã­!å‰¯è³ã® $no5_sub ï½ºï½²ï¾ã‚’ã‚ã’ã‚‹ã­<br>";
+		&send_twitter("$m{name}ãŒï½ºï½²ï¾è³ã®å‰¯è³ã«å½“é¸ã—ã¾ã—ãŸ");
 		$m{coin} += $no5_sub;
 		$m{lot} = '';
 	}
@@ -153,20 +153,20 @@ sub begin {
 	++$lmonth;
 	
 	my $round_old = $round == 1 ? 9 : $round -1;
-	$mes .= qq|<font color="#FFCC00">y‘æ$round_old‰ñ‚Ì“–‘I”Ô†z<br>•ŠíÜy$atari1F$weas[$no1][1] (‘OŒã$weas[$no1_sub][1])z<br>ÀÏºŞÜy$atari2F$eggs[$no2][1] (‘OŒã$eggs[$no2_sub][1])z<br>‹à‰İÜy$atari3F$no3 G (‘OŒã$no3_sub G)z<br>Íß¯ÄÜy$atari4F$pets[$no4][1] (‘OŒã$pets[$no4_sub][1])z<br>º²İÜy$atari5F$no5 º²İ (‘OŒã$no5_sub º²İ)z<br></font>|;
-	$mes .= qq|<font color="#FFCCCC">y‘æ$round‰ñ‚ÌÜ•iz<br>•ŠíÜy$weas[$next_no1][1] (‘OŒã$weas[$next_no1_sub][1])z<br>ÀÏºŞÜy$eggs[$next_no2][1] (‘OŒã$eggs[$next_no2_sub][1])z<br>‹à‰İÜy$next_no3 G (‘OŒã$next_no3_sub G)z<br>Íß¯ÄÜy$pets[$next_no4][1] (‘OŒã$pets[$next_no4_sub][1])z<br>º²İÜy$next_no5 º²İ (‘OŒã$next_no5_sub º²İ)z<br></font>|;
-	$mes .= "•ó‚­‚¶‚Í‚P–‡ $need_money G‚¾‚æ<br>";
-	$mes .= "‘æ$round‰ñ‚Ì“–‘I”­•\\‚Í $lmonthŒ$lday“ú$lhour$lmin•ª ‚¾‚æ<br>";
-	$mes .= 'V‚µ‚¢‚Ì‚ğ”ƒ‚¤ê‡‚ÍA¡‚Á‚Ä‚¢‚é‚­‚¶‚ğˆø‚«æ‚é‚æ<br>' if $m{lot};
+	$mes .= qq|<font color="#FFCC00">ã€ç¬¬$round_oldå›ã®å½“é¸ç•ªå·ã€‘<br>æ­¦å™¨è³ã€$atari1ï¼š$weas[$no1][1] (å‰å¾Œ$weas[$no1_sub][1])ã€‘<br>ï¾€ï¾ï½ºï¾è³ã€$atari2ï¼š$eggs[$no2][1] (å‰å¾Œ$eggs[$no2_sub][1])ã€‘<br>é‡‘è²¨è³ã€$atari3ï¼š$no3 G (å‰å¾Œ$no3_sub G)ã€‘<br>ï¾ï¾Ÿï½¯ï¾„è³ã€$atari4ï¼š$pets[$no4][1] (å‰å¾Œ$pets[$no4_sub][1])ã€‘<br>ï½ºï½²ï¾è³ã€$atari5ï¼š$no5 ï½ºï½²ï¾ (å‰å¾Œ$no5_sub ï½ºï½²ï¾)ã€‘<br></font>|;
+	$mes .= qq|<font color="#FFCCCC">ã€ç¬¬$roundå›ã®è³å“ã€‘<br>æ­¦å™¨è³ã€$weas[$next_no1][1] (å‰å¾Œ$weas[$next_no1_sub][1])ã€‘<br>ï¾€ï¾ï½ºï¾è³ã€$eggs[$next_no2][1] (å‰å¾Œ$eggs[$next_no2_sub][1])ã€‘<br>é‡‘è²¨è³ã€$next_no3 G (å‰å¾Œ$next_no3_sub G)ã€‘<br>ï¾ï¾Ÿï½¯ï¾„è³ã€$pets[$next_no4][1] (å‰å¾Œ$pets[$next_no4_sub][1])ã€‘<br>ï½ºï½²ï¾è³ã€$next_no5 ï½ºï½²ï¾ (å‰å¾Œ$next_no5_sub ï½ºï½²ï¾)ã€‘<br></font>|;
+	$mes .= "å®ãã˜ã¯ï¼‘æš $need_money Gã ã‚ˆ<br>";
+	$mes .= "ç¬¬$roundå›ã®å½“é¸ç™ºè¡¨\ã¯ $lmonthæœˆ$ldayæ—¥$lhouræ™‚$lminåˆ†é ƒã ã‚ˆ<br>";
+	$mes .= 'æ–°ã—ã„ã®ã‚’è²·ã†å ´åˆã¯ã€ä»ŠæŒã£ã¦ã„ã‚‹ãã˜ã‚’å¼•ãå–ã‚‹ã‚ˆ<br>' if $m{lot};
 	
-	&menu('‚â‚ß‚é', '”ƒ‚¤');
+	&menu('ã‚„ã‚ã‚‹', 'è²·ã†');
 }
 
 sub tp_1 {
 	return if &is_ng_cmd(1);
 
 	if ($m{money} >= $need_money) {
-		open my $fh, "< $logdir/lot.cgi" or &error('•ó‚­‚¶Ì§²Ù‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ');
+		open my $fh, "< $logdir/lot.cgi" or &error('å®ãã˜ï¾Œï½§ï½²ï¾™ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“');
 		my $line = <$fh>;
 		close $fh;
 		my($lot_next_time, $round) = (split /<>/, $line)[0..1];
@@ -179,10 +179,10 @@ sub tp_1 {
 		$m{lot} = $round . sprintf("%03d", int(rand($lot_denominator)) );
 		$m{money} -= $need_money;
 		
-		$mes .= "‚Ü‚¢‚Ç!<br>“–‘I”­•\\‚Í $lmonthŒ$lday“ú$lhour$lmin•ª ‚¾‚æ<br>";
+		$mes .= "ã¾ã„ã©!<br>å½“é¸ç™ºè¡¨\ã¯ $lmonthæœˆ$ldayæ—¥$lhouræ™‚$lminåˆ†é ƒã ã‚ˆ<br>";
 	}
 	else {
-		$mes .= "‚¨‹à‚ª‚È‚¯‚ê‚Î–²‚à”ƒ‚¦‚â‚µ‚È‚¢‚æ<br>";
+		$mes .= "ãŠé‡‘ãŒãªã‘ã‚Œã°å¤¢ã‚‚è²·ãˆã‚„ã—ãªã„ã‚ˆ<br>";
 	}
 	&refresh;
 	$m{lib} = 'shopping';
@@ -190,4 +190,4 @@ sub tp_1 {
 }
 
 
-1; # íœ•s‰Â
+1; # å‰Šé™¤ä¸å¯
