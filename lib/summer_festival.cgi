@@ -7,65 +7,65 @@ $this_blog_vote_file = "$logdir/blog_vote.cgi";
 $this_blog_vote_result_file = "$logdir/blog_vote_result.cgi";
 $this_radio_dir = "$logdir/summer_radio";
 #================================================
-# ‰ÄÕ‚è
+# å¤ç¥­ã‚Š
 #=================================================
-# –é“X
+# å¤œåº—
 @shop_list = (
-#    cmd, ¤•i, ‹àŠz
-	[1, 'H‚×•¨', 100000],
-	[2, 'µÊŞ¹¾¯Ä', 100000],
-	[3, '¾Ğ', 50000],
+#    cmd, å•†å“, é‡‘é¡
+	[1, 'é£Ÿã¹ç‰©', 100000],
+	[2, 'ï½µï¾Šï¾ï½¹ï½¾ï½¯ï¾„', 100000],
+	[3, 'ï½¾ï¾', 50000],
 );
 
-# –é“X‚Å”ƒ‚¦‚é‚à‚Ì
+# å¤œåº—ã§è²·ãˆã‚‹ã‚‚ã®
 @shop_items = (
-		#í—Ş,  ”Ô†, ‘Ï‹v’l‚È‚Ç, š, Šm—¦
+		#ç¨®é¡,  ç•ªå·, è€ä¹…å€¤ãªã©, â˜…, ç¢ºç‡
 	[
-		[2,1,0,0,50],		# ×İÀŞÑ´¯¸Ş
-		[2,50,0,0,50],		# Á®º´¯¸Ş
-		[3,23,0,0,10],		# ÓºÓº
-		[3,24,0,0,10],		# ¼°»Ş°
-		[3,65,0,0,10],		# ¸¯·°
-		[3,67,0,0,10],		# ´ËŞ½
-		[3,76,0,0,5],		# ´¯¸ŞÏİ
-		[3,87,0,0,10],		# ÊßİÌß·İ
-		[3,99,0,0,10],		# ½É³
-		[3,104,0,0,10],	# ¼Şİ
-		[3,169,0,0,10],	# Á·İ
-		[3,171,0,0,10],	# ĞÙ¸
+		[2,1,0,0,50],		# ï¾—ï¾ï¾€ï¾ï¾‘ï½´ï½¯ï½¸ï¾
+		[2,50,0,0,50],		# ï¾ï½®ï½ºï½´ï½¯ï½¸ï¾
+		[3,23,0,0,10],		# ï¾“ï½ºï¾“ï½º
+		[3,24,0,0,10],		# ï½¼ï½°ï½»ï¾ï½°
+		[3,65,0,0,10],		# ï½¸ï½¯ï½·ï½°
+		[3,67,0,0,10],		# ï½´ï¾‹ï¾ï½½
+		[3,76,0,0,5],		# ï½´ï½¯ï½¸ï¾ï¾ï¾
+		[3,87,0,0,10],		# ï¾Šï¾Ÿï¾ï¾Œï¾Ÿï½·ï¾
+		[3,99,0,0,10],		# ï½½ï¾‰ï½³
+		[3,104,0,0,10],	# ï½¼ï¾ï¾
+		[3,169,0,0,10],	# ï¾ï½·ï¾
+		[3,171,0,0,10],	# ï¾ï¾™ï½¸
 	],
 );
 
-# •ó‚­‚¶‚Ì’l’i
+# å®ãã˜ã®å€¤æ®µ
 my $lot_money = 1000;
 
-# •ŠíÜ‚ÌÜ•i
-my $wea_no = 33; # Ğ»²Ù
+# æ­¦å™¨è³ã®è³å“
+my $wea_no = 33,37; # ï¾ï½»ï½²ï¾™,ï½»ï¾ƒï¾—ï½²ï¾„
 
-# ÀÏºŞÜ‚ÌÜ•i
-my $egg_no = 54; # À·µİ´¯¸Ş
+# ï¾€ï¾ï½ºï¾è³ã®è³å“
+my $egg_no = 54; # ï¾€ï½·ï½µï¾ï½´ï½¯ï½¸ï¾
 
-# “ú‹L‘åÜÌ†
-my $nikki_shogo = 'š´Æ¯·Ï½À°';
+# æ—¥è¨˜å¤§è³ç§°å·
+my $nikki_shogo = 'â˜…ï½´ï¾†ï½¯ï½·ï¾ï½½ï¾€ï½°';
 
 my @morning_glory_height = (
-	# [0]‚‚³,	[1]ó‘Ô
-	[10000, '‚¦A‚Ç‚±‚Ü‚ÅL‚Ñ‚é‚Ì‚±‚êH'],
-	[300, '‰Ô‚ªç‚¢‚½B‚â‚Á‚½I'],
-	[100, '– ‚ªL‚Ñ‚Ä‚«‚½'],
-	[50, '—t‚ªo‚Ä‚«‚½'],
-	[20, '‰è‚ªo‚Ä‚«‚½'],
+	# [0]é«˜ã•,	[1]çŠ¶æ…‹
+	[10000, 'ãˆã€ã©ã“ã¾ã§ä¼¸ã³ã‚‹ã®ã“ã‚Œï¼Ÿ'],
+	[300, 'èŠ±ãŒå’²ã„ãŸã€‚ã‚„ã£ãŸï¼'],
+	[100, 'è”“ãŒä¼¸ã³ã¦ããŸ'],
+	[50, 'è‘‰ãŒå‡ºã¦ããŸ'],
+	[20, 'èŠ½ãŒå‡ºã¦ããŸ'],
 );
 
 #=================================================
-# —˜—pğŒ
+# åˆ©ç”¨æ¡ä»¶
 #=================================================
 sub is_satisfy {
 	if (&on_summer) {
 		return 1;
 	}
 	else {
-		$mes .= 'Šy‚µ‚¢‚Í‚¸‚Ì‰Ä‹x‚İ‚ÍI‚í‚Á‚½‚ñ‚¾‚Ëc<br>';
+		$mes .= 'æ¥½ã—ã„ã¯ãšã®å¤ä¼‘ã¿ã¯çµ‚ã‚ã£ãŸã‚“ã ã­â€¦<br>';
 		&refresh;
 		&n_menu;
 		return 0;
@@ -74,15 +74,15 @@ sub is_satisfy {
 #================================================
 sub begin {
 	if ($m{tp} > 1) {
-		$mes .= '‘¼‚É‚Ç‚±s‚±‚¤‚©?<br>';
+		$mes .= 'ä»–ã«ã©ã“è¡Œã“ã†ã‹?<br>';
 		$m{tp} = 1;
 	}
 	else {
-		$mes .= '‰ÄÕ‚è‰ïê‚Í‚±‚Á‚¿‚¾‚æ<br>';
-		$mes .= '‰½‚ğ‚µ‚æ‚¤‚©?<br>';
+		$mes .= 'å¤ç¥­ã‚Šä¼šå ´ã¯ã“ã£ã¡ã ã‚ˆ<br>';
+		$mes .= 'ä½•ã‚’ã—ã‚ˆã†ã‹?<br>';
 	}
 	
-	&menu('‚â‚ß‚é','l‹C“Š•[i‹âj', '–é“X', 'ƒTƒ}[ƒWƒƒƒ“ƒ{•ó‚­‚¶', 'ƒ‰ƒaƒI‘Ì‘€', '“ú‹L‚ğ‘‚­', 'ŠÌ‚µ', '•S•¨Œê', '’©Šçˆç¬', 'l‹C“Š•[i‹àj');
+	&menu('ã‚„ã‚ã‚‹','äººæ°—æŠ•ç¥¨ï¼ˆéŠ€ï¼‰', 'å¤œåº—', 'ã‚µãƒãƒ¼ã‚¸ãƒ£ãƒ³ãƒœå®ãã˜', 'ãƒ©ãƒ‚ã‚ªä½“æ“', 'æ—¥è¨˜ã‚’æ›¸ã', 'è‚è©¦ã—', 'ç™¾ç‰©èª', 'æœé¡”è‚²æˆ', 'äººæ°—æŠ•ç¥¨ï¼ˆé‡‘ï¼‰');
 }
 
 sub tp_1 {
@@ -90,20 +90,20 @@ sub tp_1 {
 	$m{tp} = $cmd * 100;
 	
 	if ($cmd eq '1') {
-		$mes .= "“Š•[Œ :$m{pop_vote}•[Š—L";
-		$mes .= "“Š•[Œ ‚ª‚ ‚é•ª‚¾‚¯“Š•[‚Å‚«‚é‚æ!<br>“Š•[Œ ‚Í‚¢‚ë‚ñ‚È‚Æ‚±‚©‚ç‚à‚ç‚¦‚é‚æ!<br>";
-		&menu('‚â‚ß‚é','“Š•[');
+		$mes .= "æŠ•ç¥¨æ¨©:$m{pop_vote}ç¥¨æ‰€æœ‰";
+		$mes .= "æŠ•ç¥¨æ¨©ãŒã‚ã‚‹åˆ†ã ã‘æŠ•ç¥¨ã§ãã‚‹ã‚ˆ!<br>æŠ•ç¥¨æ¨©ã¯ã„ã‚ã‚“ãªã¨ã“ã‹ã‚‰ã‚‚ã‚‰ãˆã‚‹ã‚ˆ!<br>";
+		&menu('ã‚„ã‚ã‚‹','æŠ•ç¥¨');
 	}
 	elsif ($cmd eq '2') {
-		$mes .= "‚±‚ñ‚È‚Æ‚±‚ë‚É–é“X‚ª‚ ‚é‚Ë!‰½‚©”ƒ‚Á‚Ä‚©‚È‚¢?<br>";
-		&menu('‚â‚ß‚é', '”ƒ‚¤');
+		$mes .= "ã“ã‚“ãªã¨ã“ã‚ã«å¤œåº—ãŒã‚ã‚‹ã­!ä½•ã‹è²·ã£ã¦ã‹ãªã„?<br>";
+		&menu('ã‚„ã‚ã‚‹', 'è²·ã†');
 	}
 	elsif ($cmd eq '3') {
-		$mes .= '‚¢‚Â‚à‚æ‚è‹‰Ø‚È•ó‚­‚¶‚¾‚Ë!<br>•K‚¸ˆêl‚Í“–‘I‚·‚é‚ç‚µ‚¢‚æ!<br>';
+		$mes .= 'ã„ã¤ã‚‚ã‚ˆã‚Šè±ªè¯ãªå®ãã˜ã ã­!<br>å¿…ãšä¸€äººã¯å½“é¸ã™ã‚‹ã‚‰ã—ã„ã‚ˆ!<br>';
 		if (-f "$this_lot_name_file") {
 			my @my_num = ();
 			my $lot_amount = 0;
-			open my $fh, "< $this_lot_name_file" or &error('ƒTƒ}[ƒWƒƒƒ“ƒ{ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+			open my $fh, "< $this_lot_name_file" or &error('ã‚µãƒãƒ¼ã‚¸ãƒ£ãƒ³ãƒœãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 			while (my $line = <$fh>) {
 				my($name, $lot_num) = split /<>/, $line;
 
@@ -118,28 +118,28 @@ sub tp_1 {
 			if ($lot_amount) {
 				$mes .= join ",", @my_num;
 				if ($lot_amount >= 5) {
-					$mes .= '‘¼';
+					$mes .= 'ä»–';
 				}
-				$mes .= 'Œv' . $lot_amount . '–‡”ƒ‚Á‚Ä‚¢‚é‚æ';
+				$mes .= 'è¨ˆ' . $lot_amount . 'æšè²·ã£ã¦ã„ã‚‹ã‚ˆ';
 			}
 		}
-		&menu('‚â‚ß‚é', '”ƒ‚¤');
+		&menu('ã‚„ã‚ã‚‹', 'è²·ã†');
 	}
 	elsif ($cmd eq '4') {
-		$mes .= '–ˆ’©6‚É‚È‚é‚Æƒ‰ƒWƒI‘Ì‘€‚â‚Á‚Ä‚é‚ç‚µ‚¢‚æ!<br>ƒXƒ^ƒ“ƒvW‚ß‚æ‚¤!<br>';
-		$mes .= "ƒXƒ^ƒ“ƒvF<br>";
+		$mes .= 'æ¯æœ6æ™‚ã«ãªã‚‹ã¨ãƒ©ã‚¸ã‚ªä½“æ“ã‚„ã£ã¦ã‚‹ã‚‰ã—ã„ã‚ˆ!<br>ã‚¹ã‚¿ãƒ³ãƒ—é›†ã‚ã‚ˆã†!<br>';
+		$mes .= "ã‚¹ã‚¿ãƒ³ãƒ—ï¼š<br>";
 		$mes .= qq|<table class="table2">|;
 		$mes .= qq|<tr>|;
 		for my $d (1..31) {
 			$mes .= qq|<td>|;
-			$mes .= qq|$d“ú:|;
+			$mes .= qq|$dæ—¥:|;
 			if (-f "$this_radio_dir/$d.cgi") {
-				open my $fh, "< $this_radio_dir/$d.cgi" or &error('ƒ‰ƒWƒI‘Ì‘€ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+				open my $fh, "< $this_radio_dir/$d.cgi" or &error('ãƒ©ã‚¸ã‚ªä½“æ“ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 				while (my $line = <$fh>) {
 					my($name, $rtime) = split /<>/, $line;
 
 					if ($name eq $m{name}) {
-						$mes .= qq|›|;
+						$mes .= qq|â—‹|;
 					}
 				}
 				close $fh;
@@ -151,30 +151,30 @@ sub tp_1 {
 		}
 		$mes .= qq|</tr>|;
 		$mes .= qq|</table>|;
-		&menu('‚â‚ß‚é', '‘Ì‘€‚·‚é');
+		&menu('ã‚„ã‚ã‚‹', 'ä½“æ“ã™ã‚‹');
 	}
 	elsif ($cmd eq '5') {
-		$mes .= '¡“ú‚Ìv‚¢o‚ğ“ú‹L‚Éc‚»‚¤!<br>';
+		$mes .= 'ä»Šæ—¥ã®æ€ã„å‡ºã‚’æ—¥è¨˜ã«æ®‹ãã†!<br>';
 		if ($m{summer_blog}) {
-			$mes .= "‘‚¢‚½“ú”F$m{summer_blog}“ú•ª<br>";
+			$mes .= "æ›¸ã„ãŸæ—¥æ•°ï¼š$m{summer_blog}æ—¥åˆ†<br>";
 		}
-		&menu('‚â‚ß‚é', '‘‚­');
+		&menu('ã‚„ã‚ã‚‹', 'æ›¸ã');
 	}
 	elsif ($cmd eq '6') {
-		$mes .= '‘–Ø‚à–°‚é‰NO‚ÂAŠÌ‚µ‚Éo‚©‚¯‚æ‚¤<br>';
-		&menu('‚â‚ß‚é', 's‚­');
+		$mes .= 'è‰æœ¨ã‚‚çœ ã‚‹ä¸‘ä¸‰ã¤æ™‚ã€è‚è©¦ã—ã«å‡ºã‹ã‘ã‚ˆã†<br>';
+		&menu('ã‚„ã‚ã‚‹', 'è¡Œã');
 	}
 	elsif ($cmd eq '7') {
-		$mes .= '‘–Ø‚à–°‚é‰NO‚ÂA‚İ‚ñ‚È‚Å•|‚¢˜b‚ğ‚µ‚æ‚¤<br>';
-		&menu('‚â‚ß‚é', '‚â‚é');
+		$mes .= 'è‰æœ¨ã‚‚çœ ã‚‹ä¸‘ä¸‰ã¤æ™‚ã€ã¿ã‚“ãªã§æ€–ã„è©±ã‚’ã—ã‚ˆã†<br>';
+		&menu('ã‚„ã‚ã‚‹', 'ã‚„ã‚‹');
 	}
 	elsif ($cmd eq '8') {
-		$mes .= '’©Šç‚ğˆç‚Ä‚æ‚¤!<br>';
-		&menu('‚â‚ß‚é', '‚â‚é');
+		$mes .= 'æœé¡”ã‚’è‚²ã¦ã‚ˆã†!<br>';
+		&menu('ã‚„ã‚ã‚‹', 'ã‚„ã‚‹');
 	}
 	elsif ($cmd eq '9') {
-		$mes .= 'ˆêlˆê•[‚Ìl‹C“Š•[!<br>';
-		&menu('‚â‚ß‚é', '“Š•[‚·‚é');
+		$mes .= 'ä¸€äººä¸€ç¥¨ã®äººæ°—æŠ•ç¥¨!<br>';
+		&menu('ã‚„ã‚ã‚‹', 'æŠ•ç¥¨ã™ã‚‹');
 	}
 	else {
 		&begin;
@@ -182,22 +182,22 @@ sub tp_1 {
 }
 
 #=================================================
-# l‹C“Š•[
+# äººæ°—æŠ•ç¥¨
 #=================================================
 sub tp_100 {
 	return if &is_ng_cmd(1);
 	
 	if ($m{pop_vote} > 0) {
-		$mes .= '’N‚É“Š•[‚µ‚æ‚¤‚©?<br>';
-		$mes .= qq|<form method="$method" action="$script"><p>“Š•[‘ŠèF<input type="text" name="vote_name" class="text_box1"></p>|;
-		$mes .= qq|<input type="radio" name="cmd" value="0">‚â‚ß‚é<br>|;
-		$mes .= qq|<input type="radio" name="cmd" value="1" checked>“Š•[‚·‚é<br>|;
-		$mes .= qq|<input type="text" name="num" value="1" class="text_box1"/>•[<br>|;
+		$mes .= 'èª°ã«æŠ•ç¥¨ã—ã‚ˆã†ã‹?<br>';
+		$mes .= qq|<form method="$method" action="$script"><p>æŠ•ç¥¨ç›¸æ‰‹ï¼š<input type="text" name="vote_name" class="text_box1"></p>|;
+		$mes .= qq|<input type="radio" name="cmd" value="0">ã‚„ã‚ã‚‹<br>|;
+		$mes .= qq|<input type="radio" name="cmd" value="1" checked>æŠ•ç¥¨ã™ã‚‹<br>|;
+		$mes .= qq|<input type="text" name="num" value="1" class="text_box1"/>ç¥¨<br>|;
 		$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-		$mes .= qq|<p><input type="submit" value="“Š•[" class="button1"></p></form>|;
+		$mes .= qq|<p><input type="submit" value="æŠ•ç¥¨" class="button1"></p></form>|;
 		$m{tp} += 10;
 	} else {
-		$mes .= '“Š•[Œ ‚ª‚È‚¢‚æc<br>';
+		$mes .= 'æŠ•ç¥¨æ¨©ãŒãªã„ã‚ˆâ€¦<br>';
 		&begin;
 	}
 }
@@ -205,12 +205,12 @@ sub tp_100 {
 sub tp_110 {
 	return if &is_ng_cmd(1);
 	if ($in{vote_name} eq '') {
-		$mes .= '“Š•[æ‚ª‹L“ü‚³‚ê‚Ä‚È‚¢‚æ<br>';
+		$mes .= 'æŠ•ç¥¨å…ˆãŒè¨˜å…¥ã•ã‚Œã¦ãªã„ã‚ˆ<br>';
 		&begin;
 		return;
 	}
 	if ($in{vote_name} eq $m{name}) {
-		$mes .= '©•ª‚É‚Í“Š•[‚Å‚«‚È‚¢‚æ<br>';
+		$mes .= 'è‡ªåˆ†ã«ã¯æŠ•ç¥¨ã§ããªã„ã‚ˆ<br>';
 		&begin;
 		return;
 	}
@@ -221,7 +221,7 @@ sub tp_110 {
 	if (-f "$userdir/$vote_id/user.cgi") {
 		my @lines = ();
 		my $is_find = 0;
-		open my $fh, "+< $this_vote_file" or &error('l‹C“Š•[ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+		open my $fh, "+< $this_vote_file" or &error('äººæ°—æŠ•ç¥¨ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 		eval { flock $fh, 2 };
 		while (my $line = <$fh>) {
 			my($name, $vote) = split /<>/, $line;
@@ -241,11 +241,11 @@ sub tp_110 {
 		print $fh @lines;
 		close $fh;
 		$m{pop_vote} -= $vote_num;
-		$mes .= "$in{vote_name} ‚³‚ñ‚É $vote_num •[“ü‚ê‚½‚—‚—‚—‚—‚—<br>";
+		$mes .= "$in{vote_name} ã•ã‚“ã« $vote_num ç¥¨å…¥ã‚ŒãŸï½—ï½—ï½—ï½—ï½—<br>";
 		&refresh;
 		&n_menu;
 	} else {
-		$mes .= '’N‚»‚ê?<br>';
+		$mes .= 'èª°ãã‚Œ?<br>';
 		&begin;
 		return;
 	}
@@ -254,17 +254,17 @@ sub tp_110 {
 
 
 #=================================================
-# –é“X
+# å¤œåº—
 #=================================================
 sub tp_200 {
 	return if &is_ng_cmd(1);
 	$layout = 1;
-	$mes .= '‰½”ƒ‚¨‚Á‚©H<br>';
+	$mes .= 'ä½•è²·ãŠã£ã‹ï¼Ÿ<br>';
 	
 	$mes .= qq|<form method="$method" action="$script">|;
-	$mes .= qq|<input type="radio" name="cmd" value="0" checked>‚â‚ß‚é<br>|;
- 	$mes .= $is_mobile ? qq|<hr>¤•i/‹àŠz<br>|
- 		: qq|<table class="table1" cellpadding="3"><tr><th>¤•i</th><th>‹àŠz<br></th>|;
+	$mes .= qq|<input type="radio" name="cmd" value="0" checked>ã‚„ã‚ã‚‹<br>|;
+ 	$mes .= $is_mobile ? qq|<hr>å•†å“/é‡‘é¡<br>|
+ 		: qq|<table class="table1" cellpadding="3"><tr><th>å•†å“</th><th>é‡‘é¡<br></th>|;
 
 	for my $shop_ref (@shop_list) {
 		my @shop = @$shop_ref;
@@ -274,7 +274,7 @@ sub tp_200 {
 	
 	$mes .= qq|</table>| unless $is_mobile;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="”ƒ‚¤" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="è²·ã†" class="button1"></p></form>|;
 	
 	$m{tp} += 10;
 }
@@ -304,11 +304,11 @@ sub tp_210 {
 								  : $item[0] eq '3' ? "$pets[$item[1]][1]"
 								  : 				  "$guas[$item[1]][1]"
 								  ;
-							$mes .= '‚ğ”ƒ‚Á‚½‚æ!';
+							$mes .= 'ã‚’è²·ã£ãŸã‚ˆ!';
 							&send_item($m{name}, $item[0],$item[1],$item[2],$item[3],1);
 							my $v = int(rand(100) + 1);
 							$m{pop_vote} += $v;
-							$mes .= "“Š•[Œ ‚ğ$v–‡‚à‚ç‚Á‚½‚æ";
+							$mes .= "æŠ•ç¥¨æ¨©ã‚’$væšã‚‚ã‚‰ã£ãŸã‚ˆ";
 						}
 						last;
 					}
@@ -325,37 +325,37 @@ sub tp_210 {
 				$m{money} -= $money;
 				$m{pet} = $pets[$pet_index][0];
 				$m{pet_c} = $pets[$pet_index][5];
-				$mes .= '‚æ‚­—‡‚Á‚Ä‚é‚ºII<br>';
+				$mes .= 'ã‚ˆãä¼¼åˆã£ã¦ã‚‹ãœï¼ï¼<br>';
 				my $v = int(rand($money*0.001) + 1);
 				$m{pop_vote} += $v;
-				$mes .= "“Š•[Œ ‚ğ$v–‡‚à‚ç‚Á‚½‚æ";
+				$mes .= "æŠ•ç¥¨æ¨©ã‚’$væšã‚‚ã‚‰ã£ãŸã‚ˆ";
 			}
 			else {
-				$mes .= '‚æ‚­Œ©‚Ä‚İ‚ëI@ƒ[ƒj‚ª‘«‚è‚Ë‚¥‚ºII<br>';
+				$mes .= 'ã‚ˆãè¦‹ã¦ã¿ã‚ï¼ã€€ã‚¼ãƒ‹ãŒè¶³ã‚Šã­ã‡ãœï¼ï¼<br>';
 			}
 		}
 		else {
-			$mes .= '‚Ü‚¸‚Í‚»‚Ì˜A‚ê‚Ä‚¢‚éÍß¯Ä‚ğ’u‚¢‚Ä‚«‚ÈI<br>';
+			$mes .= 'ã¾ãšã¯ãã®é€£ã‚Œã¦ã„ã‚‹ï¾ï¾Ÿï½¯ï¾„ã‚’ç½®ã„ã¦ããªï¼<br>';
 		}
 	}
 	else {
-		$mes .= '‚â‚ß‚Ü‚µ‚½<br>';
+		$mes .= 'ã‚„ã‚ã¾ã—ãŸ<br>';
 	}
 	
 	&begin;
 }
 #=================================================
-# ƒTƒ}[ƒWƒƒƒ“ƒ{•ó‚­‚¶
+# ã‚µãƒãƒ¼ã‚¸ãƒ£ãƒ³ãƒœå®ãã˜
 #=================================================
 sub tp_300 {
 	return if &is_ng_cmd(1);
 	
 	if ($m{money} >= $lot_money) {
 		unless(-f "$this_lot_file"){
-			open my $fh, "> $this_lot_file" or &error('•ó‚­‚¶Ì§²Ù‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ');
+			open my $fh, "> $this_lot_file" or &error('å®ãã˜ï¾Œï½§ï½²ï¾™ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“');
 			close $fh;
 		}
-		open my $fh, "+< $this_lot_file" or &error('•ó‚­‚¶Ì§²Ù‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ');
+		open my $fh, "+< $this_lot_file" or &error('å®ãã˜ï¾Œï½§ï½²ï¾™ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“');
 		eval { flock $fh, 2 };
 		$line = <$fh>;
 		my($max_lot) = split /<>/, $line;
@@ -367,25 +367,25 @@ sub tp_300 {
 		close $fh;
 
 		my $lot_num = sprintf("%06d", $max_lot);
-		open my $fhn, ">> $this_lot_name_file" or &error('•ó‚­‚¶Ì§²Ù‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ');
+		open my $fhn, ">> $this_lot_name_file" or &error('å®ãã˜ï¾Œï½§ï½²ï¾™ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“');
 		print $fhn "$m{name}<>$lot_num<>\n";
 		close $fhn;
 		
 		$m{money} -= $lot_money;
 		if (rand(2) < 1) {
 			$m{pop_vote}++;
-			$mes .= "“Š•[Œ ‚ğ‚à‚ç‚Á‚½‚æ";
+			$mes .= "æŠ•ç¥¨æ¨©ã‚’ã‚‚ã‚‰ã£ãŸã‚ˆ";
 		}
-		$mes .= "“–‚½‚é‚Æ‚¢‚¢‚Ë!<br>";
+		$mes .= "å½“ãŸã‚‹ã¨ã„ã„ã­!<br>";
 	}
 	else {
-		$mes .= "‚¨‹à‚ª‘«‚è‚È‚¢c<br>";
+		$mes .= "ãŠé‡‘ãŒè¶³ã‚Šãªã„â€¦<br>";
 	}
 	&begin;
 }
 
 #=================================================
-# ƒ‰ƒWƒI‘Ì‘€
+# ãƒ©ã‚¸ã‚ªä½“æ“
 #=================================================
 sub tp_400 {
 	return if &is_ng_cmd(1);
@@ -393,50 +393,50 @@ sub tp_400 {
 	my ($sec,$min,$hour,$mday,$month,$year,$wday,$stime) = localtime($time); 
 	if ($hour eq '6') {
 		if ($m{radio_time} + 23 * 3600 < $time) {
-			mkdir "$this_radio_dir" or &error("$this_radio_dir Ì«ÙÀŞ‚ªì‚ê‚Ü‚¹‚ñ‚Å‚µ‚½") unless -d "$this_radio_dir";
-			$mes .= '‰^“®‚µ‚½‚æA‚Í‚Ÿ‚¢‚¢Š¾‚©‚¢‚½‚Ë!';
-			open my $fh, ">> $this_radio_dir/$mday.cgi" or &error('ƒ‰ƒWƒI‘Ì‘€Ì§²Ù‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ');
+			mkdir "$this_radio_dir" or &error("$this_radio_dir ï¾Œï½«ï¾™ï¾€ï¾ãŒä½œã‚Œã¾ã›ã‚“ã§ã—ãŸ") unless -d "$this_radio_dir";
+			$mes .= 'é‹å‹•ã—ãŸã‚ˆã€ã¯ãã„ã„æ±—ã‹ã„ãŸã­!';
+			open my $fh, ">> $this_radio_dir/$mday.cgi" or &error('ãƒ©ã‚¸ã‚ªä½“æ“ï¾Œï½§ï½²ï¾™ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“');
 			print $fh "$m{name}<>$time<>\n";
 			close $fh;
 			$m{radio_time} = $time;
 			$m{act} = 0;
 			my $v = int(rand(100) + 1);
 			$m{pop_vote} += $v;
-			$mes .= "“Š•[Œ ‚ğ$v–‡‚à‚ç‚Á‚½‚æ";
+			$mes .= "æŠ•ç¥¨æ¨©ã‚’$væšã‚‚ã‚‰ã£ãŸã‚ˆ";
 		} else {
-			$mes .= '¡“ú‚Í‚à‚¤ƒXƒ^ƒ“ƒv–á‚Á‚½‚æ';
+			$mes .= 'ä»Šæ—¥ã¯ã‚‚ã†ã‚¹ã‚¿ãƒ³ãƒ—è²°ã£ãŸã‚ˆ';
 		}
 	} else {
-		$mes .= 'ƒ‰ƒWƒI‘Ì‘€‚Í’©6‚ÌŠÔ‚µ‚©‚Å‚«‚È‚¢‚İ‚½‚¢c<br>';
+		$mes .= 'ãƒ©ã‚¸ã‚ªä½“æ“ã¯æœ6æ™‚ã®é–“ã—ã‹ã§ããªã„ã¿ãŸã„â€¦<br>';
 	}
 	&begin;
 }
 
 #=================================================
-# ŠG“ú‹L
+# çµµæ—¥è¨˜
 #=================================================
 sub tp_500 {
 	return if &is_ng_cmd(1);
 	$layout = 2;
 	if (&time_to_date($time) ne &time_to_date($m{blog_time})) {
-		$mes .= qq|¡“ú‚Ìv‚¢o‚ğ“ú‹L‚Éc‚»‚¤!<br>|;
+		$mes .= qq|ä»Šæ—¥ã®æ€ã„å‡ºã‚’æ—¥è¨˜ã«æ®‹ãã†!<br>|;
 		$mes .= qq|<form method="$method" action="blog.cgi">|;
 		$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-		$mes .= qq|<input type="submit" value="“ú‹L" class="button1"></form>|;
+		$mes .= qq|<input type="submit" value="æ—¥è¨˜" class="button1"></form>|;
 	} else {
-		$mes .= '¡“ú‚Ì“ú‹L‚Í‚à‚¤‘‚¢‚½‚æ!<br>';
+		$mes .= 'ä»Šæ—¥ã®æ—¥è¨˜ã¯ã‚‚ã†æ›¸ã„ãŸã‚ˆ!<br>';
 	}
 	my ($sec,$min,$hour,$mday,$month,$year,$wday,$stime) = localtime($time); 
 	if ($wday eq '0') {
-		$mes .= qq|¡T‚Ì“ú‹L‘åÜ‚ğŒˆ‚ß‚æ‚¤!<br>|;
+		$mes .= qq|ä»Šé€±ã®æ—¥è¨˜å¤§è³ã‚’æ±ºã‚ã‚ˆã†!<br>|;
 
 		my $index = 0;
-		opendir my $dh, "$userdir" or &error("Õ°»Ş°ÃŞ¨Ú¸ÄØ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		opendir my $dh, "$userdir" or &error("ï¾•ï½°ï½»ï¾ï½°ï¾ƒï¾ï½¨ï¾šï½¸ï¾„ï¾˜ãŒé–‹ã‘ã¾ã›ã‚“");
 		while (my $user_id = readdir $dh) {
 			next if $user_id =~ /\./;
 			
 			if (-f "$userdir/$user_id/blog.cgi") {
-				open my $fh, "< $userdir/$user_id/blog.cgi" or &error("‚»‚Ì‚æ‚¤‚È“ú‹L‚Í‘¶İ‚µ‚Ü‚¹‚ñ");
+				open my $fh, "< $userdir/$user_id/blog.cgi" or &error("ãã®ã‚ˆã†ãªæ—¥è¨˜ã¯å­˜åœ¨ã—ã¾ã›ã‚“");
 				while (my $line = <$fh>) {
 					$line =~ tr/\x0D\x0A//d;
 					my($btime,$bdate,$bname,$bcountry,$bshogo,$baddr,$bcomment,$bicon,@bcomments) = split /<>/, $line;
@@ -444,9 +444,9 @@ sub tp_500 {
 						$bcomment = join "<br>", @bcomment_arr;
 						if ($is_mobile) {
 							if ($index >= $m{stock} && $index < $m{stock} + 20) {
-								$mes .= qq|<hr>w$baddrx$bname‚Ì“ú‹L<br>$bcomment|;
+								$mes .= qq|<hr>ã€$baddrã€$bnameã®æ—¥è¨˜<br>$bcomment|;
 								$mes .= qq|<form method="$method" action="$script">|;
-								$mes .= qq|<input type="hidden" name="cmd" value="$user_id:$btime:"><input type="submit" value="‚±‚Ì“ú‹L‚É“Š•[" class="button1">|;
+								$mes .= qq|<input type="hidden" name="cmd" value="$user_id:$btime:"><input type="submit" value="ã“ã®æ—¥è¨˜ã«æŠ•ç¥¨" class="button1">|;
 								$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
 								$mes .= qq|</form>|;
 								$mes .= qq|<hr><br>|;
@@ -454,9 +454,9 @@ sub tp_500 {
 						}
 						else {
 							$mes .= qq|<table class="table1" cellpadding="5" width="440">|;
-							$mes .= qq|<tr><td>w$baddrx$bname‚Ì“ú‹L$bcomment</td>|;
+							$mes .= qq|<tr><td>ã€$baddrã€$bnameã®æ—¥è¨˜$bcomment</td>|;
 							$mes .= qq|<td><form method="$method" action="$script">|;
-							$mes .= qq|<input type="hidden" name="cmd" value="$user_id:$btime:"><input type="submit" value="‚±‚Ì“ú‹L‚É“Š•[" class="button1">|;
+							$mes .= qq|<input type="hidden" name="cmd" value="$user_id:$btime:"><input type="submit" value="ã“ã®æ—¥è¨˜ã«æŠ•ç¥¨" class="button1">|;
 							$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
 							$mes .= qq|</form></td></tr>|;
 							$mes .= qq|</table><br>|;
@@ -470,11 +470,11 @@ sub tp_500 {
 		closedir $dh;
 		if ($is_mobile) {
 			$mes .= qq|<form method="$method" action="$script">|;
-			$mes .= qq|<input type="hidden" name="cmd" value="0"><input type="hidden" name="mode" value="prev"><input type="submit" value="‘O‚Ö" class="button1">|;
+			$mes .= qq|<input type="hidden" name="cmd" value="0"><input type="hidden" name="mode" value="prev"><input type="submit" value="å‰ã¸" class="button1">|;
 			$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
 			$mes .= qq|</form>|;
 			$mes .= qq|<form method="$method" action="$script">|;
-			$mes .= qq|<input type="hidden" name="cmd" value="0"><input type="hidden" name="mode" value="next"><input type="submit" value="Ÿ‚Ö" class="button1">|;
+			$mes .= qq|<input type="hidden" name="cmd" value="0"><input type="hidden" name="mode" value="next"><input type="submit" value="æ¬¡ã¸" class="button1">|;
 			$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
 			$mes .= qq|</form>|;
 		}
@@ -484,10 +484,10 @@ sub tp_500 {
 	} else {
 		my $is_find = 0;
 		unless(-f "$this_blog_vote_result_file"){
-			open my $fh, "> $this_blog_vote_result_file" or &error('“ú‹L“Š•[Œ‹‰Êƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+			open my $fh, "> $this_blog_vote_result_file" or &error('æ—¥è¨˜æŠ•ç¥¨çµæœãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 			close $fh;
 		}
-		open my $fh, "+< $this_blog_vote_result_file" or &error('“ú‹L“Š•[Œ‹‰Êƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+		open my $fh, "+< $this_blog_vote_result_file" or &error('æ—¥è¨˜æŠ•ç¥¨çµæœãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 		eval { flock $fh, 2 };
 		while (my $line = <$fh>) {
 			my($name, $date) = split /<>/, $line;
@@ -498,12 +498,12 @@ sub tp_500 {
 			push @lines, "$name<>$date<>\n";
 		}
 		unless(-f "$this_blog_vote_file"){
-			open my $vfh, "> $this_blog_vote_file" or &error('“ú‹L“Š•[ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+			open my $vfh, "> $this_blog_vote_file" or &error('æ—¥è¨˜æŠ•ç¥¨ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 			close $vfh;
 		}
 		unless ($is_find) {
 			%votes = ();
-			open my $vfh, "< $this_blog_vote_file" or &error('“ú‹L“Š•[ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+			open my $vfh, "< $this_blog_vote_file" or &error('æ—¥è¨˜æŠ•ç¥¨ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 			while (my $line = <$vfh>) {
 				my($name, $vote) = split /<>/, $line;
 				my ($user_id, $btime) = split /:/, $vote;
@@ -523,7 +523,7 @@ sub tp_500 {
 			}
 			$max_name = pack 'H*', $max_id;
 			&regist_you_data($max_name, 'shogo', $nikki_shogo);
-			&write_send_news("¡T‚Ì“ú‹L‘åÜ‚Í$max_name‚³‚ñ‚Å‚·");
+			&write_send_news("ä»Šé€±ã®æ—¥è¨˜å¤§è³ã¯$max_nameã•ã‚“ã§ã™");
 			
 			$vote_date = &time_to_date($time - $wday * 24 * 3600);
 			push @lines, "$max_id<>$vote_date<>\n";
@@ -563,10 +563,10 @@ sub tp_510 {
 			my @lines = ();
 			my $is_find = 0;
 			unless(-f "$this_blog_vote_file"){
-				open my $fh, "> $this_blog_vote_file" or &error('“ú‹L“Š•[ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+				open my $fh, "> $this_blog_vote_file" or &error('æ—¥è¨˜æŠ•ç¥¨ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 				close $fh;
 			}
-			open my $fh, "+< $this_blog_vote_file" or &error('“ú‹L“Š•[ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+			open my $fh, "+< $this_blog_vote_file" or &error('æ—¥è¨˜æŠ•ç¥¨ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 			eval { flock $fh, 2 };
 			while (my $line = <$fh>) {
 				my($name, $vote) = split /<>/, $line;
@@ -606,7 +606,7 @@ sub tp_510 {
 }
 
 #=================================================
-# ŠÌ‚µ
+# è‚è©¦ã—
 #=================================================
 sub tp_600 {
 	return if &is_ng_cmd(1);
@@ -616,13 +616,13 @@ sub tp_600 {
 }
 
 #=================================================
-# •S•¨Œê
+# ç™¾ç‰©èª
 #=================================================
 sub tp_700 {
 	return if &is_ng_cmd(1);
-	$mes .= '‚Ù‚©‚Ìl‚Ì˜b‚ğ•·‚¢‚½‚èA©•ª‚Å˜b‚µ‚½‚è‚Å‚«‚é‚æ<br>';
+	$mes .= 'ã»ã‹ã®äººã®è©±ã‚’èã„ãŸã‚Šã€è‡ªåˆ†ã§è©±ã—ãŸã‚Šã§ãã‚‹ã‚ˆ<br>';
 	$m{tp} += 10;
-	&menu('‚â‚ß‚é','Œê‚é', '•·‚­');
+	&menu('ã‚„ã‚ã‚‹','èªã‚‹', 'èã');
 }
 
 sub tp_710 {
@@ -630,10 +630,10 @@ sub tp_710 {
 		$layout = 2;
 		if ($cmd eq '1') {
 			$mes .= qq|<form method="$method" action="$script"><textarea name="comment"></textarea>|;
-			$mes .= qq|<input type="radio" name="cmd" value="0">‚â‚ß‚é<br>|;
-			$mes .= qq|<input type="radio" name="cmd" value="1" checked>Œê‚é<br>|;
+			$mes .= qq|<input type="radio" name="cmd" value="0">ã‚„ã‚ã‚‹<br>|;
+			$mes .= qq|<input type="radio" name="cmd" value="1" checked>èªã‚‹<br>|;
 			$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-			$mes .= qq|<input type="submit" value="Œê‚é" class="button1"></form>|;
+			$mes .= qq|<input type="submit" value="èªã‚‹" class="button1"></form>|;
 		}
 		my $index = 0;
 		open my $fh, "< $this_horror_story_file";
@@ -647,17 +647,17 @@ sub tp_710 {
 			if ($m{stock} <= $index && $m{stock} + 10 > $index) {
 				$mes .= $story;
 				$mes .= qq|<br>|;
-				$mes .= qq|²²!:$goodn ²¸Å²!:$badn|;
+				$mes .= qq|ï½²ï½²!:$goodn ï½²ï½¸ï¾…ï½²!:$badn|;
 				$mes .= qq|<form method="$method" action="$script">|;
 				$mes .= qq|<input type="hidden" name="cmd" value="2">|;
 				$mes .= qq|<input type="hidden" name="index" value="$index">|;
 				$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-				$mes .= qq|<input type="submit" value="²²!" class="button1"></form>|;
+				$mes .= qq|<input type="submit" value="ï½²ï½²!" class="button1"></form>|;
 				$mes .= qq|<form method="$method" action="$script">|;
 				$mes .= qq|<input type="hidden" name="cmd" value="3">|;
 				$mes .= qq|<input type="hidden" name="index" value="$index">|;
 				$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-				$mes .= qq|<input type="submit" value="²¸Å²!" class="button1"></form>|;
+				$mes .= qq|<input type="submit" value="ï½²ï½¸ï¾…ï½²!" class="button1"></form>|;
 				$mes .= '<hr>';
 			}
 		}
@@ -665,11 +665,11 @@ sub tp_710 {
 		$mes .= qq|<form method="$method" action="$script">|;
 		$mes .= qq|<input type="hidden" name="cmd" value="4">|;
 		$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-		$mes .= qq|<input type="submit" value="‘O‚Ö" class="button1"></form>|;
+		$mes .= qq|<input type="submit" value="å‰ã¸" class="button1"></form>|;
 		$mes .= qq|<form method="$method" action="$script">|;
 		$mes .= qq|<input type="hidden" name="cmd" value="5">|;
 		$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-		$mes .= qq|<input type="submit" value="Ÿ‚Ö" class="button1"></form>|;
+		$mes .= qq|<input type="submit" value="æ¬¡ã¸" class="button1"></form>|;
 		$m{tp} += 10;
 		&n_menu;
 	} else {
@@ -682,7 +682,7 @@ sub tp_720 {
 		if ($cmd eq '1') {
 			my ($sec,$min,$hour,$mday,$month,$year,$wday,$stime) = localtime($time); 
 			if ($hour < 1 || $hour > 3) {
-				$mes .= "Œê‚éŠÔ‚¶‚á‚È‚¢‚Ë<br>";
+				$mes .= "èªã‚‹æ™‚é–“ã˜ã‚ƒãªã„ã­<br>";
 				&begin;
 				return;
 			}
@@ -771,12 +771,12 @@ sub tp_720 {
 }
 
 #=================================================
-# ’©Šçˆç¬
+# æœé¡”è‚²æˆ
 #=================================================
 sub tp_800 {
 	return if &is_ng_cmd(1);
 	$m{tp} += 10;
-	&menu('‹A‚é', '…‚ğ‚â‚é', '”ì—¿‚ğ‚â‚é', '‘¼‚Ì’©Šç‚ğŒ©‚é');
+	&menu('å¸°ã‚‹', 'æ°´ã‚’ã‚„ã‚‹', 'è‚¥æ–™ã‚’ã‚„ã‚‹', 'ä»–ã®æœé¡”ã‚’è¦‹ã‚‹');
 }
 
 sub tp_810 {
@@ -788,7 +788,7 @@ sub tp_810 {
 		$m{morning_glory} += 5;
 		$m{morning_glory_time} = $time;
 	}
-	$mes .= "Œ»İ‚Ì‚‚³:$m{morning_glory}mm<br>";
+	$mes .= "ç¾åœ¨ã®é«˜ã•:$m{morning_glory}mm<br>";
 	for my $hi (0..$#morning_glory_height) {
 		if ($m{morning_glory} >= $morning_glory_heigh[$hi][0]) {
 			$mes .= $morning_glory_heigh[$hi][1] . '<br>';
@@ -801,15 +801,15 @@ sub tp_810 {
 			&{'tp_' . $m{tp}};
 			return;
 		}
-		if ($cmd eq '1' && $eggs[$m{egg}][1] =~ /³«°À°/) {
-			$mes .= '…‚ğ’©Šç‚É‚ ‚°‚½‚æ';
+		if ($cmd eq '1' && $eggs[$m{egg}][1] =~ /ï½³ï½«ï½°ï¾€ï½°/) {
+			$mes .= 'æ°´ã‚’æœé¡”ã«ã‚ã’ãŸã‚ˆ';
 			$m{egg} = 0;
 			$m{morning_glory} *= 2;
 		}
 		if ($cmd eq '2' && $m{pet} > 0) {
-			$mes .= $pets[$m{pet}][1] . '‚ğ’©Šç‚É‚ ‚°‚é‚æ';
+			$mes .= $pets[$m{pet}][1] . 'ã‚’æœé¡”ã«ã‚ã’ã‚‹ã‚ˆ';
 			$m{tp} += 10;
-			&menu('‚¢‚¢‚¦', '‚Í‚¢');
+			&menu('ã„ã„ãˆ', 'ã¯ã„');
 			return;
 		}
 	}
@@ -818,7 +818,7 @@ sub tp_810 {
 
 sub tp_820 {
 	if ($cmd && $m{pet} > 0) {
-		$mes .= $pets[$m{pet}][1] . '‚ğ’©Šç‚É‚ ‚°‚½‚æ';
+		$mes .= $pets[$m{pet}][1] . 'ã‚’æœé¡”ã«ã‚ã’ãŸã‚ˆ';
 		&remove_pet;
 		$m{morning_glory} += 5;
 	}
@@ -828,7 +828,7 @@ sub tp_820 {
 sub tp_830 {
 	my @list = ();
 	
-	opendir my $dh, "$userdir" or &error("Õ°»Ş°ÃŞ¨Ú¸ÄØ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	opendir my $dh, "$userdir" or &error("ï¾•ï½°ï½»ï¾ï½°ï¾ƒï¾ï½¨ï¾šï½¸ï¾„ï¾˜ãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $pid = readdir $dh) {
 		next if $pid =~ /\./;
 		next if $pid =~ /backup/;
@@ -848,7 +848,7 @@ sub tp_830 {
 		if ($i > 10 && $last_height != $height) {
 			last;
 		}
-		$mes .= "$iˆÊ $name‚³‚ñ‚Ì’©ŠçF$height mm";
+		$mes .= "$iä½ $nameã•ã‚“ã®æœé¡”ï¼š$height mm";
 		for my $hi (@morning_glory_height) {
 			if ($height >= $$hi[0]) {
 				$mes .= $$hi[1] . '<br>';
@@ -863,29 +863,29 @@ sub tp_830 {
 }
 
 #=================================================
-# l‹C“Š•[
+# äººæ°—æŠ•ç¥¨
 #=================================================
 sub tp_900 {
 	return if &is_ng_cmd(1);
 	
-	$mes .= '’N‚É“Š•[‚µ‚æ‚¤‚©?<br>';
-	$mes .= qq|<form method="$method" action="$script"><p>“Š•[‘ŠèF<input type="text" name="vote_name" class="text_box1"></p>|;
-	$mes .= qq|<input type="radio" name="cmd" value="0">‚â‚ß‚é<br>|;
-	$mes .= qq|<input type="radio" name="cmd" value="1" checked>“Š•[‚·‚é<br>|;
+	$mes .= 'èª°ã«æŠ•ç¥¨ã—ã‚ˆã†ã‹?<br>';
+	$mes .= qq|<form method="$method" action="$script"><p>æŠ•ç¥¨ç›¸æ‰‹ï¼š<input type="text" name="vote_name" class="text_box1"></p>|;
+	$mes .= qq|<input type="radio" name="cmd" value="0">ã‚„ã‚ã‚‹<br>|;
+	$mes .= qq|<input type="radio" name="cmd" value="1" checked>æŠ•ç¥¨ã™ã‚‹<br>|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="“Š•[" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="æŠ•ç¥¨" class="button1"></p></form>|;
 	$m{tp} += 10;
 }
 
 sub tp_910 {
 	return if &is_ng_cmd(1);
 	if ($in{vote_name} eq '') {
-		$mes .= '“Š•[æ‚ª‹L“ü‚³‚ê‚Ä‚È‚¢‚æ<br>';
+		$mes .= 'æŠ•ç¥¨å…ˆãŒè¨˜å…¥ã•ã‚Œã¦ãªã„ã‚ˆ<br>';
 		&begin;
 		return;
 	}
 	if ($in{vote_name} eq $m{name}) {
-		$mes .= '©•ª‚É‚Í“Š•[‚Å‚«‚È‚¢‚æ<br>';
+		$mes .= 'è‡ªåˆ†ã«ã¯æŠ•ç¥¨ã§ããªã„ã‚ˆ<br>';
 		&begin;
 		return;
 	}
@@ -896,10 +896,10 @@ sub tp_910 {
 		my @lines = ();
 		my $is_find = 0;
 		unless (-f "$this_vote2_file") {
-			open my $fh, "> $this_vote2_file" or &error('l‹C“Š•[ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+			open my $fh, "> $this_vote2_file" or &error('äººæ°—æŠ•ç¥¨ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 			close $fh;
 		}
-		open my $fh, "+< $this_vote2_file" or &error('l‹C“Š•[ƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñ');
+		open my $fh, "+< $this_vote2_file" or &error('äººæ°—æŠ•ç¥¨ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“');
 		eval { flock $fh, 2 };
 		while (my $line = <$fh>) {
 			my($pop_name, $vote_name) = split /<>/, $line;
@@ -918,14 +918,14 @@ sub tp_910 {
 		truncate $fh, 0;
 		print $fh @lines;
 		close $fh;
-		$mes .= "$in{vote_name} ‚³‚ñ‚É“Š•[‚µ‚½<br>";
+		$mes .= "$in{vote_name} ã•ã‚“ã«æŠ•ç¥¨ã—ãŸ<br>";
 		&refresh;
 		&n_menu;
 	} else {
-		$mes .= '’N‚»‚ê?<br>';
+		$mes .= 'èª°ãã‚Œ?<br>';
 		&begin;
 		return;
 	}
 }
 
-1; # íœ•s‰Â
+1; # å‰Šé™¤ä¸å¯
