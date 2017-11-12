@@ -1,29 +1,29 @@
 require "$datadir/skill.cgi";
 require "$datadir/pet.cgi";
 #=================================================
-# ½Ã°À½‰æ–Ê Created by Merino
+# ï½½ï¾ƒï½°ï¾€ï½½ç”»é¢ Created by Merino
 #=================================================
 
-# ÒÆ­° ’Ç‰Á/•ÏX/íœ/•À‚×‘Ö‚¦‰Â”\
+# ï¾’ï¾†ï½­ï½° â—è¿½åŠ /å¤‰æ›´/å‰Šé™¤/ä¸¦ã¹æ›¿ãˆå¯èƒ½
 my @menus = (
-	['‚â‚ß‚é',		'main'],
-	['½ÀİÌß’ ',		'myself_stamp'],
-	['ºÚ¸¼®İÙ°Ñ',	'myself_collection'],
-	['½·ÙŒp³',		'myself_skill'],
-	['Ì†‚ğ•ÏX',	'myself_shogo'],
-	['¾ØÌ‚ğ•ÏX',	'myself_mes'],
-	['©ŒÈĞ‰î',	'myself_profile'],
-	['¤l‚Ì‚¨“X',	'myself_shop'],
-	['ˆá–@ƒJƒWƒm',	'myself_casino'],
-	['Ï²Ëß¸Á¬',		'myself_picture'],
-	['Ï²ÌŞ¯¸',		'myself_book'],
-	['¤l‚Ì‹âs',	'myself_bank'],
-	['ŒÂlİ’è',	'myself_config'],
-	['ÊŞ¯¸±¯Ìß',	'myself_backup'],
+	['ã‚„ã‚ã‚‹',		'main'],
+	['ï½½ï¾€ï¾ï¾Œï¾Ÿå¸³',		'myself_stamp'],
+	['ï½ºï¾šï½¸ï½¼ï½®ï¾ï¾™ï½°ï¾‘',	'myself_collection'],
+	['ï½½ï½·ï¾™ç¶™æ‰¿',		'myself_skill'],
+	['ç§°å·ã‚’å¤‰æ›´',	'myself_shogo'],
+	['ï½¾ï¾˜ï¾Œã‚’å¤‰æ›´',	'myself_mes'],
+	['è‡ªå·±ç´¹ä»‹',	'myself_profile'],
+	['å•†äººã®ãŠåº—',	'myself_shop'],
+	['é•æ³•ã‚«ã‚¸ãƒ',	'myself_casino'],
+	['ï¾ï½²ï¾‹ï¾Ÿï½¸ï¾ï½¬',		'myself_picture'],
+	['ï¾ï½²ï¾Œï¾ï½¯ï½¸',		'myself_book'],
+	['å•†äººã®éŠ€è¡Œ',	'myself_bank'],
+	['å€‹äººè¨­å®š',	'myself_config'],
+	['ï¾Šï¾ï½¯ï½¸ï½±ï½¯ï¾Œï¾Ÿ',	'myself_backup'],
 );
 
 if ($m{valid_blacklist}) {
-	push @menus, ['ÌŞ×Ø', 'myself_blacklist'];
+	push @menus, ['ï¾Œï¾ï¾—ï¾˜', 'myself_blacklist'];
 }
 
 #================================================
@@ -37,33 +37,33 @@ sub begin {
 	&menu(map{ $_->[0] }@menus);
 }
 sub tp_1 {
-	# uÏ²Ù°Ñv‚ğŠJ‚¢‚ÄTOP‚É–ß‚èƒƒOƒCƒ“‚·‚é‚Æ“ä‚Ì‹óŠÔ‚É‹²‚Ü‚éiÒ²İ‰æ–Ê‚É‚¢‚é‚ªÒ²İ‰æ–Ê‚ª’†“r”¼’[B‹²‚Ü‚éj
-	# ‘¼‚Ì lib ‚Í is_ng_cmd ‚ÅºÏİÄŞ‰˜õ‚³‚ê‚Ä‚¢‚½‚ç begin ‚ğÀs‚·‚é‚½‚ß–â‘è‚Í‚È‚¢‚ªAÏ²Ù°Ñ‚Í begin ‚ğŒÄ‚ñ‚Å‚¢‚È‚©‚Á‚½‚½‚ßƒoƒO‚Á‚Ä‚½
-	# is_ng_cmd ‚ÅÁª¯¸‚Å‚«‚È‚¢ºÏİÄŞ‚È‚Ì‚ÅA‚Æ‚è‚ ‚¦‚¸ºÏİÄŞ‚ª–¢“ü—Í‚È‚ç‰˜õ‚³‚ê‚Ä‚¢‚é‚Æ‘z’è‚µ begin ‚ğÀs
-	# ‚±‚ÌC³‘O‚Ì˜b‚©‚ÂA‚±‚ÌC³‚Å’¼‚é‚Æ‚Ív‚¦‚È‚¢‚ªAÏ²Ù°Ñ‚É“ü‚Á‚½ó‘Ô‚ÅƒXƒ}ƒz‚ğÄ‹N“®‚µ‚ÄƒƒOƒCƒ“‚µ‚½‚ç begin ŠÖ”–¢’è‹`ƒGƒ‰[‚ª”­¶‚µ‚½‚Æ‚¢‚¤•ñ‚ ‚è
-	unless ($in{mode}) { # Ï²Ù°Ñ—p‚ÌºÏİÄŞ‰˜õÁª¯¸i’†g‚ª‚È‚¢ƒCƒR[ƒ‹‰˜õj
-		return if &is_ng_cmd(1..$#menus); # Ï²Ù°Ñ—p‚ÌºÏİÄŞ‚Æ’Êí‚ÌºÏİÄŞ‚Ç‚¿‚ç‚à‰˜õ‚³‚ê‚Ä‚¢‚é
-		&b_menu(@menus); # Ï²Ù°Ñ—p‚ÌºÏİÄŞ‚Í‰˜õ‚³‚ê‚Ä‚¢‚é‚ªA’Êí‚ÌºÏİÄŞ‚Í‰˜õ‚³‚ê‚Ä‚¢‚È‚¢
+	# ã€Œï¾ï½²ï¾™ï½°ï¾‘ã€ã‚’é–‹ã„ã¦TOPã«æˆ»ã‚Šãƒ­ã‚°ã‚¤ãƒ³ã™ã‚‹ã¨è¬ã®ç©ºé–“ã«æŒŸã¾ã‚‹ï¼ˆï¾’ï½²ï¾ç”»é¢ã«ã„ã‚‹ãŒï¾’ï½²ï¾ç”»é¢ãŒä¸­é€”åŠç«¯ã€‚æŒŸã¾ã‚‹ï¼‰
+	# ä»–ã® lib ã¯ is_ng_cmd ã§ï½ºï¾ï¾ï¾„ï¾æ±šæŸ“ã•ã‚Œã¦ã„ãŸã‚‰ begin ã‚’å®Ÿè¡Œã™ã‚‹ãŸã‚å•é¡Œã¯ãªã„ãŒã€ï¾ï½²ï¾™ï½°ï¾‘ã¯ begin ã‚’å‘¼ã‚“ã§ã„ãªã‹ã£ãŸãŸã‚ãƒã‚°ã£ã¦ãŸ
+	# is_ng_cmd ã§ï¾ï½ªï½¯ï½¸ã§ããªã„ï½ºï¾ï¾ï¾„ï¾ãªã®ã§ã€ã¨ã‚Šã‚ãˆãšï½ºï¾ï¾ï¾„ï¾ãŒæœªå…¥åŠ›ãªã‚‰æ±šæŸ“ã•ã‚Œã¦ã„ã‚‹ã¨æƒ³å®šã— begin ã‚’å®Ÿè¡Œ
+	# ã“ã®ä¿®æ­£å‰ã®è©±ã‹ã¤ã€ã“ã®ä¿®æ­£ã§ç›´ã‚‹ã¨ã¯æ€ãˆãªã„ãŒã€ï¾ï½²ï¾™ï½°ï¾‘ã«å…¥ã£ãŸçŠ¶æ…‹ã§ã‚¹ãƒãƒ›ã‚’å†èµ·å‹•ã—ã¦ãƒ­ã‚°ã‚¤ãƒ³ã—ãŸã‚‰ begin é–¢æ•°æœªå®šç¾©ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸã¨ã„ã†å ±å‘Šã‚ã‚Š
+	unless ($in{mode}) { # ï¾ï½²ï¾™ï½°ï¾‘ç”¨ã®ï½ºï¾ï¾ï¾„ï¾æ±šæŸ“ï¾ï½ªï½¯ï½¸ï¼ˆä¸­èº«ãŒãªã„ã‚¤ã‚³ãƒ¼ãƒ«æ±šæŸ“ï¼‰
+		return if &is_ng_cmd(1..$#menus); # ï¾ï½²ï¾™ï½°ï¾‘ç”¨ã®ï½ºï¾ï¾ï¾„ï¾ã¨é€šå¸¸ã®ï½ºï¾ï¾ï¾„ï¾ã©ã¡ã‚‰ã‚‚æ±šæŸ“ã•ã‚Œã¦ã„ã‚‹
+		&b_menu(@menus); # ï¾ï½²ï¾™ï½°ï¾‘ç”¨ã®ï½ºï¾ï¾ï¾„ï¾ã¯æ±šæŸ“ã•ã‚Œã¦ã„ã‚‹ãŒã€é€šå¸¸ã®ï½ºï¾ï¾ï¾„ï¾ã¯æ±šæŸ“ã•ã‚Œã¦ã„ãªã„
 		return;
 	}
 
-	# Íß¯Äg—p
+	# ï¾ï¾Ÿï½¯ï¾„ä½¿ç”¨
 	if ($in{mode} eq 'use_pet' && $m{pet} && ($pets[$m{pet}][2] eq 'myself' || ($m{pet} == 31 && &is_ceo))) {
 		&refresh;
 		&n_menu;
 
 		require './lib/_use_pet_log.cgi';
 
-		# ÏÓÉÉÀÈ‚Ìê‡
+		# ï¾ï¾“ï¾‰ï¾‰ï¾€ï¾ˆã®å ´åˆ
 		if ($m{pet} >= 128 && $m{pet} <= 130) {
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍA$m{name}‚Ì‚±‚Æ‚ğ‚¶‚Á‚ÆŒ©‚Ä‚¢‚éc<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€$m{name}ã®ã“ã¨ã‚’ã˜ã£ã¨è¦‹ã¦ã„ã‚‹â€¦<br>";
 			$m{lib} = 'add_monster';
 			$m{tp}  = 100;
 		}
 		elsif ($m{pet} == 168){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍAˆÙŸŒ³‚Ö‚Ì”à‚ğŠJ‚¢‚½<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€ç•°æ¬¡å…ƒã¸ã®æ‰‰ã‚’é–‹ã„ãŸ<br>";
 			open my $fh, "> $userdir/$id/upload_token.cgi";
 			close $fh;
 
@@ -72,10 +72,10 @@ sub tp_1 {
 		}
 		elsif ($m{pet} == 177){
 			if ($m{act} >= 100) {
-				$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍA$m{name}‚ğ˜S–‚Ö‚Æ—U‚¨‚¤‚Æ‚µ‚½‚ª”æ‚ê‚Ä‚¢‚½‚Ì‚Å’f‚Á‚½<br>";
+				$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€$m{name}ã‚’ç‰¢ç„ã¸ã¨èª˜ãŠã†ã¨ã—ãŸãŒç–²ã‚Œã¦ã„ãŸã®ã§æ–­ã£ãŸ<br>";
 			}else {
 				&write_use_pet_log($id, $m{pet});
-				$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍA$m{name}‚ğ˜S–‚Ö‚Æ—U‚Á‚½<br>";
+				$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€$m{name}ã‚’ç‰¢ç„ã¸ã¨èª˜ã£ãŸ<br>";
 
 				$m{lib} = 'prison';
 				$m{tp}  = 300;
@@ -83,62 +83,62 @@ sub tp_1 {
 		}
 		elsif ($m{pet} == 175){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍA±²ºİ‚É‚¢‚½‚¸‚ç‚ğdŠ|‚¯‚æ‚¤‚Æ‚µ‚½<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€ï½±ï½²ï½ºï¾ã«ã„ãŸãšã‚‰ã‚’ä»•æ›ã‘ã‚ˆã†ã¨ã—ãŸ<br>";
 
 			$m{lib} = 'trick';
 			$m{tp}  = 100;
 		}
 		elsif ($m{pet} == 176){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍAÌ†‚É‚¢‚½‚¸‚ç‚ğdŠ|‚¯‚æ‚¤‚Æ‚µ‚½<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€ç§°å·ã«ã„ãŸãšã‚‰ã‚’ä»•æ›ã‘ã‚ˆã†ã¨ã—ãŸ<br>";
 
 			$m{lib} = 'trick';
 			$m{tp}  = 200;
 		}
 		elsif ($m{pet} == 185){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍAà•z‚É‚¢‚½‚¸‚ç‚ğdŠ|‚¯‚æ‚¤‚Æ‚µ‚½<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€è²¡å¸ƒã«ã„ãŸãšã‚‰ã‚’ä»•æ›ã‘ã‚ˆã†ã¨ã—ãŸ<br>";
 
 			$m{lib} = 'trick';
 			$m{tp}  = 300;
 		}
 		elsif ($m{pet} == 186){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍAº‚ğo‚¹‚È‚¢‚æ‚¤‚É‚µ‚æ‚¤‚Æ‚µ‚½<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€å£°ã‚’å‡ºã›ãªã„ã‚ˆã†ã«ã—ã‚ˆã†ã¨ã—ãŸ<br>";
 
 			$m{lib} = 'trick';
 			$m{tp}  = 400;
 		}
 		elsif ($m{pet} == 188){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍA‘¼‚Ì‘‚©‚ç—L—p‚ÈlŞ‚ğˆø‚«”²‚±‚¤‚Æ‚µ‚½<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€ä»–ã®å›½ã‹ã‚‰æœ‰ç”¨ãªäººæã‚’å¼•ãæŠœã“ã†ã¨ã—ãŸ<br>";
 
 			$m{lib} = 'trick';
 			$m{tp}  = 500;
 		}
 		elsif ($m{pet} == 189){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍA‘S‘‚É•·‚±‚¦‚é‚­‚ç‚¢‘å‚«‚Èº‚Å‹©‚ñ‚¾<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€å…¨å›½ã«èã“ãˆã‚‹ãã‚‰ã„å¤§ããªå£°ã§å«ã‚“ã <br>";
 
 			$m{lib} = 'trick';
 			$m{tp}  = 600;
 		}
 		elsif ($m{pet} == 190){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍA‚ ‚¾–¼‚ğ‚Â‚¯‚½<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€ã‚ã åã‚’ã¤ã‘ãŸ<br>";
 
 			$m{lib} = 'trick';
 			$m{tp}  = 700;
 		}
 		elsif ($m{pet} == 191){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍA¢ŠE‚Éˆê‚Â‚¾‚¯‚Ì•Ší‚ğŒ©‚Â‚¯‚½<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€ä¸–ç•Œã«ä¸€ã¤ã ã‘ã®æ­¦å™¨ã‚’è¦‹ã¤ã‘ãŸ<br>";
 
 			$m{lib} = 'trick';
 			$m{tp}  = 800;
 		}
 		elsif ($m{pet} == 31 && $m{country} && &is_ceo){
-			$mes .= "ƒ|ƒbƒ|ƒbƒ|[‚—‚—‚—ƒnƒgƒ|ƒbƒ|[‚—‚—‚—‚—‚—‚—<br>";
+			$mes .= "ãƒãƒƒãƒãƒƒãƒãƒ¼ï½—ï½—ï½—ãƒãƒˆãƒãƒƒãƒãƒ¼ï½—ï½—ï½—ï½—ï½—ï½—<br>";
 			if ($cs{strong}[$m{country}] >= 15000 && !$cs{is_die}[$m{country}]) {
 				my $total = 1000;
 				for my $i (1..$w{country}) {
@@ -156,27 +156,27 @@ sub tp_1 {
 				open my $fh, "< $logdir/$m{country}/member.cgi";
 				while (my $player = <$fh>) {
 					$player =~ tr/\x0D\x0A//d;
-					# “¯‚¶–¼‘O‚Ìl‚ª•¡”‚¢‚éê‡
+					# åŒã˜åå‰ã®äººãŒè¤‡æ•°ã„ã‚‹å ´åˆ
 					next if ++$sames{$player} > 1;
 					&regist_you_data($player,'next_salary',$time);
 				}
 				close $fh;
 				$m{next_salary} = $time;
-				&mes_and_world_news("<b>$cs{name}[$m{country}]‚Í$cs{name}[$m{country}]l‚¾‚¯‚ÌŠ—L•¨‚Å‚Í‚È‚¢</b>");
+				&mes_and_world_news("<b>$cs{name}[$m{country}]ã¯$cs{name}[$m{country}]äººã ã‘ã®æ‰€æœ‰ç‰©ã§ã¯ãªã„</b>");
 			} else {
-				$mes .= "”„‚é‚¾‚¯‚Ì‘—Í‚Æ‚©‚È‚¢‚©‚ç‚—‚—‚—‚—‚—<br>";
+				$mes .= "å£²ã‚‹ã ã‘ã®å›½åŠ›ã¨ã‹ãªã„ã‹ã‚‰ï½—ï½—ï½—ï½—ï½—<br>";
 			}
 		}
 		elsif ($m{pet} == 198){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍA•Ï‚ÈŒê”ö‚ğ•t‚¯‚æ‚¤‚Æ‚µ‚Ä‚¢‚é<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€å¤‰ãªèªå°¾ã‚’ä»˜ã‘ã‚ˆã†ã¨ã—ã¦ã„ã‚‹<br>";
 
 			$m{lib} = 'trick';
 			$m{tp}  = 900;
 		}
 		elsif ($m{pet} == 201){
 			&write_use_pet_log($id, $m{pet});
-			$mes .= "$pets[$m{pet}][1]š$m{pet_c}‚ÍA•—à‚Ì—¬•z‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚é<br>";
+			$mes .= "$pets[$m{pet}][1]â˜…$m{pet_c}ã¯ã€é¢¨èª¬ã®æµå¸ƒã—ã‚ˆã†ã¨ã—ã¦ã„ã‚‹<br>";
 
 			$m{lib} = 'trick';
 			$m{tp}  = 1000;
@@ -196,10 +196,10 @@ sub tp_1 {
 				&write_use_pet_log($id, $m{pet});
 				&{ $pets[$m{pet}][3] };
 				if ($m{pet} > 0) {
-					$mes .= "–ğ–Ú‚ğI‚¦‚½ $pets[$m{pet}][1]š$m{pet_c} ‚ÍŒõ‚Ì”Ş•û‚ÖÁ‚¦‚Ä‚¢‚Á‚½c<br>$pets[$m{pet}][1]š$m{pet_c}@É¼<br>";
+					$mes .= "å½¹ç›®ã‚’çµ‚ãˆãŸ $pets[$m{pet}][1]â˜…$m{pet_c} ã¯å…‰ã®å½¼æ–¹ã¸æ¶ˆãˆã¦ã„ã£ãŸâ€¦<br>$pets[$m{pet}][1]â˜…$m{pet_c}ã€€ï¾‰ï½¼<br>";
 				}
 				else {
-					$mes .= "–ğ–Ú‚ğI‚¦‚½ $pets[$m{pet}][1] ‚ÍŒõ‚Ì”Ş•û‚ÖÁ‚¦‚Ä‚¢‚Á‚½c<br>$pets[$m{pet}][1]@É¼<br>";
+					$mes .= "å½¹ç›®ã‚’çµ‚ãˆãŸ $pets[$m{pet}][1] ã¯å…‰ã®å½¼æ–¹ã¸æ¶ˆãˆã¦ã„ã£ãŸâ€¦<br>$pets[$m{pet}][1]ã€€ï¾‰ï½¼<br>";
 				}
 				&remove_pet;
 			}
@@ -208,7 +208,7 @@ sub tp_1 {
 		require './lib/fate.cgi';
 		if ($in{luxury}) {
 			&super_attack('luxury');
-			$mes .= "•KE‹Z‚Ìİ’è‚ğ‰ğœ‚µ‚Ü‚µ‚½<br>Äİ’è‚Í $coolhour ŠÔŒã‚É‚Å‚«‚Ü‚·";
+			$mes .= "å¿…æ®ºæŠ€ã®è¨­å®šã‚’è§£é™¤ã—ã¾ã—ãŸ<br>å†è¨­å®šã¯ $coolhour æ™‚é–“å¾Œã«ã§ãã¾ã™";
 		} else {
 			&super_attack('myroom');
 		}
@@ -218,7 +218,7 @@ sub tp_1 {
 		if ($in{voice}) {
 			require './lib/fate.cgi';
 			if (&regist_attack($in{trigger}, $in{timing}, $in{demerit}, $in{max_count}, $in{effect}, $in{voice}, $in{random})) {
-				$mes .= '•KE‹Z‚ğİ’è‚µ‚Ü‚µ‚½B';
+				$mes .= 'å¿…æ®ºæŠ€ã‚’è¨­å®šã—ã¾ã—ãŸã€‚';
 				&refresh;
 				&n_menu;
 				return;
@@ -234,7 +234,7 @@ sub tp_1 {
 
 
 #================================================
-# Œg‘Ñ—p½Ã°À½•\¦
+# æºå¸¯ç”¨ï½½ï¾ƒï½°ï¾€ï½½è¡¨ç¤º
 #================================================
 sub my_status_mobile {
 	my $war_c   = $m{win_c} + $m{lose_c} + $m{draw_c};
@@ -242,7 +242,7 @@ sub my_status_mobile {
 	
 	my $skill_info = '';
 	for my $m_skill (split /,/, $m{skills}) {
-		$skill_info .= "[$skills[$m_skill][2]]$skills[$m_skill][1] Á”ï$e2j{mp} $skills[$m_skill][3]<br>";
+		$skill_info .= "[$skills[$m_skill][2]]$skills[$m_skill][1] æ¶ˆè²»$e2j{mp} $skills[$m_skill][3]<br>";
 	}
 
 	my $sub_at  = '';
@@ -251,66 +251,68 @@ sub my_status_mobile {
 	my $sub_ag  = '';
 	if ($m{wea}) {
 		my $wname = $m{wea_name} ? $m{wea_name} : $weas[$m{wea}][1];
-		$mes .= qq|y•Šíî•ñz<br><ul>|;
-		$mes .= qq|<li>–¼‘O:$wname|;
-		$mes .= qq|<li>‘®«:$weas[$m{wea}][2]|;
-		$mes .= qq|<li>‹­‚³:$weas[$m{wea}][3]|;
-		$mes .= qq|<li>‘Ï‹v:$weas[$m{wea}][4]|;
-		$mes .= qq|<li>d‚³:$weas[$m{wea}][5]</ul><hr>|;
-		if    ($weas[$m{wea}][2] =~ /–³|Œ•|•€|‘„/) { $sub_at  = "+$weas[$m{wea}][3]"; $sub_ag = "-$weas[$m{wea}][5]"; }
-		elsif ($weas[$m{wea}][2] =~ /•—|‰Š|—‹/)    { $sub_mat = "+$weas[$m{wea}][3]"; $sub_ag = "-$weas[$m{wea}][5]"; }
+		$mes .= qq|ã€æ­¦å™¨æƒ…å ±ã€‘<br><ul>|;
+		$mes .= qq|<li>åå‰:$wname|;
+		$mes .= qq|<li>å±æ€§:$weas[$m{wea}][2]|;
+		$mes .= qq|<li>å¼·ã•:$weas[$m{wea}][3]|;
+		$mes .= qq|<li>è€ä¹…:$weas[$m{wea}][4]|;
+		$mes .= qq|<li>é‡ã•:$weas[$m{wea}][5]</ul><hr>|;
+		if    ($weas[$m{wea}][2] =~ /ç„¡|å‰£|æ–§|æ§/) { $sub_at  = "+$weas[$m{wea}][3]"; $sub_ag = "-$weas[$m{wea}][5]"; }
+		elsif ($weas[$m{wea}][2] =~ /é¢¨|ç‚|é›·|éŠƒ/)    { $sub_mat = "+$weas[$m{wea}][3]"; $sub_ag = "-$weas[$m{wea}][5]"; }
 
 		my $m_min_wea;
-		if ($weas[$m{wea}][2] eq 'Œ•') {
+		if ($weas[$m{wea}][2] eq 'å‰£') {
 			$m_min_wea = 1;
-		} elsif($weas[$m{wea}][2] eq '‘„') {
+		} elsif($weas[$m{wea}][2] eq 'æ§') {
 			$m_min_wea = 6;
-		} elsif($weas[$m{wea}][2] eq '•€') {
+		} elsif($weas[$m{wea}][2] eq 'æ–§') {
 			$m_min_wea = 11;
-		} elsif($weas[$m{wea}][2] eq '‰Š') {
+		} elsif($weas[$m{wea}][2] eq 'ç‚') {
 			$m_min_wea = 16;
-		} elsif($weas[$m{wea}][2] eq '•—') {
+		} elsif($weas[$m{wea}][2] eq 'é¢¨') {
 			$m_min_wea = 21;
-		} elsif($weas[$m{wea}][2] eq '—‹') {
+		} elsif($weas[$m{wea}][2] eq 'é›·') {
 			$m_min_wea = 26;
 		} elsif($m{wea} == 0) {
 			$m_min_wea = 0;
 		} else {
 			$m_min_wea = 33;
+		} elsif($weas[$m{wea}][2] eq 'éŠƒ') {
+			$m_min_wea = 34;
 		}
 		$m_wea_modify = $weas[$m{wea}][5] - $weas[$m_min_wea][5];
-		$m_wea_modify = 100 if ($m{wea} == 14) || ($m{wea} == 32);
-		$m_wea_modify = 0 if ($m{wea} == 31);
+		$m_wea_modify = 100 if ($m{wea} == 14) || ($m{wea} == 32) || ($m{wea} == 35);
+		$m_wea_modify = 0 if ($m{wea} == 31)|| ($m{wea} == 34);
 		$sub_lea = ($m_wea_modify >= 0) ? "+$m_wea_modify" : "-".abs($m_wea_modify);
 	}
 	else {
 		$sub_lea = "-100";
 	}
 	if ($m{gua}) {
-		$mes .= qq|y–h‹ïî•ñz<br><ul>|;
-		$mes .= qq|<li>–¼‘O:$guas[$m{gua}][1]|;
-		$mes .= qq|<li>‘®«:$guas[$m{gua}][2]|;
-		$mes .= qq|<li>‹­‚³:$guas[$m{gua}][3]|;
-		$mes .= qq|<li>‘Ï‹v:$guas[$m{gua}][4]|;
-		$mes .= qq|<li>d‚³:$guas[$m{gua}][5]</ul><hr>|;
-		if    ($guas[$m{gua}][2] =~ /–³|Œ•|•€|‘„/) { $sub_df  = "+$guas[$m{gua}][3]"; $sub_ag .= "-$guas[$m{gua}][5]"; }
-		elsif ($guas[$m{gua}][2] =~ /•—|‰Š|—‹/)    { $sub_mdf = "+$guas[$m{gua}][3]"; $sub_ag .= "-$guas[$m{gua}][5]"; }
+		$mes .= qq|ã€é˜²å…·æƒ…å ±ã€‘<br><ul>|;
+		$mes .= qq|<li>åå‰:$guas[$m{gua}][1]|;
+		$mes .= qq|<li>å±æ€§:$guas[$m{gua}][2]|;
+		$mes .= qq|<li>å¼·ã•:$guas[$m{gua}][3]|;
+		$mes .= qq|<li>è€ä¹…:$guas[$m{gua}][4]|;
+		$mes .= qq|<li>é‡ã•:$guas[$m{gua}][5]</ul><hr>|;
+		if    ($guas[$m{gua}][2] =~ /ç„¡|å‰£|æ–§|æ§/) { $sub_df  = "+$guas[$m{gua}][3]"; $sub_ag .= "-$guas[$m{gua}][5]"; }
+		elsif ($guas[$m{gua}][2] =~ /é¢¨|ç‚|é›·|éŠƒ/)    { $sub_mdf = "+$guas[$m{gua}][3]"; $sub_ag .= "-$guas[$m{gua}][5]"; }
 	}
 	
 	if ($m{pet}) {
-		my $pet_c = $m{pet} > 0 ? "š$m{pet_c}" : "($m{pet_c}/$pets[$m{pet}][5])";
-		$mes .= qq|yÍß¯Äî•ñz<br><ul>|;
-		$mes .= qq|<li>–¼‘O:$pets[$m{pet}][1]$pet_c|;
-		$mes .= qq|<li>Œø‰Ê:$pet_effects[$m{pet}]|;
+		my $pet_c = $m{pet} > 0 ? "â˜…$m{pet_c}" : "($m{pet_c}/$pets[$m{pet}][5])";
+		$mes .= qq|ã€ï¾ï¾Ÿï½¯ï¾„æƒ…å ±ã€‘<br><ul>|;
+		$mes .= qq|<li>åå‰:$pets[$m{pet}][1]$pet_c|;
+		$mes .= qq|<li>åŠ¹æœ:$pet_effects[$m{pet}]|;
 		if($pet_sub_effects[$m{pet}]){
-			$mes .= qq|<li>’Ç‰ÁŒø‰Ê:$pet_sub_effects[$m{pet}]|;
+			$mes .= qq|<li>è¿½åŠ åŠ¹æœ:$pet_sub_effects[$m{pet}]|;
 		}
 		$mes .= qq|</ul>|;
 		if ($pets[$m{pet}][2] eq 'myself') {
 			$mes .= qq|<br><form method="$method" action="$script">|;
 			$mes .= qq|<input type="hidden" name="mode" value="use_pet">|;
 			$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-			$mes .= qq|<input type="submit" value="Íß¯Ä‚ğg—p‚·‚é" class="button1"></form>|;
+			$mes .= qq|<input type="submit" value="ï¾ï¾Ÿï½¯ï¾„ã‚’ä½¿ç”¨ã™ã‚‹" class="button1"></form>|;
 		}
 		$mes .= qq|<hr>|;
 	}
@@ -322,40 +324,40 @@ sub my_status_mobile {
 	}
 	my $m_st = &m_st;
 	$mes .=<<"EOM";
-		<b>$m{sedai}</b>¢‘ã–Ú<br>
+		<b>$m{sedai}</b>ä¸–ä»£ç›®<br>
 		$sexes[ $m{sex} ] [$jobs[$m{job}][1]][$seeds{$m{seed}}[0]]<br>
-		ŒMÍ <b>$m{medal}</b>ŒÂ<br>
-		¶¼ŞÉº²İ <b>$m{coin}</b>–‡<br>
-		•ó¸¼Şy$m{lot}z<br>
+		å‹²ç«  <b>$m{medal}</b>å€‹<br>
+		ï½¶ï½¼ï¾ï¾‰ï½ºï½²ï¾ <b>$m{coin}</b>æš<br>
+		å®ï½¸ï½¼ï¾ã€$m{lot}ã€‘<br>
 		<hr>
-		y½Ã°À½z‹­‚³:$m_st<br>
+		ã€ï½½ï¾ƒï½°ï¾€ï½½ã€‘å¼·ã•:$m_st<br>
 		$e2j{max_hp} [<b>$m{max_hp}</b>]/$e2j{max_mp} [<b>$m{max_mp}</b>]/<br>
 		$e2j{at} [<b>$m{at}</b>$sub_at]/$e2j{df} [<b>$m{df}</b>$sub_df]/<br>
 		$e2j{mat} [<b>$m{mat}</b>$sub_mat]/$e2j{mdf} [<b>$m{mdf}</b>$sub_mdf]/<br>
 		$e2j{ag} [<b>$m{ag}</b>$sub_ag]/$e2j{cha} [<b>$m{cha}</b>]/<br>
 		$e2j{lea} [<b>$m{lea}</b>$sub_lea]<br>
 		<hr>
-		yŠo‚¦‚Ä‚¢‚é‹Zz<br>
+		ã€è¦šãˆã¦ã„ã‚‹æŠ€ã€‘<br>
 		 $skill_info
 		<hr>
-		yn—û“xz<br>
-		”_‹Æ <b>$m{nou_c}</b>/¤‹Æ <b>$m{sho_c}</b>/’¥•º <b>$m{hei_c}</b>/ŠOŒğ <b>$m{gai_c}</b>/‘Ò•š <b>$m{mat_c}</b>/<br>
-		‹­’D <b>$m{gou_c}</b>/’³•ñ <b>$m{cho_c}</b>/ô”] <b>$m{sen_c}</b>/’E– <b>$m{esc_c}</b>/‹~o <b>$m{res_c}</b>/<br>
-		’ã@ <b>$m{tei_c}</b>/‹UŒv <b>$m{gik_c}</b>/Ué <b>$m{kou_c}</b>/¶¼ŞÉ <b>$m{cas_c}</b>/–‚•¨ <b>$m{mon_c}</b>/<br>
-		Cs <b>$m{shu_c}</b>/“¢”° <b>$m{tou_c}</b>/“¬‹Z <b>$m{col_c}</b>/Ú°Ä  <b>$m{cataso_ratio}</b>/no1 <b>$m{no1_c}</b>/<br>
-		“ˆê <b>$m{hero_c}</b>/•œ‹» <b>$m{huk_c}</b>/–Å–S <b>$m{met_c}</b>/Õ <b>$m{fes_c}</b>/<br>
+		ã€ç†Ÿç·´åº¦ã€‘<br>
+		è¾²æ¥­ <b>$m{nou_c}</b>/å•†æ¥­ <b>$m{sho_c}</b>/å¾´å…µ <b>$m{hei_c}</b>/å¤–äº¤ <b>$m{gai_c}</b>/å¾…ä¼ <b>$m{mat_c}</b>/<br>
+		å¼·å¥ª <b>$m{gou_c}</b>/è«œå ± <b>$m{cho_c}</b>/æ´—è„³ <b>$m{sen_c}</b>/è„±ç„ <b>$m{esc_c}</b>/æ•‘å‡º <b>$m{res_c}</b>/<br>
+		åµå¯Ÿ <b>$m{tei_c}</b>/å½è¨ˆ <b>$m{gik_c}</b>/æ”»åŸ <b>$m{kou_c}</b>/ï½¶ï½¼ï¾ï¾‰ <b>$m{cas_c}</b>/é­”ç‰© <b>$m{mon_c}</b>/<br>
+		ä¿®è¡Œ <b>$m{shu_c}</b>/è¨ä¼ <b>$m{tou_c}</b>/é—˜æŠ€ <b>$m{col_c}</b>/ï¾šï½°ï¾„  <b>$m{cataso_ratio}</b>/no1 <b>$m{no1_c}</b>/<br>
+		çµ±ä¸€ <b>$m{hero_c}</b>/å¾©èˆˆ <b>$m{huk_c}</b>/æ»…äº¡ <b>$m{met_c}</b>/ç¥­ <b>$m{fes_c}</b>/<br>
 		<hr>
-		y‘ã•\\ÒÎß²İÄz<br>
-		í‘ˆ <b>$m{war_c}</b>/“à­ <b>$m{dom_c}</b>/ŒR– <b>$m{mil_c}</b>/ŠOŒğ <b>$m{pro_c}</b>/
+		ã€ä»£è¡¨\è€…ï¾ï¾Ÿï½²ï¾ï¾„ã€‘<br>
+		æˆ¦äº‰ <b>$m{war_c}</b>/å†…æ”¿ <b>$m{dom_c}</b>/è»äº‹ <b>$m{mil_c}</b>/å¤–äº¤ <b>$m{pro_c}</b>/
 		<hr>
-		yí—ğz<br>
-		<b>$war_c</b>í <b>$m{win_c}</b>Ÿ <b>$m{lose_c}</b>•‰ <b>$m{draw_c}</b>ˆø<br>
-		Ÿ—¦ <b>$win_par</b>%
+		ã€æˆ¦æ­´ã€‘<br>
+		<b>$war_c</b>æˆ¦ <b>$m{win_c}</b>å‹ <b>$m{lose_c}</b>è²  <b>$m{draw_c}</b>å¼•<br>
+		å‹ç‡ <b>$win_par</b>%
 EOM
 }
 
 #================================================
-# PC—p½Ã°À½•\¦
+# PCç”¨ï½½ï¾ƒï½°ï¾€ï½½è¡¨ç¤º
 #================================================
 sub my_status_pc {
 	my $war_c   = $m{win_c} + $m{lose_c} + $m{draw_c};
@@ -373,71 +375,73 @@ sub my_status_pc {
 	my $sub_ag  = '';
 	if ($m{wea}) {
 		my $wname = $m{wea_name} ? $m{wea_name} : $weas[$m{wea}][1];
-		$mes .= qq|y•Šíî•ñz<br>|;
+		$mes .= qq|ã€æ­¦å™¨æƒ…å ±ã€‘<br>|;
 		$mes .= qq|<table class="table1" cellpadding="3"><tr>|;
-		$mes .= qq|<th>–¼‘O</th><td>$wname</td>|;
-		$mes .= qq|<th>‘®«</th><td>$weas[$m{wea}][2]</td>|;
-		$mes .= qq|<th>‹­‚³</th><td>$weas[$m{wea}][3]</td>|;
-		$mes .= qq|<th>‘Ï‹v</th><td>$weas[$m{wea}][4]</td>|;
-		$mes .= qq|<th>d‚³</th><td>$weas[$m{wea}][5]</td>|;
+		$mes .= qq|<th>åå‰</th><td>$wname</td>|;
+		$mes .= qq|<th>å±æ€§</th><td>$weas[$m{wea}][2]</td>|;
+		$mes .= qq|<th>å¼·ã•</th><td>$weas[$m{wea}][3]</td>|;
+		$mes .= qq|<th>è€ä¹…</th><td>$weas[$m{wea}][4]</td>|;
+		$mes .= qq|<th>é‡ã•</th><td>$weas[$m{wea}][5]</td>|;
 		$mes .= qq|</tr></table><hr size="1">|;
-		if    ($weas[$m{wea}][2] =~ /–³|Œ•|•€|‘„/) { $sub_at  = "£$weas[$m{wea}][3]"; $sub_ag = "¥$weas[$m{wea}][5]"; }
-		elsif ($weas[$m{wea}][2] =~ /•—|‰Š|—‹/)    { $sub_mat = "£$weas[$m{wea}][3]"; $sub_ag = "¥$weas[$m{wea}][5]"; }
+		if    ($weas[$m{wea}][2] =~ /ç„¡|å‰£|æ–§|æ§/) { $sub_at  = "â–²$weas[$m{wea}][3]"; $sub_ag = "â–¼$weas[$m{wea}][5]"; }
+		elsif ($weas[$m{wea}][2] =~ /é¢¨|ç‚|é›·|éŠƒ/)    { $sub_mat = "â–²$weas[$m{wea}][3]"; $sub_ag = "â–¼$weas[$m{wea}][5]"; }
 
 		my $m_min_wea;
-		if ($weas[$m{wea}][2] eq 'Œ•') {
+		if ($weas[$m{wea}][2] eq 'å‰£') {
 			$m_min_wea = 1;
-		} elsif($weas[$m{wea}][2] eq '‘„') {
+		} elsif($weas[$m{wea}][2] eq 'æ§') {
 			$m_min_wea = 6;
-		} elsif($weas[$m{wea}][2] eq '•€') {
+		} elsif($weas[$m{wea}][2] eq 'æ–§') {
 			$m_min_wea = 11;
-		} elsif($weas[$m{wea}][2] eq '‰Š') {
+		} elsif($weas[$m{wea}][2] eq 'ç‚') {
 			$m_min_wea = 16;
-		} elsif($weas[$m{wea}][2] eq '•—') {
+		} elsif($weas[$m{wea}][2] eq 'é¢¨') {
 			$m_min_wea = 21;
-		} elsif($weas[$m{wea}][2] eq '—‹') {
+		} elsif($weas[$m{wea}][2] eq 'é›·') {
 			$m_min_wea = 26;
 		} elsif($m{wea} == 0) {
 			$m_min_wea = 0;
 		} else {
 			$m_min_wea = 33;
+		} elsif($weas[$m{wea}][2] eq 'éŠƒ') {
+			$m_min_wea = 34;
 		}
 		$m_wea_modify = $weas[$m{wea}][5] - $weas[$m_min_wea][5];
-		$m_wea_modify = 100 if ($m{wea} == 14) || ($m{wea} == 32);
-		$m_wea_modify = 0 if ($m{wea} == 31);
-		$sub_lea = ($m_wea_modify >= 0) ? "£$m_wea_modify" : "¥".abs($m_wea_modify);
+		$m_wea_modify = 100 if ($m{wea} == 14) || ($m{wea} == 32)|| ($m{wea} == 35);
+		$m_wea_modify = 0 if ($m{wea} == 31)|| ($m{wea} == 34);
+		$sub_lea = ($m_wea_modify >= 0) ? "â–²$m_wea_modify" : "â–¼".abs($m_wea_modify);
 	}
 	else {
-		$sub_lea = "¥100";
+		$sub_lea = "â–¼100";
 	}
 	if ($m{gua}) {
-		$mes .= qq|y–h‹ïî•ñz<br>|;
+		$mes .= qq|ã€é˜²å…·æƒ…å ±ã€‘<br>|;
 		$mes .= qq|<table class="table1" cellpadding="3"><tr>|;
-		$mes .= qq|<th>–¼‘O</th><td>$guas[$m{gua}][1]</td>|;
-		$mes .= qq|<th>‘®«</th><td>$guas[$m{gua}][2]</td>|;
-		$mes .= qq|<th>‹­‚³</th><td>$guas[$m{gua}][3]</td>|;
-		$mes .= qq|<th>‘Ï‹v</th><td>$guas[$m{gua}][4]</td>|;
-		$mes .= qq|<th>d‚³</th><td>$guas[$m{gua}][5]</td>|;
+		$mes .= qq|<th>åå‰</th><td>$guas[$m{gua}][1]</td>|;
+		$mes .= qq|<th>å±æ€§</th><td>$guas[$m{gua}][2]</td>|;
+		$mes .= qq|<th>å¼·ã•</th><td>$guas[$m{gua}][3]</td>|;
+		$mes .= qq|<th>è€ä¹…</th><td>$guas[$m{gua}][4]</td>|;
+		$mes .= qq|<th>é‡ã•</th><td>$guas[$m{gua}][5]</td>|;
 		$mes .= qq|</tr></table><hr size="1">|;
-		if    ($guas[$m{gua}][2] =~ /–³|Œ•|•€|‘„/) { $sub_df  = "£$guas[$m{gua}][3]"; $sub_ag .= "¥$guas[$m{gua}][5]"; }
-		elsif ($guas[$m{gua}][2] =~ /•—|‰Š|—‹/)    { $sub_mdf = "£$guas[$m{gua}][3]"; $sub_ag .= "¥$guas[$m{gua}][5]"; }
+		if    ($guas[$m{gua}][2] =~ /ç„¡|å‰£|æ–§|æ§/) { $sub_df  = "â–²$guas[$m{gua}][3]"; $sub_ag .= "â–¼$guas[$m{gua}][5]"; }
+		elsif ($guas[$m{gua}][2] =~ /é¢¨|ç‚|é›·|éŠƒ/)    { $sub_mdf = "â–²$guas[$m{gua}][3]"; $sub_ag .= "â–¼$guas[$m{gua}][5]"; }
 	}
 	
 	if ($m{pet}) {
-		my $pet_c = $m{pet} > 0 ? "š$m{pet_c}" : "($m{pet_c}/$pets[$m{pet}][5])";
-		$mes .= qq|yÍß¯Äî•ñz<br>|;
+		my $pet_c = $m{pet} > 0 ? "â˜…$m{pet_c}" : "($m{pet_c}/$pets[$m{pet}][5])";
+		$mes .= qq|ã€ï¾ï¾Ÿï½¯ï¾„æƒ…å ±ã€‘<br>|;
 		$mes .= qq|<table class="table1" cellpadding="3">|;
-		$mes .= qq|<tr><th>–¼‘O</th><td>$pets[$m{pet}][1]$pet_c</td>|;
-		$mes .= qq|<th>Œø‰Ê</th><td>$pet_effects[$m{pet}]</td></tr>|;
+		$mes .= qq|<tr><th>åå‰</th><td>$pets[$m{pet}][1]$pet_c</td>|;
+		$mes .= qq|<th>åŠ¹æœ</th><td>$pet_effects[$m{pet}]</td></tr>|;
 		if($pet_sub_effects[$m{pet}]){
-			$mes .= qq|<tr><th>’Ç‰ÁŒø‰Ê</th><td colspan="3">$pet_sub_effects[$m{pet}]</td></tr>|;
+			$mes .= qq|<tr><th>è¿½åŠ åŠ¹æœ</th><td colspan="3">$pet_sub_effects[$m{pet}]</td></tr>|;
 		}
 		$mes .= qq|</table>|;
 		if ($pets[$m{pet}][2] eq 'myself' || ($m{pet} == 31 && &is_ceo)) {
 			$mes .= qq|<br><form method="$method" action="$script">|;
 			$mes .= qq|<input type="hidden" name="mode" value="use_pet">|;
 			$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-			$mes .= qq|<input type="submit" value="Íß¯Ä‚ğg—p‚·‚é" class="button1"></form>|;
+			$mes .= qq|<input type="submit" value="ï¾ï¾Ÿï½¯ï¾„ã‚’ä½¿ç”¨ã™ã‚‹" class="button1"></form>|;
 		}
 		$mes .= qq|<hr size="1">|;
 	}
@@ -450,7 +454,7 @@ sub my_status_pc {
 	
 	my $m_st = &m_st;
 	$mes .= <<"EOM";
-		y½Ã°À½z‹­‚³F$m_st<br>
+		ã€ï½½ï¾ƒï½°ï¾€ï½½ã€‘å¼·ã•ï¼š$m_st<br>
 		<table class="table1" cellpadding="3">
 		<tr>
 			<th>$e2j{max_hp}</th><td align="right">$m{max_hp}</td>
@@ -467,76 +471,76 @@ sub my_status_pc {
 		</tr>
 		</table>
 		<hr size="1">
-		yŠo‚¦‚Ä‚¢‚é‹Zz<br>
+		ã€è¦šãˆã¦ã„ã‚‹æŠ€ã€‘<br>
 		<table class="table1" cellpadding="3">
-		<tr><th>‘®«</th><th>‹Z–¼</th><th>Á”ï$e2j{mp}</th></tr>
+		<tr><th>å±æ€§</th><th>æŠ€å</th><th>æ¶ˆè²»$e2j{mp}</th></tr>
 		$skill_info
 		</table>
 
 		<hr size="1">
-		yn—û“xz<br>
+		ã€ç†Ÿç·´åº¦ã€‘<br>
 		<table class="table1" cellpadding="3">
 		<tr>
-			<th>”_‹Æ</th><td align="right">$m{nou_c}</td>
-			<th>¤‹Æ</th><td align="right">$m{sho_c}</td>
-			<th>’¥•º</th><td align="right">$m{hei_c}</td>
-			<th>ŠOŒğ</th><td align="right">$m{gai_c}</td>
-			<th>‘Ò•š</th><td align="right">$m{mat_c}</td>
+			<th>è¾²æ¥­</th><td align="right">$m{nou_c}</td>
+			<th>å•†æ¥­</th><td align="right">$m{sho_c}</td>
+			<th>å¾´å…µ</th><td align="right">$m{hei_c}</td>
+			<th>å¤–äº¤</th><td align="right">$m{gai_c}</td>
+			<th>å¾…ä¼</th><td align="right">$m{mat_c}</td>
 		</tr>
 		<tr>
-			<th>‹­’D</th><td align="right">$m{gou_c}</td>
-			<th>’³•ñ</th><td align="right">$m{cho_c}</td>
-			<th>ô”]</th><td align="right">$m{sen_c}</td>
-			<th>’E–</th><td align="right">$m{esc_c}</td>
-			<th>‹~o</th><td align="right">$m{res_c}</td>
+			<th>å¼·å¥ª</th><td align="right">$m{gou_c}</td>
+			<th>è«œå ±</th><td align="right">$m{cho_c}</td>
+			<th>æ´—è„³</th><td align="right">$m{sen_c}</td>
+			<th>è„±ç„</th><td align="right">$m{esc_c}</td>
+			<th>æ•‘å‡º</th><td align="right">$m{res_c}</td>
 		</tr>
 		<tr>
-			<th>’ã@</th><td align="right">$m{tei_c}</td>
-			<th>‹UŒv</th><td align="right">$m{gik_c}</td>
-			<th>Ué</th><td align="right">$m{kou_c}</td>
-			<th>¶¼ŞÉ</th><td align="right">$m{cas_c}</td>
-			<th>–‚•¨</th><td align="right">$m{mon_c}</td>
+			<th>åµå¯Ÿ</th><td align="right">$m{tei_c}</td>
+			<th>å½è¨ˆ</th><td align="right">$m{gik_c}</td>
+			<th>æ”»åŸ</th><td align="right">$m{kou_c}</td>
+			<th>ï½¶ï½¼ï¾ï¾‰</th><td align="right">$m{cas_c}</td>
+			<th>é­”ç‰©</th><td align="right">$m{mon_c}</td>
 		</tr>
 		<tr>
-			<th>Cs</th><td align="right">$m{shu_c}</td>
-			<th>“¢”°</th><td align="right">$m{tou_c}</td>
-			<th>“¬‹Z</th><td align="right">$m{col_c}</td>
-			<th>Ú°Ä</th><td align="right">$m{cataso_ratio}</td>
+			<th>ä¿®è¡Œ</th><td align="right">$m{shu_c}</td>
+			<th>è¨ä¼</th><td align="right">$m{tou_c}</td>
+			<th>é—˜æŠ€</th><td align="right">$m{col_c}</td>
+			<th>ï¾šï½°ï¾„</th><td align="right">$m{cataso_ratio}</td>
 			<th>no1</th><td align="right">$m{no1_c}</td>
 		</tr>
 		<tr>
-			<th>“ˆê</th><td align="right">$m{hero_c}</td>
-			<th>•œ‹»</th><td align="right">$m{huk_c}</td>
-			<th>–Å–S</th><td align="right">$m{met_c}</td>
-			<th>Õ</th><td align="right">$m{fes_c}</td>
-			<th>@</th><td align="right">@</td>
+			<th>çµ±ä¸€</th><td align="right">$m{hero_c}</td>
+			<th>å¾©èˆˆ</th><td align="right">$m{huk_c}</td>
+			<th>æ»…äº¡</th><td align="right">$m{met_c}</td>
+			<th>ç¥­</th><td align="right">$m{fes_c}</td>
+			<th>ã€€</th><td align="right">ã€€</td>
 		</tr>
 		</table>
 		
 		<hr size="1">
-		y‘ã•\\ÒÎß²İÄz<br>
+		ã€ä»£è¡¨\è€…ï¾ï¾Ÿï½²ï¾ï¾„ã€‘<br>
 		<table class="table1" cellpadding="3">
 		<tr>
-			<th>í‘ˆ</th><td align="right">$m{war_c}</td>
-			<th>“à­</th><td align="right">$m{dom_c}</td>
-			<th>ŒR–</th><td align="right">$m{mil_c}</td>
-			<th>ŠOŒğ</th><td align="right">$m{pro_c}</td>
+			<th>æˆ¦äº‰</th><td align="right">$m{war_c}</td>
+			<th>å†…æ”¿</th><td align="right">$m{dom_c}</td>
+			<th>è»äº‹</th><td align="right">$m{mil_c}</td>
+			<th>å¤–äº¤</th><td align="right">$m{pro_c}</td>
 		</tr>
 		</table>
 		
 		<hr size="1">
-		yí—ğz<br>
+		ã€æˆ¦æ­´ã€‘<br>
 		<table class="table1" cellpadding="3">
 		<tr>
-			<th>í‰ñ</th><td align="right">$war_c</td>    
-			<th>Ÿ‚¿</th><td align="right">$m{win_c}</td> 
-			<th>•‰‚¯</th><td align="right">$m{lose_c}</td>
-			<th>ˆø•ª</th><td align="right">$m{draw_c}</td>
-			<th>Ÿ—¦</th><td align="right">$win_par %</td>
+			<th>æˆ¦å›</th><td align="right">$war_c</td>    
+			<th>å‹ã¡</th><td align="right">$m{win_c}</td> 
+			<th>è² ã‘</th><td align="right">$m{lose_c}</td>
+			<th>å¼•åˆ†</th><td align="right">$m{draw_c}</td>
+			<th>å‹ç‡</th><td align="right">$win_par %</td>
 		</tr>
 		</table>
 EOM
 }
 
 
-1; # íœ•s‰Â
+1; # å‰Šé™¤ä¸å¯
