@@ -1,5 +1,5 @@
 #================================================
-# ¹Ş°Ñ(bj.cgi)‚Å‚æ‚­g‚¤ˆ— Created by Merino
+# ï½¹ï¾ï½°ï¾‘(bj.cgi)ã§ã‚ˆãä½¿ã†å‡¦ç† Created by Merino
 #================================================
 require './lib/jcode.pl';
 require './lib/summer_system_game.cgi';
@@ -7,12 +7,12 @@ require './lib/seed.cgi';
 use File::Copy::Recursive qw(rcopy);
 use File::Path;
 #================================================
-# ‘ + ¢ŠE ƒf[ƒ^‘‚«‚İ ./log/countries.cgi‚É‘‚«‚İ
+# å›½ + ä¸–ç•Œ ãƒ‡ãƒ¼ã‚¿æ›¸ãè¾¼ã¿ ./log/countries.cgiã«æ›¸ãè¾¼ã¿
 #================================================
 sub write_cs {
-	&error("‘ÃŞ°À‚Ì‘‚«‚İ‚É¸”s‚µ‚Ü‚µ‚½") if $cs{name}[1] eq '';
+	&error("å›½ï¾ƒï¾ï½°ï¾€ã®æ›¸ãè¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ") if $cs{name}[1] eq '';
 	
-	# •Ï”’Ç‰Á‚·‚éê‡‚Í”¼Šp½Íß°½‚©‰üs‚ğ“ü‚ê‚Ä’Ç‰Á(‡•s“¯A•À‚×‘Ö‚¦‰Â)
+	# å¤‰æ•°è¿½åŠ ã™ã‚‹å ´åˆã¯åŠè§’ï½½ï¾ï¾Ÿï½°ï½½ã‹æ”¹è¡Œã‚’å…¥ã‚Œã¦è¿½åŠ (é †ä¸åŒã€ä¸¦ã¹æ›¿ãˆå¯)
 	my @keys = (qw/
 		name bbs_name prison_name strong barrier tax food money soldier state is_die member capacity color
 		win_c old_ceo ceo war dom mil pro war_c dom_c mil_c pro_c ceo_continue
@@ -20,25 +20,25 @@ sub write_cs {
 		extra extra_limit disaster disaster_limit
 		new_commer
 	/);
-	# ‘–¼@‘‘—Í@é•Ç’l@Å—¦@‘•º—Æ@‘‰Æ—\Z@‘•ºm”@ó‘Ô@–Å–SÌ×¸Ş@Š‘®l”@’èˆõ@‘F
-	# “ˆê”@‹Œ‘ã•\Ò@‘ã•\Ò@Q–d@“à­Š¯@ôm@ŠOŒğŠ¯@Q–dÎß²İÄ@“à­Š¯Îß²İÄ@ômÎß²İÄ@ŠOŒğŠ¯Îß²İÄ@‘ã•\”NŠú
-	# Še‘İ’èí‘ˆ@“à­@ŒR–@ŠOŒğ
-	# ’Ç‰ÁŒø‰Ê@’Ç‰ÁŒø‰ÊŠúŒÀ@‘•ÊĞŠQ@‘•ÊĞŠQ—LŒøŠúŠÔ
-	# V‹K”
+	# å›½åã€€ç·å›½åŠ›ã€€åŸå£å€¤ã€€ç¨ç‡ã€€ç·å…µç³§ã€€å›½å®¶äºˆç®—ã€€ç·å…µå£«æ•°ã€€çŠ¶æ…‹ã€€æ»…äº¡ï¾Œï¾—ï½¸ï¾ã€€æ‰€å±äººæ•°ã€€å®šå“¡ã€€å›½è‰²
+	# çµ±ä¸€æ•°ã€€æ—§ä»£è¡¨è€…ã€€ä»£è¡¨è€…ã€€å‚è¬€ã€€å†…æ”¿å®˜ã€€ç­–å£«ã€€å¤–äº¤å®˜ã€€å‚è¬€ï¾ï¾Ÿï½²ï¾ï¾„ã€€å†…æ”¿å®˜ï¾ï¾Ÿï½²ï¾ï¾„ã€€ç­–å£«ï¾ï¾Ÿï½²ï¾ï¾„ã€€å¤–äº¤å®˜ï¾ï¾Ÿï½²ï¾ï¾„ã€€ä»£è¡¨å¹´æœŸ
+	# å„å›½è¨­å®šæˆ¦äº‰ã€€å†…æ”¿ã€€è»äº‹ã€€å¤–äº¤
+	# è¿½åŠ åŠ¹æœã€€è¿½åŠ åŠ¹æœæœŸé™ã€€å›½åˆ¥ç½å®³ã€€å›½åˆ¥ç½å®³æœ‰åŠ¹æœŸé–“
+	# æ–°è¦æ•°
 	
 	# -------------------
-	# •¨‘‚ÌÅ‘å’l
-	my $max_resource = ($w{world} eq '14' || ($w{world} eq '19' && $w{world_sub} eq '14')) ? 300000 : 999999; # ¢ŠEî¨[‘åEŠE‚È‚ç500000‚Ü‚Å]
+	# ç‰©è³‡ã®æœ€å¤§å€¤
+	my $max_resource = ($w{world} eq '14' || ($w{world} eq '19' && $w{world_sub} eq '14')) ? 300000 : 999999; # ä¸–ç•Œæƒ…å‹¢[å¤§æ®ºç•Œãªã‚‰500000ã¾ã§]
 	$cs{food}[$m{country}]    = $max_resource if $cs{food}[$m{country}]    > $max_resource;
 	$cs{money}[$m{country}]   = $max_resource if $cs{money}[$m{country}]   > $max_resource;
 	$cs{soldier}[$m{country}] = $max_resource if $cs{soldier}[$m{country}] > $max_resource;
 
-	# Ù‘¬
+	# æ‹™é€Ÿ
 	if ($w{world} eq $#world_states - 5) {
 		$cs{state}[$m{country}] = 0;
 	}
 	
-	my $world_line = &_get_world_line; # ¢ŠEî•ñ
+	my $world_line = &_get_world_line; # ä¸–ç•Œæƒ…å ±
 	my @lines = ($world_line);
 	for my $i (1 .. $w{country}) {
 		my $line;
@@ -48,19 +48,19 @@ sub write_cs {
 		push @lines, "$line\n";
 	}
 	
-	open my $fh, "> $logdir/countries.cgi" or &error("‘ƒf[ƒ^‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "> $logdir/countries.cgi" or &error("å›½ãƒ‡ãƒ¼ã‚¿ãŒé–‹ã‘ã¾ã›ã‚“");
 	print $fh @lines;
 	close $fh;
 }
 #================================================
-# ¢ŠEî•ñ
+# ä¸–ç•Œæƒ…å ±
 #================================================
 sub _get_world_line { # Get %w line
-	# •Ï”’Ç‰Á‚·‚éê‡‚Í”¼Šp½Íß°½‚©‰üs‚ğ“ü‚ê‚Ä’Ç‰Á(‡•s“¯A•À‚×‘Ö‚¦‰Â)
+	# å¤‰æ•°è¿½åŠ ã™ã‚‹å ´åˆã¯åŠè§’ï½½ï¾ï¾Ÿï½°ï½½ã‹æ”¹è¡Œã‚’å…¥ã‚Œã¦è¿½åŠ (é †ä¸åŒã€ä¸¦ã¹æ›¿ãˆå¯)
 	my @keys = (qw/
 		country year game_lv limit_time reset_time win_countries player world playing world_sub sub_time twitter_bot half_hour_time
 	/);
-	# ‘‚Ì”@”N@“ïˆÕ“x@“ˆêŠúŒÀ@Ø¾¯Ä‚³‚ê‚½ŠÔ@‘O‰ñ‚Ì“ˆê‘(•¡”)@ÌßÚ²Ô°l”@¢ŠEî¨@ÌßÚ²’†l”@ƒTƒuî¨@ƒTƒuŠÔ@twitter—pƒJƒEƒ“ƒg@ƒTƒuŠÔ‚Ì0.5ŠÔ”Å
+	# å›½ã®æ•°ã€€å¹´ã€€é›£æ˜“åº¦ã€€çµ±ä¸€æœŸé™ã€€ï¾˜ï½¾ï½¯ï¾„ã•ã‚ŒãŸæ™‚é–“ã€€å‰å›ã®çµ±ä¸€å›½(è¤‡æ•°)ã€€ï¾Œï¾Ÿï¾šï½²ï¾”ï½°äººæ•°ã€€ä¸–ç•Œæƒ…å‹¢ã€€ï¾Œï¾Ÿï¾šï½²ä¸­äººæ•°ã€€ã‚µãƒ–æƒ…å‹¢ã€€ã‚µãƒ–æ™‚é–“ã€€twitterç”¨ã‚«ã‚¦ãƒ³ãƒˆã€€ã‚µãƒ–æ™‚é–“ã®0.5æ™‚é–“ç‰ˆ
 	
 	my $line = '';
 	for my $k (@keys) {
@@ -68,7 +68,7 @@ sub _get_world_line { # Get %w line
 	}
 	
 	# -------------------
-	# —FD“x/ğ–ñ
+	# å‹å¥½åº¦/æ¡ç´„
 	for my $i (1 .. $w{country}) {
 		for my $j ($i+1 .. $w{country}) {
 			my $f_c_c  = "f_${i}_${j}";
@@ -82,15 +82,15 @@ sub _get_world_line { # Get %w line
 	return $line;
 }
 #================================================
-# ÌßÚ²Ô°ÃŞ°À‘‚«‚İ
+# ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ï¾ƒï¾ï½°ï¾€æ›¸ãè¾¼ã¿
 #================================================
-# turn value stock y_***** ‚Í©•ª‚Ì½Ã°À½‚ÆŠÖŒW‚È‚¢‚Ì‚Å©—R‚Éæ‚è‰ñ‚µ‚Ä‚æ‚¢
+# turn value stock y_***** ã¯è‡ªåˆ†ã®ï½½ï¾ƒï½°ï¾€ï½½ã¨é–¢ä¿‚ãªã„ã®ã§è‡ªç”±ã«å–ã‚Šå›ã—ã¦ã‚ˆã„
 sub write_user {
-	&error("ÌßÚ²Ô°ÃŞ°À‚Ì‘‚«‚İ‚É¸”s‚µ‚Ü‚µ‚½") if !$id || !$m{name};
+	&error("ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ï¾ƒï¾ï½°ï¾€ã®æ›¸ãè¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ") if !$id || !$m{name};
 	$m{ltime} = $time;
 	$m{ldate} = $date;
 	# -------------------
-	# top‚ÌÛ¸Ş²İØ½Ä‚É•\¦
+	# topã®ï¾›ï½¸ï¾ï½²ï¾ï¾˜ï½½ï¾„ã«è¡¨ç¤º
 	if ($time > $m{login_time} + $login_min * 60) {
 		$m{login_time} = $time;
 		open my $fh2, ">> $logdir/login.cgi";
@@ -98,7 +98,7 @@ sub write_user {
 		close $fh2;
 	}
 	# -------------------
-	# ½Ã°À½‚ÌÅ‘å’l
+	# ï½½ï¾ƒï½°ï¾€ï½½ã®æœ€å¤§å€¤
 	if ($m{cha_org}) {
 		$m{cha} = $m{cha_org};
 	}
@@ -107,20 +107,20 @@ sub write_user {
 	}
 	$m{money}  = int($m{money});
 	my $money_limit = 4999999;
-	if ($m{money_overflow}) { # Š‹àãŒÀ“Ë”j‚È‚ç
-		if ($money_limit >= $m{money}) { # •W€‚ÌãŒÀˆÈ‰º‚È‚ç
-			$m{money_overflow} = 0; # ãŒÀ“Ë”jƒ_ƒ
+	if ($m{money_overflow}) { # æ‰€æŒé‡‘ä¸Šé™çªç ´ãªã‚‰
+		if ($money_limit >= $m{money}) { # æ¨™æº–ã®ä¸Šé™ä»¥ä¸‹ãªã‚‰
+			$m{money_overflow} = 0; # ä¸Šé™çªç ´ãƒ€ãƒ¡
 			$m{money_limit} = $money_limit;
 		}
-		else { # ãŒÀ“Ë”j‚©‚Â•W€‚ÌãŒÀ‚ğ’´‚¦‚Ä‚é‚È‚ç
-			$m{money_limit} = $m{money} if $m{money_limit} > $m{money}; # Œ¸‚Á‚½‚çŒ¸‚Á‚½‚¾‚¯“Vˆä‰º‚°‚Ä‚­
+		else { # ä¸Šé™çªç ´ã‹ã¤æ¨™æº–ã®ä¸Šé™ã‚’è¶…ãˆã¦ã‚‹ãªã‚‰
+			$m{money_limit} = $m{money} if $m{money_limit} > $m{money}; # æ¸›ã£ãŸã‚‰æ¸›ã£ãŸã ã‘å¤©äº•ä¸‹ã’ã¦ã
 			$money_limit = $m{money_limit};
 		}
 	}
 	$m{money}  = $money_limit if $m{money} > $money_limit;
 	$m{coin}   = 2500000 if $m{coin}  > 2500000;
 	# -------------------
-	# •Ï”’Ç‰Á‚·‚éê‡‚Í”¼Šp½Íß°½‚©‰üs‚ğ“ü‚ê‚Ä’Ç‰Á(‡•s“¯A•À‚×‘Ö‚¦‰Â(login_timeˆÈŠO))
+	# å¤‰æ•°è¿½åŠ ã™ã‚‹å ´åˆã¯åŠè§’ï½½ï¾ï¾Ÿï½°ï½½ã‹æ”¹è¡Œã‚’å…¥ã‚Œã¦è¿½åŠ (é †ä¸åŒã€ä¸¦ã¹æ›¿ãˆå¯(login_timeä»¥å¤–))
 	my @keys = (qw/
 		login_time ldate start_time mail_address name pass magic_word lib tp lib_r tp_r wt act sex shogo sedai vote vote_year
 		country job seed lv exp rank rank_exp super_rank rank_name unit sol sol_lv medal money coin skills renzoku renzoku_c total_auction skills_sub skills_sub2 skills_sub3 money_limit
@@ -142,17 +142,17 @@ sub write_user {
 		
 		sox_kind sox_no exchange_count
 	/);
-	# Û¸Ş²İŠÔ@XV“ú@ì¬“ú@–¼‘O@Êß½Ü°ÄŞ@×²ÌŞ×Ø@À°Æİ¸ŞÎß²İÄ@‘Ò‚¿ŠÔ@”æ˜J“x@«•Ê@Ì†@¢‘ã@“Š•[@
-	# Š‘®‘@E‹Æ@í‘°@ÚÍŞÙ@ŒoŒ±’l@×İ¸@×İ¸ŒoŒ±’l@•ºí@•ºm”@m‹C@ŒMÍ@‚¨‹à@º²İ@‹Z(•¡”)@˜A‘±U‚ß‚½‘@˜A‘±¶³İÄ@
-	# Å‘åHP@HP@Å‘åMP@MP@—Í@ç‚è@–‚—Í@–‚–h@‘f‘@–£—Í@“—¦@•Ší@•Ší‘Ï‹v@•ŠíÚÍŞÙ@–h‹ï@“Áê•Ší–¼@ÀÏºŞ@ÀÏºŞ¬’·@Íß¯Ä@ƒVƒƒƒbƒtƒ‹ƒtƒ‰ƒO@
-	# Œ‹¥‘Šè@•ó¸¼Ş@—a‚©‚èŠ–”tÌ×¸Ş@Ÿ‚Ì‹‹—^@±²ºİ@Ò¯¾°¼Ş@Ÿ‚¿¾ØÌ@•‰‚¯¾ØÌ@“ˆê¾ØÌ@XVŠÔ@¶ŞÁ¬ŠÔ ¶ŞÁ¬ŠÔ2 æÎ‘KŠÔ@‚¢‚½‚¸‚ç‰ğœŠÔ@”­Œ¾‹Ö~ŠÔ
-	# À°İ@½Ä¯¸@ÊŞØ­°@ÌßÚ²’†Ì×¸Ş@‘ŠèÃŞ°À c
-	# ”_‹Æ@¤‹Æ@’¥•º@ŠOŒğ@‹­’D@’³•ñ@ô”]@‹UŒv@’ã@@‘Ò•š@¶¼ŞÉ@“¢”°@Cs@“¬‹Zê@–‚•¨@’E–@‹~o@Õ@¬——p@ƒ{ƒbƒ`
-	# í‘ˆŸ‚¿@í‘ˆ•‰‚¯@í‘ˆˆø•ª@“ˆê@•œ‹»@–Å–S@í‘ˆ@“à­@ŒR–@ŠOŒğ@
-	# ^Ì†@^±²ºİ@ˆç‚Ä‰®‚P@ˆç‚Ä‰®‚Q@—a‚èŠƒ{[ƒiƒX@¤lƒMƒ‹ƒh@‘Îl¶¼ŞÉ•\¦@Œğ—¬JAVA•\¦
-	# ¶¼ŞÉ—p c
-	# ‰B•Án—û“x
-	# _c‚ÍƒJƒEƒ“ƒg(count)‚Ì—ª, y_‚Í‘Šè(you)‚Ì—ª
+	# ï¾›ï½¸ï¾ï½²ï¾æ™‚é–“ã€€æ›´æ–°æ—¥æ™‚ã€€ä½œæˆæ—¥æ™‚ã€€åå‰ã€€ï¾Šï¾Ÿï½½ï¾œï½°ï¾„ï¾ã€€ï¾—ï½²ï¾Œï¾ï¾—ï¾˜ã€€ï¾€ï½°ï¾†ï¾ï½¸ï¾ï¾ï¾Ÿï½²ï¾ï¾„ã€€å¾…ã¡æ™‚é–“ã€€ç–²åŠ´åº¦ã€€æ€§åˆ¥ã€€ç§°å·ã€€ä¸–ä»£ã€€æŠ•ç¥¨ã€€
+	# æ‰€å±å›½ã€€è·æ¥­ã€€ç¨®æ—ã€€ï¾šï¾ï¾ï¾™ã€€çµŒé¨“å€¤ã€€ï¾—ï¾ï½¸ã€€ï¾—ï¾ï½¸çµŒé¨“å€¤ã€€å…µç¨®ã€€å…µå£«æ•°ã€€å£«æ°—ã€€å‹²ç« ã€€ãŠé‡‘ã€€ï½ºï½²ï¾ã€€æŠ€(è¤‡æ•°)ã€€é€£ç¶šæ”»ã‚ãŸå›½ã€€é€£ç¶šï½¶ï½³ï¾ï¾„ã€€
+	# æœ€å¤§HPã€€HPã€€æœ€å¤§MPã€€MPã€€åŠ›ã€€å®ˆã‚Šã€€é­”åŠ›ã€€é­”é˜²ã€€ç´ æ—©ã€€é­…åŠ›ã€€çµ±ç‡ã€€æ­¦å™¨ã€€æ­¦å™¨è€ä¹…ã€€æ­¦å™¨ï¾šï¾ï¾ï¾™ã€€é˜²å…·ã€€ç‰¹æ®Šæ­¦å™¨åã€€ï¾€ï¾ï½ºï¾ã€€ï¾€ï¾ï½ºï¾æˆé•·ã€€ï¾ï¾Ÿï½¯ï¾„ã€€ã‚·ãƒ£ãƒƒãƒ•ãƒ«ãƒ•ãƒ©ã‚°ã€€
+	# çµå©šç›¸æ‰‹ã€€å®ï½¸ï½¼ï¾ã€€é ã‹ã‚Šæ‰€æº€æ¯ï¾Œï¾—ï½¸ï¾ã€€æ¬¡ã®çµ¦ä¸ã€€ï½±ï½²ï½ºï¾ã€€ï¾’ï½¯ï½¾ï½°ï½¼ï¾ã€€å‹ã¡ï½¾ï¾˜ï¾Œã€€è² ã‘ï½¾ï¾˜ï¾Œã€€çµ±ä¸€ï½¾ï¾˜ï¾Œã€€æ›´æ–°æ™‚é–“ã€€ï½¶ï¾ï¾ï½¬æ™‚é–“ ï½¶ï¾ï¾ï½¬æ™‚é–“2 è³½éŠ­æ™‚é–“ã€€ã„ãŸãšã‚‰è§£é™¤æ™‚é–“ã€€ç™ºè¨€ç¦æ­¢æ™‚é–“
+	# ï¾€ï½°ï¾ã€€ï½½ï¾„ï½¯ï½¸ã€€ï¾Šï¾ï¾˜ï½­ï½°ã€€ï¾Œï¾Ÿï¾šï½²ä¸­ï¾Œï¾—ï½¸ï¾ã€€ç›¸æ‰‹ï¾ƒï¾ï½°ï¾€ â€¦
+	# è¾²æ¥­ã€€å•†æ¥­ã€€å¾´å…µã€€å¤–äº¤ã€€å¼·å¥ªã€€è«œå ±ã€€æ´—è„³ã€€å½è¨ˆã€€åµå¯Ÿã€€å¾…ä¼ã€€ï½¶ï½¼ï¾ï¾‰ã€€è¨ä¼ã€€ä¿®è¡Œã€€é—˜æŠ€å ´ã€€é­”ç‰©ã€€è„±ç„ã€€æ•‘å‡ºã€€ç¥­ã€€æ··ä¹±ç”¨ã€€ãƒœãƒƒãƒ
+	# æˆ¦äº‰å‹ã¡ã€€æˆ¦äº‰è² ã‘ã€€æˆ¦äº‰å¼•åˆ†ã€€çµ±ä¸€ã€€å¾©èˆˆã€€æ»…äº¡ã€€æˆ¦äº‰ã€€å†…æ”¿ã€€è»äº‹ã€€å¤–äº¤ã€€
+	# çœŸç§°å·ã€€çœŸï½±ï½²ï½ºï¾ã€€è‚²ã¦å±‹ï¼‘ã€€è‚²ã¦å±‹ï¼’ã€€é ã‚Šæ‰€ãƒœãƒ¼ãƒŠã‚¹ã€€å•†äººã‚®ãƒ«ãƒ‰ã€€å¯¾äººï½¶ï½¼ï¾ï¾‰è¡¨ç¤ºã€€äº¤æµJAVAè¡¨ç¤º
+	# ï½¶ï½¼ï¾ï¾‰ç”¨ â€¦
+	# éš è”½ç†Ÿç·´åº¦
+	# _cã¯ã‚«ã‚¦ãƒ³ãƒˆ(count)ã®ç•¥, y_ã¯ç›¸æ‰‹(you)ã®ç•¥
 	
 	my $line;
 	for my $k (@keys) {
@@ -184,9 +184,9 @@ sub write_user {
 	&alltime_event;
 }
 #================================================
-# ‚»‚Ì‘¼
+# ãã®ä»–
 #================================================
-# ‘Ò‚¿ŠÔ‚ğ•b‚É•ÏŠ· + Ÿ‚Ö
+# å¾…ã¡æ™‚é–“ã‚’ç§’ã«å¤‰æ› + æ¬¡ã¸
 sub wait {
 #	$m{wt} = $config_test ? 10 : $GWT * 60;
 	$m{wt} = $GWT * 60;
@@ -197,19 +197,19 @@ sub wait {
 	$w{playing} = 0 if $w{playing} < 0;
 	&write_cs;
 }
-# ’Êí‚Ì—˜—pğŒ
+# é€šå¸¸æ™‚ã®åˆ©ç”¨æ¡ä»¶
 sub is_satisfy { 1 }
-# ’l‚ğØ¾¯Ä
+# å€¤ã‚’ï¾˜ï½¾ï½¯ï¾„
 sub refresh {
 	$m{lib} = '';
 	$m{tp} = $m{turn} = $m{stock} = $m{value} = 0;
 }
 #================================================
-# ”æ˜Jó‘Ô‚Ì‚Æ‚«‚Ì—˜—pğŒ
+# ç–²åŠ´çŠ¶æ…‹ã®ã¨ãã®åˆ©ç”¨æ¡ä»¶
 #================================================
 sub is_act_satisfy {
 	if ($m{act} >= 100) {
-		$mes .= '”æ˜J‚ª‚½‚Ü‚Á‚Ä‚¢‚Ü‚·Bˆê“x“à­‚ğs‚Á‚Ä‚­‚¾‚³‚¢<br>';
+		$mes .= 'ç–²åŠ´ãŒãŸã¾ã£ã¦ã„ã¾ã™ã€‚ä¸€åº¦å†…æ”¿ã‚’è¡Œã£ã¦ãã ã•ã„<br>';
 		&refresh;
 		&n_menu;
 		return 1;
@@ -217,7 +217,7 @@ sub is_act_satisfy {
 	return 0;
 }
 #================================================
-# ºÏİÄŞ‰˜õÁª¯¸BŠú‘Ò‚µ‚Ä‚¢‚é’l‚Æˆá‚¤ê‡‚Í 1(true) ‚ª•Ô‚è&begin(‰ŠúÒÆ­°•\¦)
+# ï½ºï¾ï¾ï¾„ï¾æ±šæŸ“ï¾ï½ªï½¯ï½¸ã€‚æœŸå¾…ã—ã¦ã„ã‚‹å€¤ã¨é•ã†å ´åˆã¯ 1(true) ãŒè¿”ã‚Š&begin(åˆæœŸï¾’ï¾†ï½­ï½°è¡¨ç¤º)
 #================================================
 sub is_ng_cmd {
 	my @check_cmds = @_;
@@ -228,7 +228,7 @@ sub is_ng_cmd {
 	return 1;
 }
 #================================================
-# Ò²İÒÆ­°‚È‚Ç‚Ìˆ— main.cgi country.cgi myself.cgi shopping.cgi
+# ï¾’ï½²ï¾ï¾’ï¾†ï½­ï½°ãªã©ã®å‡¦ç† main.cgi country.cgi myself.cgi shopping.cgi
 #================================================
 sub b_menu {
 	my @menus = @_;
@@ -239,7 +239,7 @@ sub b_menu {
 			$m{tp_r}   = 1;
 			require "./lib/$m{lib_r}.cgi";
 
-			# lib_rÀsğŒok‚È‚çbeginÒÆ­°
+			# lib_rå®Ÿè¡Œæ¡ä»¶okãªã‚‰beginï¾’ï¾†ï½­ï½°
 			&begin if &is_satisfy;
 		}
 		else {
@@ -248,7 +248,7 @@ sub b_menu {
 	}
 	else {
 		if (!$m{is_playing} && $w{playing} >= $max_playing) {
-			$mes .= qq|<font color="#FFFF00">ÌßÚ²‹K§’† $w{playing}/$max_playingl</font><br>‚µ‚Î‚ç‚­‚¨‘Ò‚¿‚­‚¾‚³‚¢|;
+			$mes .= qq|<font color="#FFFF00">ï¾Œï¾Ÿï¾šï½²è¦åˆ¶ä¸­ $w{playing}/$max_playingäºº</font><br>ã—ã°ã‚‰ããŠå¾…ã¡ãã ã•ã„|;
 			&begin;
 		}
 		elsif (defined $menus[$cmd]) {
@@ -256,7 +256,7 @@ sub b_menu {
 			$m{tp}   = 1;
 			require "./lib/$m{lib}.cgi";
 			
-			# libÀsğŒok‚È‚çbeginÒÆ­°
+			# libå®Ÿè¡Œæ¡ä»¶okãªã‚‰beginï¾’ï¾†ï½­ï½°
 			&begin if &is_satisfy;
 			
 			unless ($m{is_playing}) {
@@ -271,7 +271,7 @@ sub b_menu {
 	}
 }
 #================================================
-# ÒÆ­°ºÏİÄŞ
+# ï¾’ï¾†ï½­ï½°ï½ºï¾ï¾ï¾„ï¾
 #================================================
 sub menu {
 	my @menus = @_;
@@ -304,8 +304,8 @@ sub menu {
 			$menu_cmd .= qq|<td><form method="$method" action="$script">|;
 			$menu_cmd .= qq|<input type="submit" value="$mline" class="button1s"><input type="hidden" name="cmd" value="$i">|;
 			$menu_cmd .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-#			$menu_cmd .= qq|<input type="hidden" name="rest" value="$rest">| if $rest; # S‘©’†‚ÌƒRƒ}ƒ“ƒh“ü—Í‚Å‚ ‚é‚±‚Æ‚ğ“`‚¦‚é ”ò‚ñ‚¾æ‚Å $m{wt} ‚à”»’è‚·‚é‚±‚Æ
-			$menu_cmd .= qq|<input type="hidden" name="magic_word" value="$magic_word">| if $magic_word; # ‘½‘‹‚³‚¹‚È‚¢‚½‚ß‚ÌˆêƒL[
+#			$menu_cmd .= qq|<input type="hidden" name="rest" value="$rest">| if $rest; # æ‹˜æŸä¸­ã®ã‚³ãƒãƒ³ãƒ‰å…¥åŠ›ã§ã‚ã‚‹ã“ã¨ã‚’ä¼ãˆã‚‹ é£›ã‚“ã å…ˆã§ $m{wt} ã‚‚åˆ¤å®šã™ã‚‹ã“ã¨
+			$menu_cmd .= qq|<input type="hidden" name="magic_word" value="$magic_word">| if $magic_word; # å¤šçª“ã•ã›ãªã„ãŸã‚ã®ä¸€æ™‚ã‚­ãƒ¼
 			$menu_cmd .= qq|</form>|;
 			$menu_cmd .= qq|</td>|;
 			if($i % 4 == 3){
@@ -325,8 +325,8 @@ sub menu {
 			$menu_cmd .= qq|<form method="$method" action="$script">|;
 			$menu_cmd .= qq|<input type="submit" value="$menus[$i]" class="button2s"><input type="hidden" name="cmd" value="$i">|;
 			$menu_cmd .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-#			$menu_cmd .= qq|<input type="hidden" name="rest" value="$rest">| if $rest; # S‘©’†‚ÌƒRƒ}ƒ“ƒh“ü—Í‚Å‚ ‚é‚±‚Æ‚ğ“`‚¦‚é ”ò‚ñ‚¾æ‚Å $m{wt} ‚à”»’è‚·‚é‚±‚Æ
-			$menu_cmd .= qq|<input type="hidden" name="magic_word" value="$magic_word">| if $magic_word; # ‘½‘‹‚³‚¹‚È‚¢‚½‚ß‚ÌˆêƒL[
+#			$menu_cmd .= qq|<input type="hidden" name="rest" value="$rest">| if $rest; # æ‹˜æŸä¸­ã®ã‚³ãƒãƒ³ãƒ‰å…¥åŠ›ã§ã‚ã‚‹ã“ã¨ã‚’ä¼ãˆã‚‹ é£›ã‚“ã å…ˆã§ $m{wt} ã‚‚åˆ¤å®šã™ã‚‹ã“ã¨
+			$menu_cmd .= qq|<input type="hidden" name="magic_word" value="$magic_word">| if $magic_word; # å¤šçª“ã•ã›ãªã„ãŸã‚ã®ä¸€æ™‚ã‚­ãƒ¼
 			$menu_cmd .= qq|</form>|;
 			$menu_cmd .= qq|<br class="cmd_br" />| if ($i+1) % 7 == 0;
 		}
@@ -339,12 +339,12 @@ sub menu {
 			$menu_cmd .= qq|<option value="$i">$menus[$i]</option>|;
 		}
 		$menu_cmd .= qq|</select><input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-#		$menu_cmd .= qq|<input type="hidden" name="rest" value="$rest">| if $rest; # S‘©’†‚ÌƒRƒ}ƒ“ƒh“ü—Í‚Å‚ ‚é‚±‚Æ‚ğ“`‚¦‚é ”ò‚ñ‚¾æ‚Å $m{wt} ‚à”»’è‚·‚é‚±‚Æ
-		$menu_cmd .= qq|<input type="hidden" name="magic_word" value="$magic_word">| if $magic_word; # ‘½‘‹‚³‚¹‚È‚¢‚½‚ß‚ÌˆêƒL[
-		$menu_cmd .= $is_mobile ? qq|<br><input type="submit" value="Œˆ ’è" class="button1" accesskey="#"><input type="hidden" name="guid" value="ON"></form>|: qq|<br><input type="submit" value="Œˆ ’è" class="button1"><input type="hidden" name="guid" value="ON"></form>|;
+#		$menu_cmd .= qq|<input type="hidden" name="rest" value="$rest">| if $rest; # æ‹˜æŸä¸­ã®ã‚³ãƒãƒ³ãƒ‰å…¥åŠ›ã§ã‚ã‚‹ã“ã¨ã‚’ä¼ãˆã‚‹ é£›ã‚“ã å…ˆã§ $m{wt} ã‚‚åˆ¤å®šã™ã‚‹ã“ã¨
+		$menu_cmd .= qq|<input type="hidden" name="magic_word" value="$magic_word">| if $magic_word; # å¤šçª“ã•ã›ãªã„ãŸã‚ã®ä¸€æ™‚ã‚­ãƒ¼
+		$menu_cmd .= $is_mobile ? qq|<br><input type="submit" value="æ±º å®š" class="button1" accesskey="#"><input type="hidden" name="guid" value="ON"></form>|: qq|<br><input type="submit" value="æ±º å®š" class="button1"><input type="hidden" name="guid" value="ON"></form>|;
 	}
 
-#	return $menu_cmd if $rest; # S‘©’†‚Í $menu_cmd ‚ª•\¦‚³‚ê‚È‚¢ƒ‹[ƒg‚ğ’Ê‚é‚Ì‚ÅA‚Æ‚è‚ ‚¦‚¸S‘©’†‚ÌƒRƒ}ƒ“ƒh‚Í‚±‚±‚Å•Ô‚é•¶š—ñ‚ğ $mes ‚É‘«‚µ‚Ä•\¦‚·‚é
+#	return $menu_cmd if $rest; # æ‹˜æŸä¸­ã¯ $menu_cmd ãŒè¡¨ç¤ºã•ã‚Œãªã„ãƒ«ãƒ¼ãƒˆã‚’é€šã‚‹ã®ã§ã€ã¨ã‚Šã‚ãˆãšæ‹˜æŸä¸­ã®ã‚³ãƒãƒ³ãƒ‰ã¯ã“ã“ã§è¿”ã‚‹æ–‡å­—åˆ—ã‚’ $mes ã«è¶³ã—ã¦è¡¨ç¤ºã™ã‚‹
 =pod
 	if($is_smart){
 		$menu_cmd .= qq|<div>|;
@@ -390,7 +390,7 @@ sub menu {
 
 }
 #================================================
-# NextÒÆ­°
+# Nextï¾’ï¾†ï½­ï½°
 #================================================
 sub n_menu {
 	$menu_cmd  = qq|<form method="$method" action="$script">|;
@@ -398,14 +398,14 @@ sub n_menu {
 	$menu_cmd .= $is_mobile ? qq|<input type="submit" value="Next" class="button1" accesskey="#"><input type="hidden" name="guid" value="ON"></form>|: qq|<input type="submit" value="Next" class="button1"><input type="hidden" name="guid" value="ON"></form>|;
 }
 #================================================
-# Œg‘Ñ—pPager Ÿ‚Ö‘O‚Ö shopping_hospital.cgi
+# æºå¸¯ç”¨Pager æ¬¡ã¸å‰ã¸ shopping_hospital.cgi
 #================================================
 sub pager_next {
 	my $page = shift;
 	$mes .= qq|<form method="$method" action="$script">|;
 	$mes .= qq|<input type="hidden" name="cmd" value="$cmd"><input type="hidden" name="page" value="$page">|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<input type="submit" value="Ÿ‚ÌÍß°¼Ş" class="button1"></form>|;
+	$mes .= qq|<input type="submit" value="æ¬¡ã®ï¾ï¾Ÿï½°ï½¼ï¾" class="button1"></form>|;
 }
 sub pager_back {
 	my $page = shift;
@@ -413,41 +413,41 @@ sub pager_back {
 	$mes .= qq|<form method="$method" action="$script">|;
 	$mes .= qq|<input type="hidden" name="cmd" value="$cmd"><input type="hidden" name="page" value="$page">|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<input type="submit" value="‘O‚ÌÍß°¼Ş" class="button1"></form>|;
+	$mes .= qq|<input type="submit" value="å‰ã®ï¾ï¾Ÿï½°ï½¼ï¾" class="button1"></form>|;
 }
 #================================================
-# n—û“x±¯Ìß
+# ç†Ÿç·´åº¦ï½±ï½¯ï¾Œï¾Ÿ
 #================================================
 sub c_up { # count up
 	my $c = shift;
 	++$m{$c};
-	# ˜A‘±‚Åc_up‚³‚ê‚é—p‚Æ‚µ‚Ä¸ŞÛ°ÊŞÙ‚È‘Ş”ğ•Ï”‚Æ”»’è‚É•K—v‚È”z—ñì¬
+	# é€£ç¶šã§c_upã•ã‚Œã‚‹ç”¨ã¨ã—ã¦ï½¸ï¾ï¾›ï½°ï¾Šï¾ï¾™ãªé€€é¿å¤‰æ•°ã¨åˆ¤å®šã«å¿…è¦ãªé…åˆ—ä½œæˆ
 	if ($cash_c ne $c) {
 		$cash_c = $c;
 		@cash_shogos = ();
 		for my $shogo (@shogos) {
-			my($k) = keys %{ $shogo->[1] }; # ‚È‚¹‚©each‚¾‚Æ2‰ñ–Ú‚ª‚Æ‚ê‚È‚¢c
+			my($k) = keys %{ $shogo->[1] }; # ãªã›ã‹eachã ã¨2å›ç›®ãŒã¨ã‚Œãªã„â€¦
 			push @cash_shogos, [$shogo->[0], $shogo->[1]->{$k}, $shogo->[2]] if $c eq $k;
 		}
 		@cash_secret_shogos = ();
 		for my $secret_shogo (@secret_shogos) {
-			my($k) = keys %{ $secret_shogo->[1] }; # ‚È‚¹‚©each‚¾‚Æ2‰ñ–Ú‚ª‚Æ‚ê‚È‚¢c
+			my($k) = keys %{ $secret_shogo->[1] }; # ãªã›ã‹eachã ã¨2å›ç›®ãŒã¨ã‚Œãªã„â€¦
 			push @cash_secret_shogos, [$secret_shogo->[0], $secret_shogo->[1]->{$k}, $secret_shogo->[2]] if $c eq $k;
 		}
 	}
 	
 	for my $cash_shogo (@cash_shogos) {
 		if ($cash_shogo->[1] eq $m{$c}) {
-			&mes_and_world_news("$cash_shogo->[0]‚ÌÌ†‚ğ—^‚¦‚ç‚ê‚Ü‚µ‚½", 1);
-			&send_twitter("$cash_shogo->[0]‚ÌÌ†‚ğ—^‚¦‚ç‚ê‚Ü‚µ‚½", 1);
+			&mes_and_world_news("$cash_shogo->[0]ã®ç§°å·ã‚’ä¸ãˆã‚‰ã‚Œã¾ã—ãŸ", 1);
+			&send_twitter("$cash_shogo->[0]ã®ç§°å·ã‚’ä¸ãˆã‚‰ã‚Œã¾ã—ãŸ", 1);
 			$m{money} += $cash_shogo->[2];
-			$mes .= "$cash_shogo->[2]G‚Ì•ñ§‹à‚ğó‚¯æ‚è‚Ü‚µ‚½<br>";
+			$mes .= "$cash_shogo->[2]Gã®å ±å¥¨é‡‘ã‚’å—ã‘å–ã‚Šã¾ã—ãŸ<br>";
 		}
 	}
 	
 	@cash_secret_shogos = sort { $a->[1] <=> $b->[1] } @cash_secret_shogos;
 	
-	# ‰i‰“‚ÌØ‚ÉŒvã‚³‚ê‚È‚¢“ÁêÌ†
+	# æ°¸é ã®è¨¼ã«è¨ˆä¸Šã•ã‚Œãªã„ç‰¹æ®Šç§°å·
 	my $secret = ['', 0, 0];
 	for my $cash_secret_shogo (@cash_secret_shogos) {
 		if ($cash_secret_shogo->[1] <= $m{$c}) {
@@ -456,40 +456,40 @@ sub c_up { # count up
 	}
 	
 	if ($secret->[0]) {
-		&mes_and_world_news("$secret->[0]‚ÌÌ†‚ğ—^‚¦‚ç‚ê‚Ü‚µ‚½", 1);
-		&send_twitter("$secret->[0]‚ÌÌ†‚ğ—^‚¦‚ç‚ê‚Ü‚µ‚½", 1);
+		&mes_and_world_news("$secret->[0]ã®ç§°å·ã‚’ä¸ãˆã‚‰ã‚Œã¾ã—ãŸ", 1);
+		&send_twitter("$secret->[0]ã®ç§°å·ã‚’ä¸ãˆã‚‰ã‚Œã¾ã—ãŸ", 1);
 		$m{money} += $secret->[2];
-		$mes .= "$secret->[2]G‚Ì•ñ§‹à‚ğó‚¯æ‚è‚Ü‚µ‚½<br>";
+		$mes .= "$secret->[2]Gã®å ±å¥¨é‡‘ã‚’å—ã‘å–ã‚Šã¾ã—ãŸ<br>";
 		$m{shogo} = $secret->[0];
 	}
 	
-	# ŒR–Œn‚Ìt Œø‰Ê‚Í ./lib/military.cgi ‚Å military_master_c_up
+	# è»äº‹ç³»ã®å¸«åŒ åŠ¹æœã¯ ./lib/military.cgi ã§ military_master_c_up
 	return if $c eq 'gou_c' || $c eq 'cho_c' || $c eq 'sen_c' || $c eq 'tei_c' || $c eq 'gik_c' || $c eq 'kou_c' || $c eq 'mat_c';
-	# ’íq‚Ìê‡2”{æ“¾
+	# å¼Ÿå­ã®å ´åˆ2å€å–å¾—
 	if ($m{master_c} eq $c) {
 		++$m{$c};
-		# ˜A‘±‚Åc_up‚³‚ê‚é—p‚Æ‚µ‚Ä¸ŞÛ°ÊŞÙ‚È‘Ş”ğ•Ï”‚Æ”»’è‚É•K—v‚È”z—ñì¬
+		# é€£ç¶šã§c_upã•ã‚Œã‚‹ç”¨ã¨ã—ã¦ï½¸ï¾ï¾›ï½°ï¾Šï¾ï¾™ãªé€€é¿å¤‰æ•°ã¨åˆ¤å®šã«å¿…è¦ãªé…åˆ—ä½œæˆ
 		if ($cash_c ne $c) {
 			$cash_c = $c;
 			@cash_shogos = ();
 			for my $shogo (@shogos) {
-				my($k) = keys %{ $shogo->[1] }; # ‚È‚¹‚©each‚¾‚Æ2‰ñ–Ú‚ª‚Æ‚ê‚È‚¢c
+				my($k) = keys %{ $shogo->[1] }; # ãªã›ã‹eachã ã¨2å›ç›®ãŒã¨ã‚Œãªã„â€¦
 				push @cash_shogos, [$shogo->[0], $shogo->[1]->{$k}, $shogo->[2]] if $c eq $k;
 			}
 		}
 		
 		for my $cash_shogo (@cash_shogos) {
 			if ($cash_shogo->[1] eq $m{$c}) {
-				&mes_and_world_news("$cash_shogo->[0]‚ÌÌ†‚ğ—^‚¦‚ç‚ê‚Ü‚µ‚½", 1);
-				&send_twitter("$cash_shogo->[0]‚ÌÌ†‚ğ—^‚¦‚ç‚ê‚Ü‚µ‚½", 1);
+				&mes_and_world_news("$cash_shogo->[0]ã®ç§°å·ã‚’ä¸ãˆã‚‰ã‚Œã¾ã—ãŸ", 1);
+				&send_twitter("$cash_shogo->[0]ã®ç§°å·ã‚’ä¸ãˆã‚‰ã‚Œã¾ã—ãŸ", 1);
 				$m{money} += $cash_shogo->[2];
-				$mes .= "$cash_shogo->[2]G‚Ì•ñ§‹à‚ğó‚¯æ‚è‚Ü‚µ‚½<br>";
+				$mes .= "$cash_shogo->[2]Gã®å ±å¥¨é‡‘ã‚’å—ã‘å–ã‚Šã¾ã—ãŸ<br>";
 			}
 		}
 	}
 }
 #================================================
-# ‘ã•\ÒÎß²İÄ±¯Ìß
+# ä»£è¡¨è€…ï¾ï¾Ÿï½²ï¾ï¾„ï½±ï½¯ï¾Œï¾Ÿ
 #================================================
 sub daihyo_c_up {
 	my $c = shift;
@@ -499,26 +499,26 @@ sub daihyo_c_up {
 		$cs{$c}[$m{country}] = $m{$c};
 	}
 	elsif (!&is_daihyo && $m{$c} > $cs{$c}[$m{country}] && $m{$c} >= 10) {
-		&mes_and_world_news(qq|<font color="#FF9999">š“ú ‚Ì‘‚Ö‚ÌvŒ£‚ª”F‚ß‚ç‚ê$cs{name}[$m{country}]‘ã•\\‚Ì$e2j{$k}‚É”C–½‚³‚ê‚Ü‚µ‚½š</font>|,1);
+		&mes_and_world_news(qq|<font color="#FF9999">â˜…æ—¥é ƒã®å›½ã¸ã®è²¢çŒ®ãŒèªã‚ã‚‰ã‚Œ$cs{name}[$m{country}]ä»£è¡¨\ã®$e2j{$k}ã«ä»»å‘½ã•ã‚Œã¾ã—ãŸâ˜…</font>|,1);
 		$cs{$k}[$m{country}] = $m{name};
 		$cs{$c}[$m{country}] = $m{$c};
 	}
 }
 #================================================
-# ‘‚É‚¢‚éƒvƒŒƒCƒ„[–¼æ“¾
+# å›½ã«ã„ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åå–å¾—
 #================================================
 sub get_country_members {
 	my $country = shift;
-	&error("‘No[ $country ] ‚»‚Ì‘‚ª‘¶İ‚µ‚È‚¢‚æ") unless -d "$logdir/$country";
+	&error("å›½No[ $country ] ãã®å›½ãŒå­˜åœ¨ã—ãªã„ã‚ˆ") unless -d "$logdir/$country";
 	my @lines = ();
-	open my $fh, "< $logdir/$country/member.cgi" or &error("‘$countryƒvƒŒƒCƒ„[ƒf[ƒ^‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "< $logdir/$country/member.cgi" or &error("å›½$countryãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ‡ãƒ¼ã‚¿ãŒé–‹ã‘ã¾ã›ã‚“");
 	push @lines, $_ while <$fh>;
 	close $fh;
 	
 	return @lines;
 }
 #================================================
-# ‘¼ÌßÚ²Ô°‚É±²ÃÑ‚ğ—X‘—
+# ä»–ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã«ï½±ï½²ï¾ƒï¾‘ã‚’éƒµé€
 #================================================
 sub send_item {
 	my($send_name, $kind, $item_no, $item_c, $item_lv, $force_send) = @_;
@@ -541,7 +541,7 @@ sub send_item {
 		close $fh2; 
 	}
 	
-	$s_mes = &get_item_name($kind, $item_no); # ƒAƒCƒeƒ€–¼‚¾‚¯
+	$s_mes = &get_item_name($kind, $item_no); # ã‚¢ã‚¤ãƒ†ãƒ åã ã‘
 	if (-f "$userdir/$send_id/depot_watch.cgi"){
 #		my $depot_line = '';
 #		open my $rfh, "< $userdir/$send_id/depot.cgi";
@@ -554,8 +554,8 @@ sub send_item {
 		open my $wfh, ">> $userdir/$send_id/depot_watch.cgi";
 		my($tmin,$thour,$tmday,$tmon,$tyear) = (localtime($time))[1..4];
 		$tdate = sprintf("%d/%d %02d:%02d", $tmon+1,$tmday,$thour,$tmin);
-#		print $wfh "$send_name‚©‚ç$s_mes ($tdate)<>$depot_line\n";
-		print $wfh "$send_name‚©‚ç$s_mes ($tdate)<>$kind<>$item_no<>$item_c<>$item_lv\n";
+#		print $wfh "$send_nameã‹ã‚‰$s_mes ($tdate)<>$depot_line\n";
+		print $wfh "$send_nameã‹ã‚‰$s_mes ($tdate)<>$kind<>$item_no<>$item_c<>$item_lv\n";
 		close $wfh;
 	}
 	unless ($send_name eq $m{name}){
@@ -567,7 +567,7 @@ sub send_item {
 	}
 }
 #================================================
-# ‘¼ÌßÚ²Ô°‚É‚¨‹à‚ğ‘—‹à
+# ä»–ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã«ãŠé‡‘ã‚’é€é‡‘
 #================================================
 sub send_money {
 	my($send_name, $from_name, $money, $is_shop_sale) = @_;
@@ -580,48 +580,48 @@ sub send_money {
 	}
 }
 #================================================
-# •\¦‚µ‚Â‚ÂÆ­°½‚É‚à‘‚«‚Ş
+# è¡¨ç¤ºã—ã¤ã¤ï¾†ï½­ï½°ï½½ã«ã‚‚æ›¸ãè¾¼ã‚€
 #================================================
 sub mes_and_world_news {
 	my $w_name = &name_link($m{name});
 	if ($w{world} eq '16' || ($w{world} eq '19' && $w{world_sub} eq '16')) {
-		$w_name = '–¼–³‚µ';
+		$w_name = 'åç„¡ã—';
 	}
 	my $message = shift;
 	$mes .= "$message<br>";
-	  $message =~ /^<b>/  ? &write_world_news("<b>$c_m‚Ì$w_name‚ª</b>$message", @_)
-	: $message =~ /^<i>/  ? &write_world_news("<i>$c_m‚Ì$w_name‚ª</i>$message", @_)
-	: $message =~ /^<em>/ ? &write_world_news("<em>$c_m‚Ì$w_name‚ª</em>$message", @_)
-	:					    &write_world_news("$c_m‚Ì$w_name‚ª$message", @_)
+	  $message =~ /^<b>/  ? &write_world_news("<b>$c_mã®$w_nameãŒ</b>$message", @_)
+	: $message =~ /^<i>/  ? &write_world_news("<i>$c_mã®$w_nameãŒ</i>$message", @_)
+	: $message =~ /^<em>/ ? &write_world_news("<em>$c_mã®$w_nameãŒ</em>$message", @_)
+	:					    &write_world_news("$c_mã®$w_nameãŒ$message", @_)
 	;
 }
 sub mes_and_send_news {
 	my $w_name = &name_link($m{name});
 	if ($w{world} eq '16' || ($w{world} eq '19' && $w{world_sub} eq '16')) {
-		$w_name = '–¼–³‚µ';
+		$w_name = 'åç„¡ã—';
 	}
 	my $message = shift;
 	$mes .= "$message<br>";
-	  $message =~ /^<b>/  ? &write_send_news("<b>$c_m‚Ì$w_name‚ª</b>$message", @_)
-	: $message =~ /^<i>/  ? &write_send_news("<i>$c_m‚Ì$w_name‚ª</i>$message", @_)
-	: $message =~ /^<em>/ ? &write_send_news("<em>$c_m‚Ì$w_name‚ª</em>$message", @_)
-	:					    &write_send_news("$c_m‚Ì$w_name‚ª$message", @_)
+	  $message =~ /^<b>/  ? &write_send_news("<b>$c_mã®$w_nameãŒ</b>$message", @_)
+	: $message =~ /^<i>/  ? &write_send_news("<i>$c_mã®$w_nameãŒ</i>$message", @_)
+	: $message =~ /^<em>/ ? &write_send_news("<em>$c_mã®$w_nameãŒ</em>$message", @_)
+	:					    &write_send_news("$c_mã®$w_nameãŒ$message", @_)
 	;
 }
 #================================================
-# ‰ß‹‚Ì‰hŒõA•¨—¬î•ñƒƒO‘‚«‚İˆ—
+# éå»ã®æ „å…‰ã€ç‰©æµæƒ…å ±ãƒ­ã‚°æ›¸ãè¾¼ã¿å‡¦ç†
 #================================================
 #sub write_world_news     { &_write_news('world_news', @_) }
 sub write_world_news     {
 	my($message, $is_memory, $memory_name) = @_;
 	if ($m{cicada_sound} > $time) {
-		my @cicada_sounds = ('Ğ°°°°°İĞİĞİĞİĞİĞ°°°°°°°°°İĞ°°°°°İĞİĞİĞİĞİĞ°°°°°°°°°İ', '¼Şc¼Şc¼Ş[[[[[[[[[¼Ş[[[[[[[[[¼Ş[[[[[[[[[','Â¸Â¸ÎŞ«µµ°°°°¼¯@Â¸Â¸ÎŞ«µµ°°°°¼¯@Â¸Â¸³¨[Ö[-¯@Â¸³¨[Ö[-¯@Â¸³¨[Ö[-¯@Â¸³¨[Ö[-¯@³¨¨¨²²²²²²¨¨¨¨¨¨[[[[[ccccc');
+		my @cicada_sounds = ('ï¾ï½°ï½°ï½°ï½°ï½°ï¾ï¾ï¾ï¾ï¾ï¾ï¾ï¾ï¾ï¾ï½°ï½°ï½°ï½°ï½°ï½°ï½°ï½°ï½°ï¾ï¾ï½°ï½°ï½°ï½°ï½°ï¾ï¾ï¾ï¾ï¾ï¾ï¾ï¾ï¾ï¾ï½°ï½°ï½°ï½°ï½°ï½°ï½°ï½°ï½°ï¾', 'ï½¼ï¾â€¦ï½¼ï¾â€¦ï½¼ï¾ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ï½¼ï¾ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ï½¼ï¾ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼','ï¾‚ï½¸ï¾‚ï½¸ï¾ï¾ï½«ï½µï½µï½°ï½°ï½°ï½°ï½¼ï½¯ã€€ï¾‚ï½¸ï¾‚ï½¸ï¾ï¾ï½«ï½µï½µï½°ï½°ï½°ï½°ï½¼ï½¯ã€€ï¾‚ï½¸ï¾‚ï½¸ï½³ï½¨ãƒ¼ï¾–ãƒ¼-ï½¯ã€€ï¾‚ï½¸ï½³ï½¨ãƒ¼ï¾–ãƒ¼-ï½¯ã€€ï¾‚ï½¸ï½³ï½¨ãƒ¼ï¾–ãƒ¼-ï½¯ã€€ï¾‚ï½¸ï½³ï½¨ãƒ¼ï¾–ãƒ¼-ï½¯ã€€ï½³ï½¨ï½¨ï½¨ï½²ï½²ï½²ï½²ï½²ï½²ï½¨ï½¨ï½¨ï½¨ï½¨ï½¨ãƒ¼ãƒ¼ãƒ¼ãƒ¼ãƒ¼â€¦â€¦â€¦â€¦â€¦');
 		$message = $cicada_sounds[int(rand(@cicada_sounds))];
 	}
-	if ($w{world} ne '10' || $message =~ /^</) { # h¢ŠEî¨y’¾–ÙzˆÈŠOh‚Ü‚½‚Í‘å‚«‚Èo—ˆ–
+	if ($w{world} ne '10' || $message =~ /^</) { # â€ä¸–ç•Œæƒ…å‹¢ã€æ²ˆé»™ã€‘ä»¥å¤–â€ã¾ãŸã¯å¤§ããªå‡ºæ¥äº‹
 		&_write_news('world_news', ($message, $is_memory, $memory_name));
 	}
-	elsif ($is_memory) { # ¢ŠEî¨y’¾–Ùz‚Åí—ğƒtƒ‰ƒO‚ª‚ ‚Á‚½ê‡
+	elsif ($is_memory) { # ä¸–ç•Œæƒ…å‹¢ã€æ²ˆé»™ã€‘ã§æˆ¦æ­´ãƒ•ãƒ©ã‚°ãŒã‚ã£ãŸå ´åˆ
 		$message = &coloration_country($message);
 		&write_memory($message, $memory_name);
 	}
@@ -639,7 +639,7 @@ sub _write_news {
 	&write_world_big_news($message) if $message =~ /^</;
 	$message = &coloration_country($message);
 	my @lines = ();
-	open my $fh, "+< $logdir/$file_name.cgi" or &error("$file_name.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $logdir/$file_name.cgi" or &error("$file_name.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	my $head_line = <$fh>;
 	push @lines, $head_line;
@@ -668,13 +668,13 @@ sub _write_news {
 	&write_memory($message, $memory_name) if $is_memory;
 }
 #================================================
-# ¢ŠE‚Ì—¬‚ê
+# ä¸–ç•Œã®æµã‚Œ
 #================================================
 sub write_world_big_news {
 	my $message = shift;
 	$message = &coloration_country($message);
 	my @lines = ();
-	open my $fh, "+< $logdir/world_big_news.cgi" or &error("$logdir/world_big_news.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $logdir/world_big_news.cgi" or &error("$logdir/world_big_news.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	while (my $line = <$fh>) {
 		push @lines, $line;
@@ -687,7 +687,7 @@ sub write_world_big_news {
 	close $fh;
 }
 # ------------------
-# ‘–¼‚ª‚ ‚ê‚ÎF•t‚¯
+# å›½åãŒã‚ã‚Œã°è‰²ä»˜ã‘
 sub coloration_country {
 	my $message = shift;
 	return $message if $w{country} < 1;
@@ -698,20 +698,20 @@ sub coloration_country {
 	return $message;
 }
 #================================================
-# Î”è
+# çŸ³ç¢‘
 #================================================
 sub write_legend {
 	my($file_name, $message, $is_memory, $memory_name) = @_;
 	
 	my @lines = ();
-	open my $fh, "+< $logdir/legend/$file_name.cgi" or &error("$logdir/legend/$file_name.cgi Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $logdir/legend/$file_name.cgi" or &error("$logdir/legend/$file_name.cgi ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	while (my $line = <$fh>) {
 		push @lines, $line;
 		last if @lines >= $max_log-1;
 	}
 	$message = &coloration_country($message);
-	unshift @lines, qq|$world_name—ï$w{year}”Ny$world_states[$w{world}]zF$message <font size="1">($date)</font>\n|;
+	unshift @lines, qq|$world_nameæš¦$w{year}å¹´ã€$world_states[$w{world}]ã€‘ï¼š$message <font size="1">($date)</font>\n|;
 	seek  $fh, 0, 0;
 	truncate $fh, 0;
 	print $fh @lines;
@@ -719,9 +719,9 @@ sub write_legend {
 	&write_memory($message, $memory_name) if $is_memory;
 }
 #================================================
-# v‚¢oƒƒO‘‚«‚İˆ—
+# æ€ã„å‡ºãƒ­ã‚°æ›¸ãè¾¼ã¿å‡¦ç†
 #================================================
-# ˆø”‚É–¼‘O‚ª‚ ‚éê‡‚ÍA‚»‚Ìl‚Ìí—ğ‚ÉA‚È‚¢ê‡‚Í©•ª‚Ìí—ğ‚É‘‚«‚Ü‚ê‚é
+# å¼•æ•°ã«åå‰ãŒã‚ã‚‹å ´åˆã¯ã€ãã®äººã®æˆ¦æ­´ã«ã€ãªã„å ´åˆã¯è‡ªåˆ†ã®æˆ¦æ­´ã«æ›¸ãè¾¼ã¾ã‚Œã‚‹
 sub write_memory {
 	my($message, $memory_name) = @_;
 	$m_id = $memory_name ? unpack 'H*', $memory_name : $id;
@@ -729,7 +729,7 @@ sub write_memory {
 	return unless -f "$userdir/$m_id/memory.cgi";
 	
 	my @lines = ();
-	open my $fh, "+< $userdir/$m_id/memory.cgi" or &error("MemoryÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $userdir/$m_id/memory.cgi" or &error("Memoryï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	while (my $line = <$fh>) {
 		push @lines, $line;
@@ -742,7 +742,7 @@ sub write_memory {
 	close $fh;
 }
 #================================================
-# ©•ª‚Æ‘Šè‚Ì‹­‚³”»•Ê  2:‹­‚¢ 1:•’Ê 0:ã‚¢
+# è‡ªåˆ†ã¨ç›¸æ‰‹ã®å¼·ã•åˆ¤åˆ¥  2:å¼·ã„ 1:æ™®é€š 0:å¼±ã„
 #================================================
 sub st_lv {
 	my $y_st = shift || &y_st;
@@ -756,26 +756,26 @@ sub st_lv {
 sub y_st { int($y{max_hp} + $y{max_mp} + $y{at} + $y{df} + $y{mat} + $y{mdf} + $y{ag} + $y{cha}*0.5) }
 sub m_st { int($m{max_hp} + $m{max_mp} + $m{at} + $m{df} + $m{mat} + $m{mdf} + $m{ag} + $m{cha}*0.5) }
 #================================================
-# ĞŠQ –Å–S’áŠm—¦AÛÌßÄg—p
+# ç½å®³ æ»…äº¡æ™‚ä½ç¢ºç‡ã€ï¾›ï¾Œï¾Ÿï¾„ä½¿ç”¨æ™‚
 #================================================
 sub disaster {
 	my $more = shift;
 	my @disasters = (
-		['©‘RĞŠQ','food'],
-		['ŒoÏ”j’]','money'],
-		['‘å’nk','soldier'],
+		['è‡ªç„¶ç½å®³','food'],
+		['çµŒæ¸ˆç ´ç¶»','money'],
+		['å¤§åœ°éœ‡','soldier'],
 	);
 	if ($more) {
-		push @disasters, ['ˆê’èŠÔ‘–h‚ªÆã‰»','paper'];
-		push @disasters, ['ˆê’èŠÔwŠöŒn“‚ª¬—','mismatch'];
-		push @disasters, ['‘å“D–_‚ªoŒ»','concentrate'];
+		push @disasters, ['ä¸€å®šæ™‚é–“å›½é˜²ãŒè„†å¼±åŒ–','paper'];
+		push @disasters, ['ä¸€å®šæ™‚é–“æŒ‡æ®ç³»çµ±ãŒæ··ä¹±','mismatch'];
+		push @disasters, ['å¤§æ³¥æ£’ãŒå‡ºç¾','concentrate'];
 		unless ($w{world} eq $#world_states || $w{world} eq $#world_states-1 || $w{world} eq $#world_states-2 || $w{world} eq $#world_states-3 || $w{world} eq $#world_states-4 || $w{world} eq $#world_states-5) {
-			push @disasters, ['–‚l•œŠˆ','strong'];
+			push @disasters, ['é­”äººå¾©æ´»','strong'];
 		}
 		if ($w{world} eq '12') {
-			push @disasters, ['‘å‹Qé[', 'big_food'];
-			push @disasters, ['‘å‹°Q', 'big_money'];
-			push @disasters, ['‘å’Ã”g', 'big_soldier'];
+			push @disasters, ['å¤§é£¢é¥‰', 'big_food'];
+			push @disasters, ['å¤§ææ…Œ', 'big_money'];
+			push @disasters, ['å¤§æ´¥æ³¢', 'big_soldier'];
 		}
 	}
 	my $v = int(rand(@disasters));
@@ -784,16 +784,16 @@ sub disaster {
 			next if $cs{ is_die }[$i];
 			$cs{ $disasters[$v][1] }[$i] = int($cs{ $disasters[$v][1] }[$i] * 0.5);
 		}
-		&write_world_news("<b>¢ŠE’†‚É $disasters[$v][0] ‚ª‹N‚±‚è‚Ü‚µ‚½</b>");
+		&write_world_news("<b>ä¸–ç•Œä¸­ã« $disasters[$v][0] ãŒèµ·ã“ã‚Šã¾ã—ãŸ</b>");
 	} elsif ($disasters[$v][1] eq 'strong' && $m{country}) {
 		my $target = &get_most_strong_country(1);
 		$cs{ $disasters[$v][1] }[$target] -= int(rand(10)+5) * 100;
-		&write_world_news("<b>$cs{name}[$target]‚É $disasters[$v][0] ‚ª‹N‚±‚è‚Ü‚µ‚½</b>");
+		&write_world_news("<b>$cs{name}[$target]ã« $disasters[$v][0] ãŒèµ·ã“ã‚Šã¾ã—ãŸ</b>");
 	} elsif (($disasters[$v][1] eq 'paper' || $disasters[$v][1] eq 'mismatch') && $m{country}) {
 		my $target = &get_most_strong_country(1);
 		$cs{disaster}[$target] = $disasters[$v][1];
 		$cs{disaster_limit}[$target] = $time + 1 * 60 * 60;
-		&write_world_news("<b>$cs{name}[$target]‚Å $disasters[$v][0] ‚µ‚Ü‚µ‚½</b>");
+		&write_world_news("<b>$cs{name}[$target]ã§ $disasters[$v][0] ã—ã¾ã—ãŸ</b>");
 	} elsif ($disasters[$v][1] eq 'concentrate') {
 		my @rlist = ('food', 'money', 'soldier');
 		my $r = $rlist[int(rand(@rlist))];
@@ -803,18 +803,18 @@ sub disaster {
 			$cs{$r}[$i] = int($cs{$r}[$i] * 0.5);
 			$cs{$r}[$m{country}] += $cs{$r}[$i];
 		}
-		&write_world_news("<b>¢ŠE’†‚É $disasters[$v][0] ‚µ‚Ü‚µ‚½</b>");
+		&write_world_news("<b>ä¸–ç•Œä¸­ã« $disasters[$v][0] ã—ã¾ã—ãŸ</b>");
 	} elsif ($disasters[$v][1] =~ 'big_(.*)') {
 		$r = $1;
 		for my $i (1 .. $w{country}) {
 			next if $cs{is_die}[$i];
 			$cs{$r}[$i] = int($cs{$r}[$i] * 0.1);
 		}
-		&write_world_news("<b>¢ŠE’†‚É $disasters[$v][0] ‚ª‹N‚±‚è‚Ü‚µ‚½</b>");
+		&write_world_news("<b>ä¸–ç•Œä¸­ã« $disasters[$v][0] ãŒèµ·ã“ã‚Šã¾ã—ãŸ</b>");
 	}
 }
 #================================================
-# ‘ŠèÃŞ°À‚ª‚ ‚é‚©ƒ`ƒFƒbƒN
+# ç›¸æ‰‹ï¾ƒï¾ï½°ï¾€ãŒã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
 #================================================
 sub you_exists {
 	my($name, $is_unpack) = @_;
@@ -827,15 +827,15 @@ sub you_exists {
 	return 0;
 }
 #================================================
-# ‘ŠèÃŞ°À‚ğGet –ß‚è’l‚ÍƒnƒbƒVƒ…
+# ç›¸æ‰‹ï¾ƒï¾ï½°ï¾€ã‚’Get æˆ»ã‚Šå€¤ã¯ãƒãƒƒã‚·ãƒ¥
 #================================================
-# g‚¢•û: &get_you_datas('‘Šè‚Ì–¼‘O');
+# ä½¿ã„æ–¹: &get_you_datas('ç›¸æ‰‹ã®åå‰');
 sub get_you_datas {
 	my($name, $is_unpack) = @_;
 	
 	my $y_id = $is_unpack ? $name : unpack 'H*', $name;
 	
-	open my $fh, "< $userdir/$y_id/user.cgi" or &error("‚»‚Ì‚æ‚¤‚ÈÌßÚ²Ô°‚Í‘¶İ‚µ‚Ü‚¹‚ñ$y_id");
+	open my $fh, "< $userdir/$y_id/user.cgi" or &error("ãã®ã‚ˆã†ãªï¾Œï¾Ÿï¾šï½²ï¾”ï½°ã¯å­˜åœ¨ã—ã¾ã›ã‚“$y_id");
 	my $line_data = <$fh>;
 	my $line_info = <$fh>;
 	close $fh;
@@ -854,13 +854,13 @@ sub get_you_datas {
 		$you_datas{$k} = $v;
 	}
 
-	# ‰ÄÕ‚è—p
+	# å¤ç¥­ã‚Šç”¨
 	if (&on_summer) {
 #		unless (-f "$userdir/$y_id/summer.cgi") {
 #			open my $fh, "> $userdir/$y_id/summer.cgi";
 #			close $fh;
 #		}
-		open my $fh, "< $userdir/$y_id/summer.cgi" or &error("‰ÄÕ‚è—pÌ§²Ù‚ª‘¶İ‚µ‚Ü‚¹‚ñ");
+		open my $fh, "< $userdir/$y_id/summer.cgi" or &error("å¤ç¥­ã‚Šç”¨ï¾Œï½§ï½²ï¾™ãŒå­˜åœ¨ã—ã¾ã›ã‚“");
 		my $line = <$fh>;
 		close $fh;
 
@@ -874,9 +874,9 @@ sub get_you_datas {
 	return %you_datas;
 }
 #================================================
-# ‘ŠèÃŞ°À•ÏX  Œ‹¥‚Æ“¬‹Zê‚Ìn—û“xUP‚Ég—p
+# ç›¸æ‰‹ï¾ƒï¾ï½°ï¾€å¤‰æ›´  çµå©šæ™‚ã¨é—˜æŠ€å ´ã®ç†Ÿç·´åº¦UPæ™‚ã«ä½¿ç”¨
 #================================================
-# g‚¢•û: &regist_you_data('‘Šè‚Ì–¼‘O', '•ÏX‚µ‚½‚¢•Ï”', '’l');
+# ä½¿ã„æ–¹: &regist_you_data('ç›¸æ‰‹ã®åå‰', 'å¤‰æ›´ã—ãŸã„å¤‰æ•°', 'å€¤');
 sub regist_you_data {
 	my($name, $k, $v) = @_;
 	return if $name eq '' || $k eq '';
@@ -888,7 +888,7 @@ sub regist_you_data {
 		my %you_datas = &get_you_datas($y_id,1);
 		if(($k eq 'lib' && $you_datas{lib} eq 'military' && $you_datas{tp} eq '610') || ($k eq 'value' && $you_datas{value} eq 'military_ambush')){
 			my @lines = ();
-			open my $fh, "+< $logdir/$you_datas{country}/patrol.cgi" or &error("$logdir/$you_datas{country}/patrol.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+			open my $fh, "+< $logdir/$you_datas{country}/patrol.cgi" or &error("$logdir/$you_datas{country}/patrol.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 			eval { flock $fh, 2; };
 			while (my $line = <$fh>) {
 				my($pat_time,$p_name) = split /<>/, $line;
@@ -902,7 +902,7 @@ sub regist_you_data {
 		}
 	}
 	
-	open my $fh, "+< $userdir/$y_id/user.cgi" or &error("$userdir/$y_id/user.cgi Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $userdir/$y_id/user.cgi" or &error("$userdir/$y_id/user.cgi ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	my $line = <$fh>;
 	my $line_info = <$fh>;
@@ -918,10 +918,10 @@ sub regist_you_data {
 	close $fh;
 }
 #================================================
-# ‘ŠèÃŞ°À•ÏX  Œ‹¥‚Æ“¬‹Zê‚Ìn—û“xUP‚Ég—p
+# ç›¸æ‰‹ï¾ƒï¾ï½°ï¾€å¤‰æ›´  çµå©šæ™‚ã¨é—˜æŠ€å ´ã®ç†Ÿç·´åº¦UPæ™‚ã«ä½¿ç”¨
 #================================================
-# my @array = (['•ÏX‚µ‚½‚¢•Ï”1', '’l1'], ['•ÏX‚µ‚½‚¢•Ï”2', '’l2']);
-# &regist_you_array('‘Šè‚Ì–¼‘O', @array);
+# my @array = (['å¤‰æ›´ã—ãŸã„å¤‰æ•°1', 'å€¤1'], ['å¤‰æ›´ã—ãŸã„å¤‰æ•°2', 'å€¤2']);
+# &regist_you_array('ç›¸æ‰‹ã®åå‰', @array);
 sub regist_you_array {
 	my $name = shift;
 	my @data = @_;
@@ -930,7 +930,7 @@ sub regist_you_array {
 	my $y_id = unpack 'H*', $name;
 	return unless -f "$userdir/$y_id/user.cgi";
 
-	# ‘‚«Š·‚¦‘ÎÛ‚É‚æ‚Á‚Ä‚Í‘Ò‚¿•š‚¹‚ğ‰ğœ 1“x‚â‚ê‚ÎÏ‚Ş‚Ì‚Å2‰ñ–ÚˆÈ~‚Í‚È‚µ
+	# æ›¸ãæ›ãˆå¯¾è±¡ã«ã‚ˆã£ã¦ã¯å¾…ã¡ä¼ã›ã‚’è§£é™¤ 1åº¦ã‚„ã‚Œã°æ¸ˆã‚€ã®ã§2å›ç›®ä»¥é™ã¯ãªã—
 	my $bool = 0;
 	for my $i (0 .. $#data) {
 		last if $bool;
@@ -942,7 +942,7 @@ sub regist_you_array {
 			if(($k eq 'lib' && $you_datas{lib} eq 'military' && $you_datas{tp} eq '610') || ($k eq 'value' && $you_datas{value} eq 'military_ambush')){
 				$bool = 1;
 				my @lines = ();
-				open my $fh, "+< $logdir/$you_datas{country}/patrol.cgi" or &error("$logdir/$you_datas{country}/patrol.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+				open my $fh, "+< $logdir/$you_datas{country}/patrol.cgi" or &error("$logdir/$you_datas{country}/patrol.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 				eval { flock $fh, 2; };
 				while (my $line = <$fh>) {
 					my($pat_time,$p_name) = split /<>/, $line;
@@ -957,7 +957,7 @@ sub regist_you_array {
 		}
 	}
 
-	open my $fh, "+< $userdir/$y_id/user.cgi" or &error("$userdir/$y_id/user.cgi Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $userdir/$y_id/user.cgi" or &error("$userdir/$y_id/user.cgi ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	my $line = <$fh>;
 	my $line_info = <$fh>;
@@ -978,31 +978,31 @@ sub regist_you_array {
 	close $fh;
 }
 #================================================
-# ˜S–‚É’Ç‰Á
+# ç‰¢ç„ã«è¿½åŠ 
 #================================================
 sub add_prisoner {
-	$mes .= "$m{name}‚ÍA“G‘•º‚Éæ‚èˆÍ‚Ü‚ê•ß‚Ü‚Á‚Ä‚µ‚Ü‚Á‚½!<br>";
-	$mes .= "$cs{prison_name}[$y{country}]‚Ö˜As‚³‚ê‚Ü‚·BŸ‚És“®‚Å‚«‚é‚Ì‚Í$GWT•ªŒã‚Å‚·<br>";
+	$mes .= "$m{name}ã¯ã€æ•µå›½å…µã«å–ã‚Šå›²ã¾ã‚Œæ•ã¾ã£ã¦ã—ã¾ã£ãŸ!<br>";
+	$mes .= "$cs{prison_name}[$y{country}]ã¸é€£è¡Œã•ã‚Œã¾ã™ã€‚æ¬¡ã«è¡Œå‹•ã§ãã‚‹ã®ã¯$GWTåˆ†å¾Œã§ã™<br>";
 	$m{lib} = 'prison';
 	$m{renzoku_c} = $m{act} = 0;
 	$m{tp} = 100;
 	&wait;
 	my $flag = 0;
 	$flag = 1 if ($pets[$m{pet}][2] eq 'no_rescue');
-	# ˜S–Ø½Ä‚É’Ç‰Á
-	open my $fh, ">> $logdir/$y{country}/prisoner.cgi" or &error("$logdir/$y{country}/prisoner.cgi ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	# ç‰¢ç„ï¾˜ï½½ï¾„ã«è¿½åŠ 
+	open my $fh, ">> $logdir/$y{country}/prisoner.cgi" or &error("$logdir/$y{country}/prisoner.cgi ãŒé–‹ã‘ã¾ã›ã‚“");
 	print $fh "$m{name}<>$m{country}<>$flag<>\n";
 	close $fh;
 	
 	require './lib/_bbs_chat.cgi';
 	$this_file = "$logdir/$y{country}/bbs";
-	my $w_name = ($w{world} eq '16' || ($w{world} eq '19' && $w{world_sub} eq '16')) ? '–¼–³‚µ':$m{name};
-	$in{comment} = "$m{mes_lose}y˜N•ñz$w_name‚ª$cs{prison_name}[$y{country}]‚É˜As‚³‚ê‚Ü‚µ‚½";
+	my $w_name = ($w{world} eq '16' || ($w{world} eq '19' && $w{world_sub} eq '16')) ? 'åç„¡ã—':$m{name};
+	$in{comment} = "$m{mes_lose}ã€æœ—å ±ã€‘$w_nameãŒ$cs{prison_name}[$y{country}]ã«é€£è¡Œã•ã‚Œã¾ã—ãŸ";
 	$bad_time = 0;
 	&write_comment;
 }
 #================================================
-# ‘—Í‚ªˆê”Ô‚‚¢‘
+# å›½åŠ›ãŒä¸€ç•ªé«˜ã„å›½
 #================================================
 sub get_most_strong_country {
 	my $skip_my_county = shift;
@@ -1022,11 +1022,11 @@ sub get_most_strong_country {
 }
 =pod
 #================================================
-# ˆê”Nƒ‰ƒ“ƒLƒ“ƒOƒf[ƒ^‘‚«‚İ
+# ä¸€å¹´ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãƒ‡ãƒ¼ã‚¿æ›¸ãè¾¼ã¿
 #================================================
 sub write_yran {
 	my($data_name, $data_value, $is_add) = @_;
-	&error("ÌßÚ²Ô°ÃŞ°À‚Ì‘‚«‚İ‚É¸”s‚µ‚Ü‚µ‚½") if !$data_name || !$data_value;
+	&error("ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ï¾ƒï¾ï½°ï¾€ã®æ›¸ãè¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ") if !$data_name || !$data_value;
 	# -------------------
 	if ($data_name =~ /contr_.*/ && $w{year} !~ /[1-5]$/) {
 		return;
@@ -1037,7 +1037,7 @@ sub write_yran {
 	my $find = 0;
 	my $new_line = '';
 	if(-e "$userdir/$id/year_ranking.cgi"){
-		open my $fh, "< $userdir/$id/year_ranking.cgi" or &error("Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "< $userdir/$id/year_ranking.cgi" or &error("ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 		while (my $line = <$fh>) {
 			my %ydata;
 			for my $hash (split /<>/, $line) {
@@ -1080,15 +1080,15 @@ sub write_yran {
 	}
 	push @lines, "$new_line\n";
 	
-	open my $fh, "> $userdir/$id/year_ranking.cgi" or &error("Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "> $userdir/$id/year_ranking.cgi" or &error("ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	print $fh @lines;
 	close $fh;
 }
 =cut
 #================================================
-# ˆê”Nƒ‰ƒ“ƒLƒ“ƒOƒf[ƒ^‘‚«‚İ
-# write_yran(‘‚«Š·‚¦‚é—v‘f, ’l, ƒ‚[ƒh [, ‘‚«Š·‚¦‚é—v‘f2, ’l2, ƒ‚[ƒh2]);
-# •¡”‚Ì€–Ú‚àˆê“x‚É“n‚¹‚é‚¯‚Ç €–Ú*3 ‚Ìˆø”ŒÅ’è
+# ä¸€å¹´ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãƒ‡ãƒ¼ã‚¿æ›¸ãè¾¼ã¿
+# write_yran(æ›¸ãæ›ãˆã‚‹è¦ç´ , å€¤, ãƒ¢ãƒ¼ãƒ‰ [, æ›¸ãæ›ãˆã‚‹è¦ç´ 2, å€¤2, ãƒ¢ãƒ¼ãƒ‰2]);
+# è¤‡æ•°ã®é …ç›®ã‚‚ä¸€åº¦ã«æ¸¡ã›ã‚‹ã‘ã© é …ç›®*3 ã®å¼•æ•°å›ºå®š
 #================================================
 sub write_yran {
 	my @data = @_;
@@ -1098,9 +1098,9 @@ sub write_yran {
 	my @lines = ();
 	my $new_line = '';
 	if(-e "$userdir/$id/year_ranking.cgi"){
-		open my $fh, "< $userdir/$id/year_ranking.cgi" or &error("Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "< $userdir/$id/year_ranking.cgi" or &error("ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 		while (my $line = <$fh>) {
-			# ‰ß‹3”N‚æ‚è‚àŒÃ‚¢ƒf[ƒ^‚Ííœ
+			# éå»3å¹´ã‚ˆã‚Šã‚‚å¤ã„ãƒ‡ãƒ¼ã‚¿ã¯å‰Šé™¤
 			if ($line =~ /year;(.*?)<>/ && $1 ne $w{year}) {
 				push @lines, $line if $1 >= $w{year} - 3;
 				next;
@@ -1117,8 +1117,8 @@ sub write_yran {
 		next if !$data_name || !$data_value;
 		if ($new_line =~ /$data_name;(.*?)<>/) {
 			my $value = $is_add
-				? $1 + $data_value # —İŒv‹L˜^
-				: ($1 < $data_value ? $data_value : $1) ; # Å‚‹L˜^
+				? $1 + $data_value # ç´¯è¨ˆè¨˜éŒ²
+				: ($1 < $data_value ? $data_value : $1) ; # æœ€é«˜è¨˜éŒ²
 			$new_line =~ s/$data_name;.*?<>/$data_name;$value<>/;
 		}
 		else {
@@ -1126,13 +1126,13 @@ sub write_yran {
 		}
 	}
 
-	unshift @lines, "$new_line\n"; # push ‚¾‚ÆWŒv‚Éƒ‹[ƒv‚ª[‚­‚È‚é‚Ì‚Å unshift
-	open my $fh, "> $userdir/$id/year_ranking.cgi" or &error("Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	unshift @lines, "$new_line\n"; # push ã ã¨é›†è¨ˆæ™‚ã«ãƒ«ãƒ¼ãƒ—ãŒæ·±ããªã‚‹ã®ã§ unshift
+	open my $fh, "> $userdir/$id/year_ranking.cgi" or &error("ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	print $fh @lines;
 	close $fh;
 }
 #================================================
-# ‘vŒ£WŒv
+# å›½è²¢çŒ®é›†è¨ˆ
 #================================================
 sub summary_contribute {
 	return if $w{year} !~ /[1-6]$/;
@@ -1140,7 +1140,7 @@ sub summary_contribute {
 
 	my %action_log = ();
 	my @lines = ();
-	open my $fh, "< $userdir/$id/year_ranking.cgi" or &error("Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "< $userdir/$id/year_ranking.cgi" or &error("ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		my $new_line = '';
 		for my $hash (split /<>/, $line) {
@@ -1155,17 +1155,17 @@ sub summary_contribute {
 	}
 	close $fh;
 
-	open my $fh, "> $userdir/$id/year_ranking.cgi" or &error("Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "> $userdir/$id/year_ranking.cgi" or &error("ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	print $fh @lines;
 	close $fh;
 
 	unless (-e "$logdir/action_log_country_$m{country}.cgi") {
-		open my $fht, "> $logdir/action_log_country_$m{country}.cgi" or &error("action_log_country.cgi‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fht, "> $logdir/action_log_country_$m{country}.cgi" or &error("action_log_country.cgiãŒé–‹ã‘ã¾ã›ã‚“");
 		print $fht "\n";
 		close $fht;
 	}
 	
-	open $fh1, "< $logdir/action_log_country_$m{country}.cgi" or &error("action_log_country.cgi‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open $fh1, "< $logdir/action_log_country_$m{country}.cgi" or &error("action_log_country.cgiãŒé–‹ã‘ã¾ã›ã‚“");
 	$line = <$fh1>;
 	$line =~ tr/\x0D\x0A//d;
 	for my $hash (split /<>/, $line) {
@@ -1178,13 +1178,13 @@ sub summary_contribute {
 		$nline .= "$k;$action_log{$k}<>";
 	}
 
-	open $fh1, "> $logdir/action_log_country_$m{country}.cgi" or &error("action_log_country.cgi‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open $fh1, "> $logdir/action_log_country_$m{country}.cgi" or &error("action_log_country.cgiãŒé–‹ã‘ã¾ã›ã‚“");
 	print $fh1 "$nline\n";
 	close $fh1;
 }
 
 #================================================
-# ’¼‰c“X–vû
+# ç›´å–¶åº—æ²¡å
 #================================================
 sub confiscate_shop {
 	my ($guild, $c_force) = @_;
@@ -1193,7 +1193,7 @@ sub confiscate_shop {
 	my $member_file = $logdir . '/bbs_akindo_' . $guild . '_allmember.cgi';
 	my $g_shop_file = $logdir . '/guild_shop' . $guild . '.cgi';
 	my $g_sale_file = $logdir . '/guild_shop' . $guild . '_sale.cgi';
-	open my $fhv, "< $value_flie" or &error("$value_flie‰¿ŠiØ½ÄÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fhv, "< $value_flie" or &error("$value_flieä¾¡æ ¼ï¾˜ï½½ï¾„ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	my $w_line = <$fhv>;
 	my @v_weapon = split /<>/, $w_line;
 	my $e_line = <$fhv>;
@@ -1202,7 +1202,7 @@ sub confiscate_shop {
 	my @v_pet = split /<>/, $p_line;
 	close $fhv;
 	
-	open my $fha, "< $member_file" or &error("$member_file ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fha, "< $member_file" or &error("$member_file ãŒé–‹ã‘ã¾ã›ã‚“");
 	my $headline = <$fha>;
 	while (my $line = <$fha>) {
 		my($mname, $vote, $master) = split /<>/, $line;
@@ -1210,7 +1210,7 @@ sub confiscate_shop {
 		my $id = unpack 'H*', $mname;
 		my @lines = ();
 		if(-f "$userdir/$id/shop.cgi"){
-			open my $fhs, "+< $userdir/$id/shop.cgi" or &error("$userdir/$id/shop.cgi ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+			open my $fhs, "+< $userdir/$id/shop.cgi" or &error("$userdir/$id/shop.cgi ãŒé–‹ã‘ã¾ã›ã‚“");
 			eval { flock $fhs, 2; };
 			while (my $line = <$fhs>) {
 				my($no, $kind, $item_no, $item_c, $item_lv, $price) = split /<>/, $line;
@@ -1219,13 +1219,13 @@ sub confiscate_shop {
 										@v_pet;
 				if ($mpr[$item_no] < 9999999 && $price < $mpr[$item_no] && (($kind == 1 && $item_lv == 0) || $item_c == 0)) {
 					my @shop_items = ();
-					open my $in, "< $g_shop_file" or &error("$g_shop_file‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+					open my $in, "< $g_shop_file" or &error("$g_shop_fileãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 					push @shop_items, $_ while <$in>;
 					close $in;
 					my($last_no) = (split /<>/, $shop_items[-1])[0];
 					++$last_no;
 					
-					open my $fh2, ">> $g_shop_file" or &error("$g_shop_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+					open my $fh2, ">> $g_shop_file" or &error("$g_shop_fileãŒé–‹ã‘ã¾ã›ã‚“");
 					print $fh2 "$last_no<>$kind<>$item_no<>$item_c<>$item_lv<>$mpr[$item_no]<>\n";
 					close $fh2;
 				}else {
@@ -1241,12 +1241,12 @@ sub confiscate_shop {
 	close $fha;
 	
 	if($c_force){
-		open my $fh2, "< $g_sale_file" or &error("”„ãÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh2, "< $g_sale_file" or &error("å£²ä¸Šï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 		my $line2 = <$fh2>;
 		my($guild_c, $guild_money, $g_update_t) = split /<>/, $line2;
 		close $fh2;
 	
-		open my $fho, "< $logdir/shop_list.cgi" or &error("$member_file ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fho, "< $logdir/shop_list.cgi" or &error("$member_file ãŒé–‹ã‘ã¾ã›ã‚“");
 		my $headline = <$fho>;
 		while (my $line = <$fho>) {
 			my($shop_name, $mname, $message, $sale_c, $sale_money, $display, $guild_number) = split /<>/, $line;
@@ -1255,7 +1255,7 @@ sub confiscate_shop {
 			my $sid = unpack 'H*', $mname;
 			my @lines = ();
 			if(-f "$userdir/$sid/shop.cgi"){
-				open my $fhs, "+< $userdir/$sid/shop.cgi" or &error("$userdir/$sid/shop.cgi ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+				open my $fhs, "+< $userdir/$sid/shop.cgi" or &error("$userdir/$sid/shop.cgi ãŒé–‹ã‘ã¾ã›ã‚“");
 				eval { flock $fhs, 2; };
 				while (my $line = <$fhs>) {
 					my($no, $kind, $item_no, $item_c, $item_lv, $price) = split /<>/, $line;
@@ -1264,13 +1264,13 @@ sub confiscate_shop {
 											@v_pet;
 					if ($mpr[$item_no] < 9999999 && $price < $mpr[$item_no] && (($kind == 1 && $item_lv == 0) || $item_c == 0) && $guild_money > $price) {
 						my @shop_items = ();
-						open my $in, "< $g_shop_file" or &error("$g_shop_file‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+						open my $in, "< $g_shop_file" or &error("$g_shop_fileãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 						push @shop_items, $_ while <$in>;
 						close $in;
 						my($last_no) = (split /<>/, $shop_items[-1])[0];
 						++$last_no;
 						
-						open my $fh2, ">> $g_shop_file" or &error("$g_shop_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+						open my $fh2, ">> $g_shop_file" or &error("$g_shop_fileãŒé–‹ã‘ã¾ã›ã‚“");
 						print $fh2 "$last_no<>$kind<>$item_no<>$item_c<>$item_lv<>$mpr[$item_no]<>\n";
 						close $fh2;
 						
@@ -1279,9 +1279,9 @@ sub confiscate_shop {
 									  : $kind eq '2' ? $eggs[$item_no][1]
 									  :				   $pets[$item_no][1]
 									  ;
-						&send_money($mname, "y$shop_name($item_name)zƒMƒ‹ƒh", $price, 1);
+						&send_money($mname, "ã€$shop_name($item_name)ã€‘ã‚®ãƒ«ãƒ‰", $price, 1);
 						
-						open my $fh3, "+< $userdir/$sid/shop_sale.cgi" or &error("”„ãÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+						open my $fh3, "+< $userdir/$sid/shop_sale.cgi" or &error("å£²ä¸Šï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 						eval { flock $fh3, 2; };
 						my $line2 = <$fh3>;
 						my($sale_c, $sale_money, $update_t) = split /<>/, $line2;
@@ -1301,13 +1301,13 @@ sub confiscate_shop {
 			}
 		}
 		
-		open my $fh2, "> $g_sale_file" or &error("”„ãÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh2, "> $g_sale_file" or &error("å£²ä¸Šï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 		print $fh2 "$guild_c<>$guild_money<>$g_update_t<>\n";
 		close $fh2;
 	}
 }
 #================================================
-# í”­“®ƒCƒxƒ“ƒg
+# å¸¸æ™‚ç™ºå‹•ã‚¤ãƒ™ãƒ³ãƒˆ
 #================================================
 sub alltime_event {
 	if ($w{world} eq '20') {
@@ -1321,7 +1321,7 @@ sub alltime_event {
 					}
 				}
 				&write_cs;
-				&write_world_news("<b>¢ŠE’†‚Éè¦Î‚ª~‚è’‚¢‚Å‚«‚½</b>");
+				&write_world_news("<b>ä¸–ç•Œä¸­ã«éš•çŸ³ãŒé™ã‚Šæ³¨ã„ã§ããŸ</b>");
 			}
 		} else {
 			if (rand(5000) < 1) {
@@ -1334,7 +1334,7 @@ sub alltime_event {
 					}
 				}
 				&write_cs;
-				&write_world_news("<b>‰Ô‰Î‘å‰ïŠJn‚Ì‚¨’m‚ç‚¹</b>");
+				&write_world_news("<b>èŠ±ç«å¤§ä¼šé–‹å§‹ã®ãŠçŸ¥ã‚‰ã›</b>");
 			}
 		}
 	}
@@ -1345,7 +1345,7 @@ sub alltime_event {
 		}
 	}
 	if ($w{world} eq $#world_states-4) {
-		if (rand(500) < 1) { # Œ³‚Í1000 ÌßÚ²Ô°‘S‘Ì‚É‚æ‚é”­¶‚Å‚Í‚È‚­–\”­‚ªğŒ‚ÌÌßÚ²Ô°’P‘Ì‚É‚æ‚é”­¶‚È‚Ì‚ÅŒÂlŒÂl‚Å1000‚ÍáŠ±‚‚¢‹C‚ª‚·‚é ‹Zƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ‚ª‹N‚«‚é‚Ì‚ª–â‘è‚©
+		if (rand(500) < 1) { # å…ƒã¯1000 ï¾Œï¾Ÿï¾šï½²ï¾”ï½°å…¨ä½“ã«ã‚ˆã‚‹ç™ºç”Ÿã§ã¯ãªãæš´ç™ºãŒæ¡ä»¶ã®ï¾Œï¾Ÿï¾šï½²ï¾”ï½°å˜ä½“ã«ã‚ˆã‚‹ç™ºç”Ÿãªã®ã§å€‹äººå€‹äººã§1000ã¯è‹¥å¹²é«˜ã„æ°—ãŒã™ã‚‹ æŠ€ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ãŒèµ·ãã‚‹ã®ãŒå•é¡Œã‹
 			require './lib/fate.cgi';
 			&super_attack('random');
 		}
@@ -1354,19 +1354,19 @@ sub alltime_event {
 }
 
 #================================================
-# login.cgi¨bj.cgi
-# ƒƒOƒCƒ“‚µƒ†[ƒU[ƒf[ƒ^‚Ìæ“¾ŒãA^‚Áæ‚ÉŒÄ‚Ño‚³‚ê‚é
-# ‘î•ñ‚Ì“Ç‚İ‚İ‚æ‚è‚àæ‚Á‚Û‚¢@—áFé•Ç‚Ì—ò‰»‚ğ alltime_event ‚Å‚â‚é‚Æƒ^ƒCƒ~ƒ“ƒO“I‚È–â‘è‚©ƒƒ“ƒeƒ“ƒ|ƒYƒŒ‚é
+# login.cgiâ†’bj.cgi
+# ãƒ­ã‚°ã‚¤ãƒ³ã—ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã®å–å¾—å¾Œã€çœŸã£å…ˆã«å‘¼ã³å‡ºã•ã‚Œã‚‹
+# å›½æƒ…å ±ã®èª­ã¿è¾¼ã¿ã‚ˆã‚Šã‚‚å…ˆã£ã½ã„ã€€ä¾‹ï¼šåŸå£ã®åŠ£åŒ–ã‚’ alltime_event ã§ã‚„ã‚‹ã¨ã‚¿ã‚¤ãƒŸãƒ³ã‚°çš„ãªå•é¡Œã‹ãƒ¯ãƒ³ãƒ†ãƒ³ãƒã‚ºãƒ¬ã‚‹
 #================================================
 sub before_bj {
 	my($lmin,$lhour,$lmday,$lmon,$lyear) = (localtime($m{ltime}))[1..5];
 	my($tmin,$thour,$tmday,$tmon,$tyear) = (localtime($time))[1..5];
 
-	# ‚»‚Ì“úÅ‰‚ÌƒAƒNƒZƒX‚È‚ç
+	# ãã®æ—¥æœ€åˆã®ã‚¢ã‚¯ã‚»ã‚¹ãªã‚‰
 	if ($lmday ne $tmday || $lmon ne $tmon || $lyear ne $tyear) {
-		# ’a¶“úƒvƒŒƒ[ƒ“ƒg
+		# èª•ç”Ÿæ—¥ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆ
 		my %datas = ();
-		open my $fh, "< $userdir/$id/profile.cgi" or &error("$userdir/$id/profile.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "< $userdir/$id/profile.cgi" or &error("$userdir/$id/profile.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 		my $line = <$fh>;
 		for my $hash (split /<>/, $line) {
 			my($k, $v) = split /;/, $hash;
@@ -1376,7 +1376,7 @@ sub before_bj {
 
 		if ($datas{birthday} && $datas{birthday} =~ /(\d{4})\/(\d{2})\/(\d{2})/) {
 			if ($tmon + 1 == $2 && $tmday == $3) {
-				$mes .= "Happy Birthday $m{name}!!<br>’a¶“ú‚¨‚ß‚Å‚Æ‚¤!!<br>";
+				$mes .= "Happy Birthday $m{name}!!<br>èª•ç”Ÿæ—¥ãŠã‚ã§ã¨ã†!!<br>";
 				require './lib/shopping_offertory_box.cgi';
 				my $gvar = $m{sedai};
 				if ($m{start_time} + 30 * 24 * 60 * 60 < $time) {
@@ -1389,22 +1389,22 @@ sub before_bj {
 
 	if (&on_summer) {
 		if (rand(100) < 1) {
-			$mes .= "‚¨‚¶‚³‚ñuŒNA‚¨‚¶‚³‚ñ‚Ì“Š•[Œ ‚ğ‚ ‚°‚æ‚¤v<br>";
+			$mes .= "ãŠã˜ã•ã‚“ã€Œå›ã€ãŠã˜ã•ã‚“ã®æŠ•ç¥¨æ¨©ã‚’ã‚ã’ã‚ˆã†ã€<br>";
 			$m{pop_vote}++;
 		}
 	}
 
 	if ($w{half_hour_time} < $time) {
-		if ($w{reset_time}) { # IíŠúŠÔ’†
-			$w{half_hour_time} = $time + $w{reset_time}; # 2017/08/10 IíŠúŠÔI‚í‚é‚Ü‚Å—ò‰»ƒXƒgƒbƒv “à­‰ñ•œ–³‚µ‚Æ‘Ò‚¿•š‚¹20%ŒÅ’è‚Ì’²®‚É‡‚í‚¹
+		if ($w{reset_time}) { # çµ‚æˆ¦æœŸé–“ä¸­
+			$w{half_hour_time} = $time + $w{reset_time}; # 2017/08/10 çµ‚æˆ¦æœŸé–“çµ‚ã‚ã‚‹ã¾ã§åŠ£åŒ–ã‚¹ãƒˆãƒƒãƒ— å†…æ”¿å›å¾©ç„¡ã—ã¨å¾…ã¡ä¼ã›20%å›ºå®šã®èª¿æ•´ã«åˆã‚ã›
 		}
 		else {
-			my $span = 30 * 60; # 30•ª–ˆ‚É -1%
-			# ‘O‰ñ‚Ìˆ—‚©‚ç30•ªŒo‰ß–ˆ‚É -1% ‚ğˆêŠ‡ˆ—‚Æ‚¢‚¤‚©—İŒv‚Æ‚¢‚¤‚©
+			my $span = 30 * 60; # 30åˆ†æ¯ã« -1%
+			# å‰å›ã®å‡¦ç†ã‹ã‚‰30åˆ†çµŒéæ¯ã« -1% ã‚’ä¸€æ‹¬å‡¦ç†ã¨ã„ã†ã‹ç´¯è¨ˆã¨ã„ã†ã‹
 			my $t = $time;
 			my $v = ($t - $w{half_hour_time} + $span) / $span;
 			$w{half_hour_time} = $t + $span;
-			require './lib/_rampart.cgi'; # é•Ç
+			require './lib/_rampart.cgi'; # åŸå£
 			for my $i (1 .. $w{country}) {
 				&change_barrier($i, -$v) unless $cs{is_die}[$i];
 			}
@@ -1414,7 +1414,7 @@ sub before_bj {
 }
 
 #================================================
-# Še‘İ’è’læ“¾
+# å„å›½è¨­å®šå€¤å–å¾—
 #================================================
 sub get_modify {
 	my $var = shift;
@@ -1425,13 +1425,13 @@ sub get_modify {
 }
 
 #================================================
-# V‹K”ƒJƒEƒ“ƒg
+# æ–°è¦æ•°ã‚«ã‚¦ãƒ³ãƒˆ
 #================================================
 sub refresh_new_commer {
 	for my $i (1..$w{country}) {
 		$cs{new_commer}[$i] = 0;
 	}
-	opendir my $dh, "$userdir" or &error("Õ°»Ş°ÃŞ¨Ú¸ÄØ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	opendir my $dh, "$userdir" or &error("ï¾•ï½°ï½»ï¾ï½°ï¾ƒï¾ï½¨ï¾šï½¸ï¾„ï¾˜ãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $uid = readdir $dh) {
 		next if $uid =~ /\./;
 		next if $uid =~ /backup/;
@@ -1446,18 +1446,18 @@ sub refresh_new_commer {
 }
 
 #================================================
-# ‘’Ç‰Á
+# å›½è¿½åŠ 
 #================================================
 sub create_country {
 	$w{country}++;
 	my $max_c = int($w{player} / $w{country}) + 3;
 	
 	my $num = rmtree("$logdir/$w{country}");
-	mkdir "$logdir/$w{country}" or &error("$logdir/$w{country} Ì«ÙÀŞ‚ªì‚ê‚Ü‚¹‚ñ‚Å‚µ‚½") unless -d "$logdir/$w{country}";
+	mkdir "$logdir/$w{country}" or &error("$logdir/$w{country} ï¾Œï½«ï¾™ï¾€ï¾ãŒä½œã‚Œã¾ã›ã‚“ã§ã—ãŸ") unless -d "$logdir/$w{country}";
 	for my $file_name (qw/bbs bbs_log bbs_member depot depot_log patrol prison prison_member prisoner violator/) {
 		my $output_file = "$logdir/$w{country}/$file_name.cgi";
 		next if -f $output_file;
-		open my $fh, "> $output_file" or &error("$output_file Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ‚Å‚µ‚½");
+		open my $fh, "> $output_file" or &error("$output_file ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“ã§ã—ãŸ");
 		if ($file_name eq 'depot') {
 			print $fh "1<>1<><>\n";
 		}
@@ -1466,14 +1466,14 @@ sub create_country {
 	}
 	for my $file_name (qw/leader member/) {
 		my $output_file = "$logdir/$w{country}/$file_name.cgi";
-		open my $fh, "> $output_file" or &error("$output_file Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ‚Å‚µ‚½");
+		open my $fh, "> $output_file" or &error("$output_file ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“ã§ã—ãŸ");
 		close $fh;
 		chmod $chmod, $output_file;
 	}
 	&add_npc_data($w{country});
 	# create union file
 	for my $j (1 .. $w{country}-1) {
-		# ‚Ü‚¾–Å–S‚µ‚Ä‚½‚ç‹­§•œ‹»
+		# ã¾ã æ»…äº¡ã—ã¦ãŸã‚‰å¼·åˆ¶å¾©èˆˆ
 		if ($cs{is_die}[$j]) {
 			$cs{is_die}[$j] = 0;
 			--$w{game_lv};
@@ -1485,21 +1485,21 @@ sub create_country {
 		$w{ "p_${j}_$w{country}" } = 0;
 
 		next if -f "$file_name.cgi";
-		open my $fh, "> $file_name.cgi" or &error("$file_name.cgi Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ");
+		open my $fh, "> $file_name.cgi" or &error("$file_name.cgi ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“");
 		close $fh;
 		chmod $chmod, "$file_name.cgi";
-		open my $fh2, "> ${file_name}_log.cgi" or &error("${file_name}_log.cgi Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ");
+		open my $fh2, "> ${file_name}_log.cgi" or &error("${file_name}_log.cgi ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“");
 		close $fh2;
 		chmod $chmod, "${file_name}_log.cgi";
-		open my $fh3, "> ${file_name}_member.cgi" or &error("${file_name}_member.cgi Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ");
+		open my $fh3, "> ${file_name}_member.cgi" or &error("${file_name}_member.cgi ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“");
 		close $fh3;
 		chmod $chmod, "${file_name}_member.cgi";
 	}
 	unless (-f "$htmldir/$w{country}.html") {
-		open my $fh_h, "> $htmldir/$w{country}.html" or &error("$htmldir/$w{country}.html Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ");
+		open my $fh_h, "> $htmldir/$w{country}.html" or &error("$htmldir/$w{country}.html ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“");
 		close $fh_h;
 	}
-	$cs{name}[$w{country}]     = "$m{name}‚Ì‘";
+	$cs{name}[$w{country}]     = "$m{name}ã®å›½";
 	$cs{color}[$w{country}]    = '#ffffff';
 	$cs{member}[$w{country}]   = 0;
 	$cs{win_c}[$w{country}]    = 999;
@@ -1520,7 +1520,7 @@ sub create_country {
 	
 	&write_cs;
 }
-# NPCƒf[ƒ^ì¬
+# NPCãƒ‡ãƒ¼ã‚¿ä½œæˆ
 sub add_npc_data {
 	my $country = shift;
 	
@@ -1537,17 +1537,18 @@ sub add_npc_data {
 		rank   => [$#ranks, $#ranks-2, 10, 7, 4],
 	);
 	my @npc_weas = (
-	#	[0]‘®«[1]•ŠíNo	[2]•KE‹Z
-		['–³', [0],			[61..65],],
-		['Œ•', [1 .. 5],	[1 .. 5],],
-		['‘„', [6 ..10],	[11..15],],
-		['•€', [11..15],	[21..25],],
-		['‰Š', [16..20],	[31..35],],
-		['•—', [21..25],	[41..45],],
-		['—‹', [26..30],	[51..55],],
+	#	[0]å±æ€§[1]æ­¦å™¨No	[2]å¿…æ®ºæŠ€
+		['ç„¡', [0],			[61..65],],
+		['å‰£', [1 .. 5],	[1 .. 5],],
+		['æ§', [6 ..10],	[11..15],],
+		['æ–§', [11..15],	[21..25],],
+		['ç‚', [16..20],	[31..35],],
+		['é¢¨', [21..25],	[41..45],],
+		['é›·', [26..30],	[51..55],],
+		['éŠƒ', [34],			[71..75],],
 	);
 	my $line = qq|\@npcs = (\n|;
-	my @npc_names = (qw/vipqiv(NPC) kirito(NPC) ‹T‚Ì‰Æ’ëˆãŠw(NPC) pigure(NPC) ƒEƒFƒ‹(NPC) vipqiv(NPC) DT(NPC) ƒnƒ‹(NPC) ƒAƒVƒ…ƒŒƒC(NPC) ƒSƒ~ƒNƒY(NPC)/);
+	my @npc_names = (qw/vipqiv(NPC) kirito(NPC) äº€ã®å®¶åº­åŒ»å­¦(NPC) pigure(NPC) ã‚¦ã‚§ãƒ«(NPC) vipqiv(NPC) DT(NPC) ãƒãƒ«(NPC) ã‚¢ã‚·ãƒ¥ãƒ¬ã‚¤(NPC) ã‚´ãƒŸã‚¯ã‚º(NPC)/);
 
 	for my $i (0..4) {
 		$line .= qq|\t{\n\t\tname\t\t=> '$npc_names[$i]',\n|;
@@ -1571,16 +1572,16 @@ sub add_npc_data {
 	close $fh;
 }
 #================================================
-# ‘íœ
-# $target_country 0iÈÊŞ×İj‚©‚çn‚Ü‚é‘”Ô†
-# $mode íœ‚³‚ê‚½‘‚É‘®‚µ‚Ä‚¢‚½l‚ÌdŠ¯æ 0 ‚ÅÈÊŞ×İ 1 ‚ÅÈÊŞ×İœ‚­×İÀŞÑ
+# å›½å‰Šé™¤
+# $target_country 0ï¼ˆï¾ˆï¾Šï¾ï¾—ï¾ï¼‰ã‹ã‚‰å§‹ã¾ã‚‹å›½ç•ªå·
+# $mode å‰Šé™¤ã•ã‚ŒãŸå›½ã«å±ã—ã¦ã„ãŸäººã®ä»•å®˜å…ˆ 0 ã§ï¾ˆï¾Šï¾ï¾—ï¾ 1 ã§ï¾ˆï¾Šï¾ï¾—ï¾é™¤ãï¾—ï¾ï¾€ï¾ï¾‘
 #================================================
 sub delete_country {
 	my ($target_country, $mode) = @_;
 	
 	require "./lib/move_player.cgi";
 	my %members = ();
-	opendir my $dh, "$userdir" or &error("Õ°»Ş°ÃŞ¨Ú¸ÄØ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	opendir my $dh, "$userdir" or &error("ï¾•ï½°ï½»ï¾ï½°ï¾ƒï¾ï½¨ï¾šï½¸ï¾„ï¾˜ãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $pid = readdir $dh) {
 		next if $pid =~ /\./;
 		next if $pid =~ /backup/;
@@ -1612,7 +1613,7 @@ sub delete_country {
 		push @{ $members{$p{country}} }, "$p{name}\n";
 	}
 	for my $i (0 .. $w{country}) {
-		open my $fh, "> $logdir/$i/member.cgi" or &error("$logdir/$i/member.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "> $logdir/$i/member.cgi" or &error("$logdir/$i/member.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 		print $fh @{ $members{$i} };
 		close $fh;
 
@@ -1651,7 +1652,7 @@ sub delete_country {
 	
 	my @lines = ();
 	$country_mes_i = 0;
-	open my $fh, "+< $logdir/countries_mes.cgi" or &error("$logdir/countries_mes.cgiÌ§²Ù‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	open my $fh, "+< $logdir/countries_mes.cgi" or &error("$logdir/countries_mes.cgiï¾Œï½§ï½²ï¾™ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	while (my $line = <$fh>) {
 		$country_mes_i++;
@@ -1668,14 +1669,14 @@ sub delete_country {
 	--$w{country};
 }
 #================================================
-# ƒf[ƒ^C³
+# ãƒ‡ãƒ¼ã‚¿ä¿®æ­£
 #================================================
 sub cs_data_repair{
 	&read_cs;
 	my %members = ();
 
 	my $count = 0;
-	opendir my $dh, "$userdir" or &error("Õ°»Ş°ÃŞ¨Ú¸ÄØ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	opendir my $dh, "$userdir" or &error("ï¾•ï½°ï½»ï¾ï½°ï¾ƒï¾ï½¨ï¾šï½¸ï¾„ï¾˜ãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $pid = readdir $dh) {
 		next if $pid =~ /\./;
 		next if $pid =~ /backup/;
@@ -1702,7 +1703,7 @@ sub cs_data_repair{
 
 	my $all_member = 0;
 	for my $i (0 .. $w{country}) {
-		open my $fh, "> $logdir/$i/member.cgi" or &error("$logdir/$i/member.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "> $logdir/$i/member.cgi" or &error("$logdir/$i/member.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 		print $fh @{ $members{$i} };
 		close $fh;
 
@@ -1720,19 +1721,19 @@ sub cs_data_repair{
 	&write_cs;
 }
 #================================================
-# ‘ŠêƒrƒbƒOƒf[ƒ^
+# ç›¸å ´ãƒ“ãƒƒã‚°ãƒ‡ãƒ¼ã‚¿
 #================================================
 sub sale_data_log {
 	return;
 	my ($kind, $item_no, $item_c, $item_lv, $price, $place) = @_;
 	
 	my $sale_data_file = "$logdir/shop_big_data.cgi";
-	open my $fh, ">> $sale_data_file" or &error("$sale_data_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, ">> $sale_data_file" or &error("$sale_data_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	print $fh "$kind<>$item_no<>$item_c<>$item_lv<>$price<>$place<>$time<>\n";
 	close $fh;
 }
 #================================================
-# ‘ŠêƒrƒbƒOƒf[ƒ^æ“¾
+# ç›¸å ´ãƒ“ãƒƒã‚°ãƒ‡ãƒ¼ã‚¿å–å¾—
 #================================================
 sub get_sale_data_log {
 	return;
@@ -1740,7 +1741,7 @@ sub get_sale_data_log {
 	my @lines = ();
 	
 	my $sale_data_file = "$logdir/shop_big_data.cgi";
-	open my $fh, "< $sale_data_file" or &error("$sale_data_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "< $sale_data_file" or &error("$sale_data_fileãŒé–‹ã‘ã¾ã›ã‚“");
 	while (my $line = <$fh>) {
 		my ($kind, $item_no, $item_c, $item_lv, $price, $place, $i_time) = split /<>/, $line;
 		if (($kind eq $k && $item_no eq $n) || (!$k && !$n)) {
@@ -1752,7 +1753,7 @@ sub get_sale_data_log {
 	return @lines;
 }
 #================================================
-# ‘ŠêƒrƒbƒOƒf[ƒ^HTMLo—Í
+# ç›¸å ´ãƒ“ãƒƒã‚°ãƒ‡ãƒ¼ã‚¿HTMLå‡ºåŠ›
 #================================================
 sub create_sale_data_chart {
 	return;
@@ -1784,18 +1785,18 @@ sub create_sale_data_chart {
 		my @x = ();
 		my @y = ();
 		
-		my $c_str = $k eq '1' ? '‘Ï‹v’l':
-				$k eq '2' ? '›z‰»’l':
-				$k eq '3' ? 'š':
+		my $c_str = $k eq '1' ? 'è€ä¹…å€¤':
+				$k eq '2' ? 'å­µåŒ–å€¤':
+				$k eq '3' ? 'â˜…':
 							'';
 		
-		my $lv_str = $k eq '1' ? 'š':
+		my $lv_str = $k eq '1' ? 'â˜…':
 				$k eq '2' ? '':
 				$k eq '3' ? '':
 							'';
 		
-		my $csv = "ŠÔ,‹àŠz,í•Ê,$c_str,$lv_str\n";
-		my $price_table = "<table><tr><th>ŠÔ</th><th>‹àŠz</th><th>í•Ê</th><th>$c_str</th><th>$lv_str</th></tr>";
+		my $csv = "æ™‚é–“,é‡‘é¡,ç¨®åˆ¥,$c_str,$lv_str\n";
+		my $price_table = "<table><tr><th>æ™‚é–“</th><th>é‡‘é¡</th><th>ç¨®åˆ¥</th><th>$c_str</th><th>$lv_str</th></tr>";
 		for my $line (@lines) {
 			my ($kind, $item_no, $item_c, $item_lv, $price, $place, $i_time) = split /<>/, $line;
 			push @x, (($i_time - $min_time) / ($max_time - $min_time) * 100);
@@ -1806,13 +1807,13 @@ sub create_sale_data_chart {
 			my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime($i_time);
 			$year += 1900;
 			$mon++;
-			my $time_str = "$year”N$monŒ$mday“ú $hour$min•ª$sec•b";
+			my $time_str = "$yearå¹´$monæœˆ$mdayæ—¥ $houræ™‚$minåˆ†$secç§’";
 			my $time_str_csv = "$year-$mon-$mday $hour:$min:$sec";
-			my $type_str = $place eq '1' ? '¤l‚Ì“X':
-							$place eq '2' ? 'µ°¸¼®İ':
-							$place eq '3' ? 'µ°¸¼®İi‘¦Œˆj':
-							$place eq '4' ? '¼Ş¬İ¸¼®¯Ìß':
-											'”jŠü“™'; 
+			my $type_str = $place eq '1' ? 'å•†äººã®åº—':
+							$place eq '2' ? 'ï½µï½°ï½¸ï½¼ï½®ï¾':
+							$place eq '3' ? 'ï½µï½°ï½¸ï½¼ï½®ï¾ï¼ˆå³æ±ºï¼‰':
+							$place eq '4' ? 'ï½¼ï¾ï½¬ï¾ï½¸ï½¼ï½®ï½¯ï¾Œï¾Ÿ':
+											'ç ´æ£„ç­‰'; 
 			$price_table .= "<tr><td>$time_str</td><td>$price</td><td>$type_str</td><td>$item_c</td><td>$item_lv</td></tr>";
 			$csv .= "$time_str_csv,$price,$type_str,$item_c,$item_lv\n";
 		}
@@ -1822,7 +1823,7 @@ sub create_sale_data_chart {
 		my $chdy = join ',', @y;
 		my $item_title = &get_item_title($k, $n);;
 		$csv = $item_title . "\n" . $csv;
-		# CSVÌ§²Ùì¬
+		# CSVï¾Œï½§ï½²ï¾™ä½œæˆ
 		my $csv_file = "./html/item_$k" . "_" . "$n.csv";
 		open my $out_csv, "> $csv_file";
 		print $out_csv $csv;
@@ -1836,19 +1837,19 @@ sub create_sale_data_chart {
 		$html .= qq|<title>$title</title>|;
 		$html .= qq|<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">|;
 		$html .= qq|</head><body $body>|;
-		$html .= qq|<p>XV“ú $date</p>|;
+		$html .= qq|<p>æ›´æ–°æ—¥æ™‚ $date</p>|;
 		$html .= qq|<hr size="1"><h1>$cs{name}[$country]</h1>|;
-		$html .= qq|<hr size="1"><h1>$world_name$item_title‘Šê</h1>|;
+		$html .= qq|<hr size="1"><h1>$world_name$item_titleç›¸å ´</h1>|;
 		$html .= qq{<img src="http://chart.apis.google.com/chart?cht=lxy&chs=500x350&chxt=y&chxl=0:|$min_price|$max_price}
 			  .  qq{&chd=t:$chdx|$chdy">};
 		$html .= qq|<br>$price_table|;
-		$html .= qq|<br><a href="item_${k}_${n}.csv">csvƒtƒ@ƒCƒ‹ƒ_ƒEƒ“ƒ[ƒh</a>|;
+		$html .= qq|<br><a href="item_${k}_${n}.csv">csvãƒ•ã‚¡ã‚¤ãƒ«ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰</a>|;
 		$html .= qq|<br><div align="right" style="font-size:11px">|;
-		$html .= qq|Blind Justice Ver$VERSION<br><a href="http://cgi-sweets.com/" target="_blank">CGI-Sweets</a><br><a href="http://amaraku.net/" target="_blank">AmaŠy.net</a><br>|;  # ’˜ì•\¦:íœE”ñ•\¦ ‹Ö~!!
+		$html .= qq|Blind Justice Ver$VERSION<br><a href="http://cgi-sweets.com/" target="_blank">CGI-Sweets</a><br><a href="http://amaraku.net/" target="_blank">Amaæ¥½.net</a><br>|;  # è‘—ä½œè¡¨ç¤º:å‰Šé™¤ãƒ»éè¡¨ç¤º ç¦æ­¢!!
 		$html .= qq|$copyright|;
 		$html .= qq|</div></body></html>|;
 		
-		# HTMLÌ§²Ùì¬
+		# HTMLï¾Œï½§ï½²ï¾™ä½œæˆ
 		my $html_file = "./html/item_$k" . "_" . "$n.html";
 		open my $out, "> $html_file";
 		print $out $html;
@@ -1857,7 +1858,7 @@ sub create_sale_data_chart {
 }
 
 #================================================
-# ŠK‹‰–¼æ“¾
+# éšç´šåå–å¾—
 #================================================
 sub get_rank_name {
 	my($rank, $name) = @_;
@@ -1870,40 +1871,40 @@ sub get_rank_name {
 		}
 	}
 	if ($rank == $#ranks && $is_ceo) {
-		return 'c’é';
+		return 'çš‡å¸';
 	}
 	return $ranks[$rank];
 }
 
 #================================================
-# ƒAƒCƒeƒ€–¼æ“¾
-# ‘æ‚Pˆø”‚Æ‘æ‚Qˆø”‚¾‚¯‚Å–¼‘O
-# ‘æ‚Rˆø”‚Ü‚Å‚ÅÍß¯Ä‚¾‚¯šî•ñ’Ç‰Á ¼Ş¬İ¸‚ÅÍß¯Ä‚¾‚¯šî•ñg‚¤‚Ì‚Å
-# ‘æ‚Sˆø”‚Ü‚Åw’è‚·‚é‚Æ‘SƒAƒCƒeƒ€î•ñ’Ç‰Á
-# ‘æ‚Tˆø”‚ÍƒAƒCƒeƒ€‚Ìí—Ş‚ğ”ñ•\¦ ƒVƒ‡ƒbƒv‚È‚Çˆê•”‚Å‚Íí—Ş‚ª”ñ•\¦‚È‚Ì‚Å
-# $kind ƒAƒCƒeƒ€‚Ìí—Ş(1•Ší 2—‘ 3Íß¯Ä 4–h‹ï)
-# $item_no ƒAƒCƒeƒ€‚Ì”Ô†
-# $item_c ƒAƒCƒeƒ€‚ª‚Â”’l(‘Ï‹v’l ›z‰»’l š ‚È‚µ)
-# $item_lv ƒAƒCƒeƒ€‚ÌƒŒƒxƒ‹(š ‚È‚µ ‚È‚µ ‚È‚µ)
-# $flag 1 ‚Åí—Ş•\¦ƒIƒt
-# V‚µ‚¢ƒAƒCƒeƒ€í‚ğ’Ç‰Á‚µ‚½‚ç‚±‚±‚ğ•ÏX‚·‚é‚±‚Æ
+# ã‚¢ã‚¤ãƒ†ãƒ åå–å¾—
+# ç¬¬ï¼‘å¼•æ•°ã¨ç¬¬ï¼’å¼•æ•°ã ã‘ã§åå‰
+# ç¬¬ï¼“å¼•æ•°ã¾ã§ã§ï¾ï¾Ÿï½¯ï¾„ã ã‘â˜…æƒ…å ±è¿½åŠ  ï½¼ï¾ï½¬ï¾ï½¸ã§ï¾ï¾Ÿï½¯ï¾„ã ã‘â˜…æƒ…å ±ä½¿ã†ã®ã§
+# ç¬¬ï¼”å¼•æ•°ã¾ã§æŒ‡å®šã™ã‚‹ã¨å…¨ã‚¢ã‚¤ãƒ†ãƒ æƒ…å ±è¿½åŠ 
+# ç¬¬ï¼•å¼•æ•°ã¯ã‚¢ã‚¤ãƒ†ãƒ ã®ç¨®é¡ã‚’éè¡¨ç¤º ã‚·ãƒ§ãƒƒãƒ—ãªã©ä¸€éƒ¨ã§ã¯ç¨®é¡ãŒéè¡¨ç¤ºãªã®ã§
+# $kind ã‚¢ã‚¤ãƒ†ãƒ ã®ç¨®é¡(1æ­¦å™¨ 2åµ 3ï¾ï¾Ÿï½¯ï¾„ 4é˜²å…·)
+# $item_no ã‚¢ã‚¤ãƒ†ãƒ ã®ç•ªå·
+# $item_c ã‚¢ã‚¤ãƒ†ãƒ ãŒæŒã¤æ•°å€¤(è€ä¹…å€¤ å­µåŒ–å€¤ â˜… ãªã—)
+# $item_lv ã‚¢ã‚¤ãƒ†ãƒ ã®ãƒ¬ãƒ™ãƒ«(â˜… ãªã— ãªã— ãªã—)
+# $flag 1 ã§ç¨®é¡è¡¨ç¤ºã‚ªãƒ•
+# æ–°ã—ã„ã‚¢ã‚¤ãƒ†ãƒ ç¨®ã‚’è¿½åŠ ã—ãŸã‚‰ã“ã“ã‚’å¤‰æ›´ã™ã‚‹ã“ã¨
 #================================================
 sub get_item_name {
 	my($kind, $item_no, $item_c, $item_lv, $flag) = @_;
 
 	my $result;
-	if (defined($item_lv)) { # ‘Sˆø”—LŒø‚È‚çƒAƒCƒeƒ€î•ñ
-		$result = $kind eq '1' ? "[$weas[$item_no][2]]$weas[$item_no][1]š$item_lv($item_c/$weas[$item_no][4])"
-				  : $kind eq '2' ? "[—‘]$eggs[$item_no][1]($item_c/$eggs[$item_no][2])"
-				  : $kind eq '3' ? "[‚Ø]$pets[$item_no][1]š$item_c"
+	if (defined($item_lv)) { # å…¨å¼•æ•°æœ‰åŠ¹ãªã‚‰ã‚¢ã‚¤ãƒ†ãƒ æƒ…å ±
+		$result = $kind eq '1' ? "[$weas[$item_no][2]]$weas[$item_no][1]â˜…$item_lv($item_c/$weas[$item_no][4])"
+				  : $kind eq '2' ? "[åµ]$eggs[$item_no][1]($item_c/$eggs[$item_no][2])"
+				  : $kind eq '3' ? "[ãº]$pets[$item_no][1]â˜…$item_c"
 				  :                "[$guas[$item_no][2]]$guas[$item_no][1]"
 			  ;
-		$result = substr($result, 4) if $flag; # $flag ‚ª—LŒø‚È‚çƒAƒCƒeƒ€í‚ğ”ñ•\¦
+		$result = substr($result, 4) if $flag; # $flag ãŒæœ‰åŠ¹ãªã‚‰ã‚¢ã‚¤ãƒ†ãƒ ç¨®ã‚’éè¡¨ç¤º
 	}
-	else { # ‘Sˆø”—LŒø‚¶‚á‚È‚¢‚È‚çƒAƒCƒeƒ€–¼
+	else { # å…¨å¼•æ•°æœ‰åŠ¹ã˜ã‚ƒãªã„ãªã‚‰ã‚¢ã‚¤ãƒ†ãƒ å
 		$result = $kind eq '1' ? "$weas[$item_no][1]"
 				  : $kind eq '2' ? "$eggs[$item_no][1]"
-				  : $kind eq '3' ? (defined($item_c) ? "$pets[$item_no][1]š$item_c" : "$pets[$item_no][1]") # ‘æ‚Rˆø”—LŒø‚©‚ÂÍß¯Ä‚È‚çƒŒƒxƒ‹•t‰Á
+				  : $kind eq '3' ? (defined($item_c) ? "$pets[$item_no][1]â˜…$item_c" : "$pets[$item_no][1]") # ç¬¬ï¼“å¼•æ•°æœ‰åŠ¹ã‹ã¤ï¾ï¾Ÿï½¯ï¾„ãªã‚‰ãƒ¬ãƒ™ãƒ«ä»˜åŠ 
 				  :                "$guas[$item_no][1]"
 				  ;
 	}
@@ -1911,22 +1912,22 @@ sub get_item_name {
 }
 
 #================================================
-# ƒAƒCƒeƒ€–¼æ“¾i‘Šê•\‚Åg‚¤ƒAƒCƒeƒ€‚Ìƒ^ƒCƒgƒ‹—pcj
+# ã‚¢ã‚¤ãƒ†ãƒ åå–å¾—ï¼ˆç›¸å ´è¡¨ã§ä½¿ã†ã‚¢ã‚¤ãƒ†ãƒ ã®ã‚¿ã‚¤ãƒˆãƒ«ç”¨â€¦ï¼‰
 #================================================
 sub get_item_title {
 	my($kind, $item_no) = @_;
 
 	my $result;
 	$result = $kind eq '1' ? "[$weas[$item_no][2]]$weas[$item_no][1]"
-			  : $kind eq '2' ? "[—‘]$eggs[$item_no][1]"
-			  : $kind eq '3' ? "[ƒy]$pets[$item_no][1]"
+			  : $kind eq '2' ? "[åµ]$eggs[$item_no][1]"
+			  : $kind eq '3' ? "[ãƒš]$pets[$item_no][1]"
 			  :                "[$guas[$item_no][2]]$guas[$item_no][1]"
 			  ;
 	return $result;
 }
 
 #================================================
-# Twitterƒ{ƒbƒg
+# Twitterãƒœãƒƒãƒˆ
 #================================================
 sub twitter_bot {
 	require "$datadir/twitter_bots.cgi";
@@ -1941,16 +1942,16 @@ sub twitter_bot {
 }
 
 #================================================
-# ‹Ù‹}Ò¯¾°¼Ş
+# ç·Šæ€¥ï¾’ï½¯ï½¾ï½°ï½¼ï¾
 #================================================
 sub create_temp_message {
 	my ($p_name, $temp_mes) = @_;
 	my $p_id = unpack 'H*', $p_name;
-	&error("$p_name‚Æ‚¢‚¤ÌßÚ²Ô°‚ª‘¶İ‚µ‚Ü‚¹‚ñ") unless -f "$userdir/$p_id/user.cgi";
+	&error("$p_nameã¨ã„ã†ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ãŒå­˜åœ¨ã—ã¾ã›ã‚“") unless -f "$userdir/$p_id/user.cgi";
 
 	my $temp_mes_file = "$userdir/$p_id/temp_mes";
 
-	# ˆêÒ¯¾°¼ŞÌ×¸Ş‚ğ—§‚Ä‚é
+	# ä¸€æ™‚ï¾’ï½¯ï½¾ï½°ï½¼ï¾ï¾Œï¾—ï½¸ï¾ã‚’ç«‹ã¦ã‚‹
 	open my $fh, "> $temp_mes_file.cgi";
 	print $fh $temp_mes;
 	close $fh;
@@ -1958,7 +1959,7 @@ sub create_temp_message {
 sub delete_temp_message {
 	my $p_name = shift;
 	my $p_id = unpack 'H*', $p_name;
-	&error("$p_name‚Æ‚¢‚¤ÌßÚ²Ô°‚ª‘¶İ‚µ‚Ü‚¹‚ñ") unless -f "$userdir/$p_id/user.cgi";
+	&error("$p_nameã¨ã„ã†ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ãŒå­˜åœ¨ã—ã¾ã›ã‚“") unless -f "$userdir/$p_id/user.cgi";
 
 	my $temp_mes_file = "$userdir/$p_id/temp_mes";
 	if (-f "$temp_mes_file.cgi") {
@@ -1967,7 +1968,7 @@ sub delete_temp_message {
 }
 
 #================================================
-# Íß¯Ä±²ºİæ“¾
+# ï¾ï¾Ÿï½¯ï¾„ï½±ï½²ï½ºï¾å–å¾—
 #================================================
 sub get_icon_pet {
 	if (-f "$userdir/$id/pet_icon.cgi") {
@@ -1975,8 +1976,8 @@ sub get_icon_pet {
 		my $line = <$ifh>;
 		close $ifh;
 
-		# –‚–@­—‚È‚Ç‚ÍÍß¯Ä‚Æ±²ºİ‚ÌŒ‹‚Ñ‚Â‚«‚ğã‚­‚·‚éiÍß¯Ä”é“½Œø‰Ê‚ ‚é‚Ì‚É±²ºİ‚©‚çÍß¯Ä‚ªƒoƒŒ‚é‚½‚ßj
-		# –‚–@­—‚È‚Ç‚Å‚È‚¯‚ê‚ÎÍß¯Ä‚Æ±²ºİ‚ğ‹­§“I‚ÉŒ‹‚Ñ‚Â‚¯‚é
+		# é­”æ³•å°‘å¥³ãªã©ã¯ï¾ï¾Ÿï½¯ï¾„ã¨ï½±ï½²ï½ºï¾ã®çµã³ã¤ãã‚’å¼±ãã™ã‚‹ï¼ˆï¾ï¾Ÿï½¯ï¾„ç§˜åŒ¿åŠ¹æœã‚ã‚‹ã®ã«ï½±ï½²ï½ºï¾ã‹ã‚‰ï¾ï¾Ÿï½¯ï¾„ãŒãƒãƒ¬ã‚‹ãŸã‚ï¼‰
+		# é­”æ³•å°‘å¥³ãªã©ã§ãªã‘ã‚Œã°ï¾ï¾Ÿï½¯ï¾„ã¨ï½±ï½²ï½ºï¾ã‚’å¼·åˆ¶çš„ã«çµã³ã¤ã‘ã‚‹
 		my $pattern = "<>$m{pet};";
 		$pattern .= $m{pet} unless ($m{job} eq '22' || $m{job} eq '23' || $m{job} eq '24') && ($m{boch_pet} && $m{pet});
 
@@ -1996,16 +1997,16 @@ sub get_icon_pet {
 }
 
 #================================================
-# Šî–{s“®‚Ì‘OŒã‚Ì‹¤’Êˆ—
-# Šî–{s“®‚ğ‚Ç‚¤‘¨‚¦‚é‚©‚ÍŠeŠJ”­Ò‚É‚æ‚é‚à‚Ì‚Å‚Í‚ ‚é‚ªA
-# ‚É‚á‚ I‚Å‚Í“à­EŠOŒğEŒR–Eí‘ˆ‚Ìlí‚Æ‚·‚é
+# åŸºæœ¬è¡Œå‹•ã®å‰å¾Œã®å…±é€šå‡¦ç†
+# åŸºæœ¬è¡Œå‹•ã‚’ã©ã†æ‰ãˆã‚‹ã‹ã¯å„é–‹ç™ºè€…ã«ã‚ˆã‚‹ã‚‚ã®ã§ã¯ã‚ã‚‹ãŒã€
+# ã«ã‚ƒã‚é¯–ã§ã¯å†…æ”¿ãƒ»å¤–äº¤ãƒ»è»äº‹ãƒ»æˆ¦äº‰ã®å››ç¨®ã¨ã™ã‚‹
 #================================================
-sub before_action { # s“®‘O‚Ì‹¤’Êˆ—
+sub before_action { # è¡Œå‹•å‰ã®å…±é€šå‡¦ç†
 	my $action = shift;
 
 	if ($m{icon_pet} && ($action eq 'icon_pet_exp')) {
 		my $this_file = "$userdir/$id/pet_icon.cgi";
-		open my $fh, "+< $this_file" or &error("$this_file Ì§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "+< $this_file" or &error("$this_file ï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 		eval { flock $fh, 2; };
 		my $line = <$fh>;
 
@@ -2022,9 +2023,9 @@ sub before_action { # s“®‘O‚Ì‹¤’Êˆ—
 		close $fh;
 	}
 }
-sub after_success_action { # s“®‚Ì¬Œ÷Œã‚Ì‹¤’Êˆ—
-	my $action = shift; # s“®í
-	my $v = shift; # s“®‚É”º‚¤‰½‚ç‚©‚Ìƒf[ƒ^
+sub after_success_action { # è¡Œå‹•ã®æˆåŠŸå¾Œã®å…±é€šå‡¦ç†
+	my $action = shift; # è¡Œå‹•ç¨®
+	my $v = shift; # è¡Œå‹•ã«ä¼´ã†ä½•ã‚‰ã‹ã®ãƒ‡ãƒ¼ã‚¿
 
 	if ($w{world} eq $#world_states-4) {
 		require './lib/fate.cgi';
@@ -2032,15 +2033,15 @@ sub after_success_action { # s“®‚Ì¬Œ÷Œã‚Ì‹¤’Êˆ—
 		&super_attack('single') if ($action eq 'war') && $v;
 	}
 }
-sub remove_pet { # Íß¯ÄŠO‚·ˆ—
+sub remove_pet { # ï¾ï¾Ÿï½¯ï¾„å¤–ã™å‡¦ç†
 	$m{pet} = 0;
 	$m{icon_pet} = '';
 	$m{icon_pet_lv} = 0;
 	$m{icon_pet_exp} = 0;
 }
 
-# ¸´½Ä’B¬‚ÉŠÖ‚·‚és“®‚Ì¬Œ÷‚ÉŒÄ‚Ño‚·‚Æ”»’è‚â’B¬ˆ—‚È‚Ç‚ğ‚â‚Á‚Ä‚­‚ê‚é
-# ˆø”‚É‚Í¸´½Ä·°‚ğ”z—ñ‚Å“n‚·
+# ï½¸ï½´ï½½ï¾„é”æˆã«é–¢ã™ã‚‹è¡Œå‹•ã®æˆåŠŸæ™‚ã«å‘¼ã³å‡ºã™ã¨åˆ¤å®šã‚„é”æˆå‡¦ç†ãªã©ã‚’ã‚„ã£ã¦ãã‚Œã‚‹
+# å¼•æ•°ã«ã¯ï½¸ï½´ï½½ï¾„ï½·ï½°ã‚’é…åˆ—ã§æ¸¡ã™
 sub run_tutorial_quest {
 	return unless $m{tutorial_switch};
 	my @ks = @_;
@@ -2052,21 +2053,21 @@ sub run_tutorial_quest {
 		if ($m{$k} eq $tutorial_quests{$k}[1]) {
 			$is_bbs = 1 if $k eq 'tutorial_bbsc_write_1';
 			my $str = &success_quest_result($k);
-			&success_quest_mes("¸´½Äu$tutorial_quests{$k}[4]v‚ğ’B¬‚µ‚Ü‚µ‚½I<br>•ñV‚Æ‚µ‚Ä$str<br><br>$tutorial_quests{$k}[6]");
+			&success_quest_mes("ï½¸ï½´ï½½ï¾„ã€Œ$tutorial_quests{$k}[4]ã€ã‚’é”æˆã—ã¾ã—ãŸï¼<br>å ±é…¬ã¨ã—ã¦$str<br><br>$tutorial_quests{$k}[6]");
 
 			++$m{tutorial_quest_stamp_c};
 			for my $i (0 .. $#tutorial_stamps) {
 				if ($tutorial_stamps[$i][1] eq $m{tutorial_quest_stamp_c}) {
 					my $str = &{$tutorial_stamps[$i][2]};
-					&success_quest_mes("½ÀİÌß‚ğ$tutorial_stamps[$i][1]ŒÂW‚ß‚Ü‚µ‚½I<br>•ñV‚Æ‚µ‚Ä$str");
+					&success_quest_mes("ï½½ï¾€ï¾ï¾Œï¾Ÿã‚’$tutorial_stamps[$i][1]å€‹é›†ã‚ã¾ã—ãŸï¼<br>å ±é…¬ã¨ã—ã¦$str");
 				}
 			}
 		}
 	}
 
-	# ½ÀİÌßºİÌßØ°Ä
+	# ï½½ï¾€ï¾ï¾Œï¾Ÿï½ºï¾ï¾Œï¾Ÿï¾˜ï½°ï¾„
 	if ($m{tutorial_quest_stamp_c} eq $tutorial_quest_stamps) {
-		&success_quest_mes("‚·‚×‚Ä‚Ì½ÀİÌß‚ğW‚ß‚Ü‚µ‚½I<br>Á­°ÄØ±ÙÓ°ÄŞ‚ğI—¹‚µ‚Ü‚·BÁ­°ÄØ±ÙÓ°ÄŞ‚ÌØ‚è‘Ö‚¦‚ÍÏ²Ù°Ñ¨ŒÂlİ’è‚©‚ç‚Å‚«‚Ü‚·");
+		&success_quest_mes("ã™ã¹ã¦ã®ï½½ï¾€ï¾ï¾Œï¾Ÿã‚’é›†ã‚ã¾ã—ãŸï¼<br>ï¾ï½­ï½°ï¾„ï¾˜ï½±ï¾™ï¾“ï½°ï¾„ï¾ã‚’çµ‚äº†ã—ã¾ã™ã€‚ï¾ï½­ï½°ï¾„ï¾˜ï½±ï¾™ï¾“ï½°ï¾„ï¾ã®åˆ‡ã‚Šæ›¿ãˆã¯ï¾ï½²ï¾™ï½°ï¾‘â†’å€‹äººè¨­å®šã‹ã‚‰ã§ãã¾ã™");
 		&write_tutorial;
 		$m{tutorial_switch} = 0;
 	}
@@ -2074,4 +2075,4 @@ sub run_tutorial_quest {
 	&write_user if $is_bbs;
 }
 
-1; # íœ•s‰Â
+1; # å‰Šé™¤ä¸å¯
