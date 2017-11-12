@@ -1,68 +1,68 @@
 #=================================================
-# [ˆÃ•]NPCí—pÌßÛ¸Ş×Ñ Created by Merino
+# [æš—é»’]NPCæˆ¦ç”¨ï¾Œï¾Ÿï¾›ï½¸ï¾ï¾—ï¾‘ Created by Merino
 #=================================================
-# ‰½“x‚à“¯‚¶l‚ªNPC‘‚ÉdŠ¯‚µ‚È‚¢‚æ‚¤‚ÉdŠ¯ƒƒO(l)
+# ä½•åº¦ã‚‚åŒã˜äººãŒNPCå›½ã«ä»•å®˜ã—ãªã„ã‚ˆã†ã«ä»•å®˜ãƒ­ã‚°(äºº)
 $max_npc_old_member = 6; # $w{player} * 0.2 > 10 ? 10: $w{player} * 0.2;
-# NPC–¼(æ“ª5–¼‚Íí‘ˆ‚µ‚½‚Æ‚«‚ÉoŒ»‚·‚é)
-my @npc_names = (qw/vipqiv(NPC) kirito(NPC) ‹T‚Ì‰Æ’ëˆãŠw(NPC) pigure(NPC) ƒEƒFƒ‹(NPC) vipqiv(NPC) DT(NPC) ƒnƒ‹(NPC) ƒAƒVƒ…ƒŒƒC(NPC) ƒSƒ~ƒNƒY(NPC)/);
+# NPCå(å…ˆé ­5åã¯æˆ¦äº‰ã—ãŸã¨ãã«å‡ºç¾ã™ã‚‹)
+my @npc_names = (qw/vipqiv(NPC) kirito(NPC) äº€ã®å®¶åº­åŒ»å­¦(NPC) pigure(NPC) ã‚¦ã‚§ãƒ«(NPC) vipqiv(NPC) DT(NPC) ãƒãƒ«(NPC) ã‚¢ã‚·ãƒ¥ãƒ¬ã‚¤(NPC) ã‚´ãƒŸã‚¯ã‚º(NPC)/);
 #                   0             1          2           3         4
-my $npc_cap = 6;# Š®‘S‚ÈNPC‘‚É‚µ‚½‚¢ê‡‚Í ©‚Ì”š‚ğ 0 ‚É‚·‚é
+my $npc_cap = 6;# å®Œå…¨ãªNPCå›½ã«ã—ãŸã„å ´åˆã¯ â†ã®æ•°å­—ã‚’ 0 ã«ã™ã‚‹
 
-# NPC”½Œ‚—¦
-# ’²®—p•Ï”
-my $ave_add = 0; # ’èˆõ”ŒvZ‚Ì‰º‘Êi‘‚â‚·‚ÆˆÃ•‚ª‹­‚­‚È‚è‚Ü‚·B•ÏX”ñ„§j
-my $max_par = 0.5; # •’Ê‚Ì‘‚Ì’èˆõ‚Ì‚Ç‚Ì‚®‚ç‚¢‚ÌŠ„‡‚Å”½Œ‚—¦Å’á‚É‚·‚é‚©
-# ‰º‚°‚·‚¬‚é‚Æ‚·‚®‚ÉÅ’á”½Œ‚—¦‚Éã‚°‚·‚¬‚é‚ÆˆÃ•‚ªl”‚ª‘½‚¢‚Æ‚«‚ÉÅ’á”½Œ‚—¦‚É‚È‚ç‚¸‹­‚­‚È‚è‚·‚¬‚Ü‚·BTd‚É•ÏX‚Ì‚±‚Æ
-# icf:•’Ê‚Ì‘‚Ì’èˆõ”30‚È‚ç15l’èˆõƒI[ƒo[‚µ‚½‚ç”½Œ‚—¦Å’á‚É‚È‚è‚Ü‚·j
-# ŒR–
-my $mil_over = 6; # ’èˆõˆÈ‰º‚Ì‚Ì”½Œ‚—¦i’èˆõˆÈ‰º‚Åã‚·‚¬‚éê‡‚Íã‚°‚éB•ÏX”ñ„§j
-my $mil_max = 4; # l”‚ª’èˆõ‚Æ“¯‚¶‚Å‚±‚Ì’l‚É‚È‚éi‘‚â‚·‚Æl”‘½‚¢‚Æ‚«‚à‹­‚­‚È‚éj
-my $mil_min = 0.5; # Å’á”½Œ‚—¦iˆÃ•‚ªl”‚ª‘½‚­‚Ä‹­‚·‚¬‚é‚Æ‚«‚Í‰º‚°‚éj
-# í‘ˆ
-my $war_over = 4.5;  # ’èˆõˆÈ‰º‚Ì‚Ì”½Œ‚—¦i’èˆõˆÈ‰º‚Åã‚·‚¬‚éê‡‚Íã‚°‚éB•ÏX”ñ„§j
-my $war_max = 3; # l”‚ª’èˆõ‚Æ“¯‚¶‚Å‚±‚Ì’l‚É‚È‚éi‘‚â‚·‚Æl”‘½‚¢‚Æ‚«‚à‹­‚­‚È‚éj
-my $war_min = 0.5; # Å’á”½Œ‚—¦iˆÃ•‚ªl”‚ª‘½‚­‚Ä‹­‚·‚¬‚é‚Æ‚«‚Í‰º‚°‚éj
-# ŒvZ•”
+# NPCåæ’ƒç‡
+# èª¿æ•´ç”¨å¤‰æ•°
+my $ave_add = 0; # å®šå“¡æ•°è¨ˆç®—ã®ä¸‹é§„ï¼ˆå¢—ã‚„ã™ã¨æš—é»’ãŒå¼·ããªã‚Šã¾ã™ã€‚å¤‰æ›´éæ¨å¥¨ï¼‰
+my $max_par = 0.5; # æ™®é€šã®å›½ã®å®šå“¡ã®ã©ã®ãã‚‰ã„ã®å‰²åˆã§åæ’ƒç‡æœ€ä½ã«ã™ã‚‹ã‹
+# ä¸‹ã’ã™ãã‚‹ã¨ã™ãã«æœ€ä½åæ’ƒç‡ã«ä¸Šã’ã™ãã‚‹ã¨æš—é»’ãŒäººæ•°ãŒå¤šã„ã¨ãã«æœ€ä½åæ’ƒç‡ã«ãªã‚‰ãšå¼·ããªã‚Šã™ãã¾ã™ã€‚æ…é‡ã«å¤‰æ›´ã®ã“ã¨
+# ï¼ˆcf:æ™®é€šã®å›½ã®å®šå“¡æ•°30ãªã‚‰15äººå®šå“¡ã‚ªãƒ¼ãƒãƒ¼ã—ãŸã‚‰åæ’ƒç‡æœ€ä½ã«ãªã‚Šã¾ã™ï¼‰
+# è»äº‹
+my $mil_over = 6; # å®šå“¡ä»¥ä¸‹ã®æ™‚ã®åæ’ƒç‡ï¼ˆå®šå“¡ä»¥ä¸‹ã§å¼±ã™ãã‚‹å ´åˆã¯ä¸Šã’ã‚‹ã€‚å¤‰æ›´éæ¨å¥¨ï¼‰
+my $mil_max = 4; # äººæ•°ãŒå®šå“¡ã¨åŒã˜ã§ã“ã®å€¤ã«ãªã‚‹ï¼ˆå¢—ã‚„ã™ã¨äººæ•°å¤šã„ã¨ãã‚‚å¼·ããªã‚‹ï¼‰
+my $mil_min = 0.5; # æœ€ä½åæ’ƒç‡ï¼ˆæš—é»’ãŒäººæ•°ãŒå¤šãã¦å¼·ã™ãã‚‹ã¨ãã¯ä¸‹ã’ã‚‹ï¼‰
+# æˆ¦äº‰
+my $war_over = 4.5;  # å®šå“¡ä»¥ä¸‹ã®æ™‚ã®åæ’ƒç‡ï¼ˆå®šå“¡ä»¥ä¸‹ã§å¼±ã™ãã‚‹å ´åˆã¯ä¸Šã’ã‚‹ã€‚å¤‰æ›´éæ¨å¥¨ï¼‰
+my $war_max = 3; # äººæ•°ãŒå®šå“¡ã¨åŒã˜ã§ã“ã®å€¤ã«ãªã‚‹ï¼ˆå¢—ã‚„ã™ã¨äººæ•°å¤šã„ã¨ãã‚‚å¼·ããªã‚‹ï¼‰
+my $war_min = 0.5; # æœ€ä½åæ’ƒç‡ï¼ˆæš—é»’ãŒäººæ•°ãŒå¤šãã¦å¼·ã™ãã‚‹ã¨ãã¯ä¸‹ã’ã‚‹ï¼‰
+# è¨ˆç®—éƒ¨
 my $ave_cap = ($w{player} / $w{country} + $ave_add) * $max_par;
 my $npc_subx = ($ave_cap - $npc_cap) == 0 ? ($cs{member}[$w{country}] - $npc_cap) : ($cs{member}[$w{country}] - $npc_cap) / ($ave_cap - $npc_cap);
-# ŒR–NPC”½Œ‚‚Ì”­¶—¦iƒfƒtƒHƒ‹ƒg‚ª1jcf:4‚¾‚Æ‘—Í50000–¢–‚Åí‚É”½Œ‚,12‚¾‚Æí”½Œ‚
+# è»äº‹NPCåæ’ƒã®ç™ºç”Ÿç‡ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãŒ1ï¼‰cf:4ã ã¨å›½åŠ›50000æœªæº€ã§å¸¸ã«åæ’ƒ,12ã ã¨å¸¸æ™‚åæ’ƒ
 $npc_mil = $npc_subx * (1 - $mil_max) + $mil_max;
 $npc_mil = $npc_mil < $mil_min ? $mil_min:
 	 $npc_mil > $mil_max ? $mil_over:
 	 $npc_mil;
-# í‘ˆNPC”½Œ‚‚Ì”­¶—¦iƒfƒtƒHƒ‹ƒg‚ª1jcf:3‚¾‚Æ‘—Í30000–¢–‚Åí‚É”½Œ‚,4‚¾‚Æí”½Œ‚
+# æˆ¦äº‰NPCåæ’ƒã®ç™ºç”Ÿç‡ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãŒ1ï¼‰cf:3ã ã¨å›½åŠ›30000æœªæº€ã§å¸¸ã«åæ’ƒ,4ã ã¨å¸¸æ™‚åæ’ƒ
 $npc_war = $npc_subx * (1 - $war_max) + $war_max;
 $npc_war = $npc_war < $war_min ? $war_min:
 	 $npc_war > $war_max ? $war_over:
 	 $npc_war;
 
 #=================================================
-# NPC‘‚Ì’Ç‰Á
+# NPCå›½ã®è¿½åŠ 
 #=================================================
 sub add_npc_country {
-	&write_world_news("<i>—ğ‘ã‚Ì”eÒ’B‚É‚æ‚Á‚Ä••ˆó‚³‚ê‚Ä‚¢‚½–‚ŠE‚ÌŒ‹ŠE‚ªã‚Ü‚èAˆ«–²‚ªÄ‚ÑáS‚ë‚¤‚Æ‚µ‚Ä‚¢‚éc</i>");
+	&write_world_news("<i>æ­´ä»£ã®è¦‡è€…é”ã«ã‚ˆã£ã¦å°å°ã•ã‚Œã¦ã„ãŸé­”ç•Œã®çµç•ŒãŒå¼±ã¾ã‚Šã€æ‚ªå¤¢ãŒå†ã³ç”¦ã‚ã†ã¨ã—ã¦ã„ã‚‹â€¦</i>");
 	$w{game_lv} = 99;
 	$w{world} = $#world_states;
 	
-	# NPC‚Ì‘‚Ì–¼‘O
-	my @c_names = (qw/‚ ‚ñ‚±‚­ C—…‚Ì‘ –‚ŠE/);
+	# NPCã®å›½ã®åå‰
+	my @c_names = (qw/ã‚ã‚“ã“ã ä¿®ç¾…ã®å›½ é­”ç•Œ/);
 	my $npc_country_name  = $c_names[int(rand(@c_names))];
 	
-	# NPC‚Ì‘F
+	# NPCã®å›½è‰²
 	my $npc_country_color = '#BA55D3';
 	++$w{country};
 	my $i = $w{country};
-	mkdir "$logdir/$i" or &error("$logdir/$i Ì«ÙÀŞ‚ªì‚ê‚Ü‚¹‚ñ‚Å‚µ‚½") unless -d "$logdir/$i";
+	mkdir "$logdir/$i" or &error("$logdir/$i ï¾Œï½«ï¾™ï¾€ï¾ãŒä½œã‚Œã¾ã›ã‚“ã§ã—ãŸ") unless -d "$logdir/$i";
 	for my $file_name (qw/prisoner violator old_member/) {
 		my $output_file = "$logdir/$i/$file_name.cgi";
 		next if -f $output_file;
-		open my $fh, "> $output_file" or &error("$output_file Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ‚Å‚µ‚½");
+		open my $fh, "> $output_file" or &error("$output_file ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“ã§ã—ãŸ");
 		close $fh;
 		chmod $chmod, $output_file;
 	}
 	for my $file_name (qw/bbs bbs_log bbs_member depot depot_log patrol prison prison_member leader member/) {
 		my $output_file = "$logdir/$i/$file_name.cgi";
-		open my $fh, "> $output_file" or &error("$output_file Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ‚Å‚µ‚½");
+		open my $fh, "> $output_file" or &error("$output_file ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“ã§ã—ãŸ");
 		if ($file_name eq 'depot') {
 			print $fh "1<>1<><>\n";
 		}
@@ -78,21 +78,21 @@ sub add_npc_country {
 		$w{ "f_${j}_${i}" } = -99;
 		$w{ "p_${j}_${i}" } = 2;
 		next if -f "$file_name.cgi";
-		open my $fh, "> $file_name.cgi" or &error("$file_name.cgi Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ");
+		open my $fh, "> $file_name.cgi" or &error("$file_name.cgi ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“");
 		close $fh;
 		chmod $chmod, "$file_name.cgi";
 		
-		open my $fh2, "> ${file_name}_log.cgi" or &error("${file_name}_log.cgi Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ");
+		open my $fh2, "> ${file_name}_log.cgi" or &error("${file_name}_log.cgi ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“");
 		close $fh2;
 		chmod $chmod, "${file_name}_log.cgi";
 		
-		open my $fh3, "> ${file_name}_member.cgi" or &error("${file_name}_member.cgi Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ");
+		open my $fh3, "> ${file_name}_member.cgi" or &error("${file_name}_member.cgi ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“");
 		close $fh3;
 		chmod $chmod, "${file_name}_member.cgi";
 	}
 	
 	unless (-f "$htmldir/$i.html") {
-		open my $fh_h, "> $htmldir/$i.html" or &error("$htmldir/$i.html Ì§²Ù‚ªì‚ê‚Ü‚¹‚ñ");
+		open my $fh_h, "> $htmldir/$i.html" or &error("$htmldir/$i.html ï¾Œï½§ï½²ï¾™ãŒä½œã‚Œã¾ã›ã‚“");
 		close $fh_h;
 	}
 	$cs{name}[$i]     = $npc_country_name;
@@ -113,17 +113,17 @@ sub add_npc_country {
 	$cs{modify_pro}[$i]   = 0;
 
 	require './lib/_rampart.cgi';
-	$cs{barrier}[$i]  = $barrier[1][0]; # ˆÃ•‚¾‚¯‰Šú‰»ü‚è‚ª•s“ˆê
+	$cs{barrier}[$i]  = $barrier[1][0]; # æš—é»’ã ã‘åˆæœŸåŒ–å‘¨ã‚ŠãŒä¸çµ±ä¸€
 	
 	my @lines = &get_countries_mes();
 	if ($w{country} > $#lines) {
 		open my $fh9, ">> $logdir/countries_mes.cgi";
-		print $fh9 "‹ğƒJƒiƒ‹lŠÔ‹¤ƒˆAˆÌ‘åƒiƒ‹‰äƒKˆÅƒmƒ`ƒJƒ‰ƒm‘Oƒj•½•šƒXƒK—ÇƒCc<>diabolos.gif<>\n";
+		print $fh9 "æ„šã‚«ãƒŠãƒ«äººé–“å…±ãƒ¨ã€å‰å¤§ãƒŠãƒ«æˆ‘ã‚¬é—‡ãƒãƒã‚«ãƒ©ãƒå‰ãƒ‹å¹³ä¼ã‚¹ã‚¬è‰¯ã‚¤â€¦<>diabolos.gif<>\n";
 		close $fh9;
 	}
 }
 #=================================================
-# í‘ˆNPC·¬×‚ğì¬
+# æˆ¦äº‰NPCï½·ï½¬ï¾—ã‚’ä½œæˆ
 #=================================================
 sub add_npc_data {
 	my $country = shift;
@@ -141,14 +141,15 @@ sub add_npc_data {
 		rank   => [$#ranks, $#ranks-2, 10, 7, 4],
 	);
 	my @npc_weas = (
-	#	[0]‘®«[1]•ŠíNo	[2]•KE‹Z
-		['–³', [0],			[61..65],],
-		['Œ•', [1 .. 5],	[1 .. 5],],
-		['‘„', [6 ..10],	[11..15],],
-		['•€', [11..15],	[21..25],],
-		['‰Š', [16..20],	[31..35],],
-		['•—', [21..25],	[41..45],],
-		['—‹', [26..30],	[51..55],],
+	#	[0]å±æ€§[1]æ­¦å™¨No	[2]å¿…æ®ºæŠ€
+		['ç„¡', [0],			[61..65],],
+		['å‰£', [1 .. 5],	[1 .. 5],],
+		['æ§', [6 ..10],	[11..15],],
+		['æ–§', [11..15],	[21..25],],
+		['ç‚', [16..20],	[31..35],],
+		['é¢¨', [21..25],	[41..45],],
+		['é›·', [26..30],	[51..55],],
+		['éŠƒ', [34],			[71..75],],
 	);
 	my $line = qq|\@npcs = (\n|;
 	for my $i (0..4) {
@@ -172,7 +173,7 @@ sub add_npc_data {
 	close $fh;
 }
 #=================================================
-# NPC‘‚Ìíœ
+# NPCå›½ã®å‰Šé™¤
 #=================================================
 sub delete_npc_country {
 	if ($is_npc_win) {
@@ -181,16 +182,16 @@ sub delete_npc_country {
 			$m{country} = 0;
 			$cs{war}[0] = $m{name};
 			if($w{year} =~ /26$/ || $w{year} =~ /46$/ || $w{year} =~ /66$/ || $w{year} =~ /86$/ || $w{year} =~ /06$/){
-				$m{shogo}   = 'š‘Â“Vgõ';
+				$m{shogo}   = 'â˜…å •å¤©ä½¿â€ ';
 			}else{
-				$m{shogo}   = 'šƒGƒŠ[ƒg';
+				$m{shogo}   = 'â˜…ã‚¨ãƒªãƒ¼ãƒˆ';
 			}
 		}
 		else {
 			$w{win_countries} = $m{country};
 		}
 		
-		# ‘‘ã•\Ò‚É“Á“T
+		# å›½ä»£è¡¨è€…ã«ç‰¹å…¸
 		for my $k (qw/war dom pro mil ceo/) {
 			my @bonus_pets = (19, 20, 168, 187);
 			next if $cs{$k}[$w{country}] eq '';
@@ -209,8 +210,8 @@ sub delete_npc_country {
 		print $efh "fes_c<>1<>\n";
 		close $efh;
 		!$is_npc_win ? &regist_you_data($name, 'shogo', $shogos[1][0]) :
-		$w{world} eq $#world_states ? &regist_you_data($name, 'shogo', 'š‘Â“Vgõ') :
-										&regist_you_data($name, 'shogo', 'šƒGƒŠ[ƒg');
+		$w{world} eq $#world_states ? &regist_you_data($name, 'shogo', 'â˜…å •å¤©ä½¿â€ ') :
+										&regist_you_data($name, 'shogo', 'â˜…ã‚¨ãƒªãƒ¼ãƒˆ');
 	}
 	--$w{country};
 	
@@ -227,35 +228,35 @@ sub delete_npc_country {
 	close $fh;
 }
 #=================================================
-# NPC‘‚ÌŒR– ./lib/military.cgi‚Å•p“x’²®
+# NPCå›½ã®è»äº‹ ./lib/military.cgiã§é »åº¦èª¿æ•´
 #=================================================
 sub npc_military {
 	my @keys = (qw/gou gou gou cho cho cho sen ds/);
 	my $k = $keys[int(rand(@keys))];
 	my $country = int(rand($w{country}-1)+1);
-	return if $cs{is_die}[$country]; # –Å–S‘‚©‚ç‚Í’D‚í‚È‚¢
+	return if $cs{is_die}[$country]; # æ»…äº¡å›½ã‹ã‚‰ã¯å¥ªã‚ãªã„
 	require "$datadir/npc_war_$w{country}.cgi";
 	&{'npc_military_'.$k}($country);
 }
-sub npc_military_gou { # ‹­’D
+sub npc_military_gou { # å¼·å¥ª
 	my $country = shift;
 	my $v = &_npc_get_resource($country, 'food');
-	&write_world_news("$cs{name}[$w{country}]‚Ì$npcs[int(rand(@npcs))]{name}‚ª$cs{name}[$country]‚ÉŠïPUŒ‚‚ğÀ{B$v‚Ì•º—Æ‚ğ‹­’D‚·‚é‚±‚Æ‚É¬Œ÷‚µ‚Ü‚µ‚½");
+	&write_world_news("$cs{name}[$w{country}]ã®$npcs[int(rand(@npcs))]{name}ãŒ$cs{name}[$country]ã«å¥‡è¥²æ”»æ’ƒã‚’å®Ÿæ–½ã€‚$vã®å…µç³§ã‚’å¼·å¥ªã™ã‚‹ã“ã¨ã«æˆåŠŸã—ã¾ã—ãŸ");
 }
-sub npc_military_cho { # ’³•ñ
+sub npc_military_cho { # è«œå ±
 	my $country = shift;
 	my $v = &_npc_get_resource($country, 'money');
-	&write_world_news("$cs{name}[$w{country}]‚Ì$npcs[int(rand(@npcs))]{name}‚ª$cs{name}[$country]‚Ì‘‹à’²’BÙ°Ä‚ğŠh—‚µA$v‚Ì$e2j{money}‚ğ—¬o‚³‚¹‚é‚±‚Æ‚É¬Œ÷‚µ‚Ü‚µ‚½");
+	&write_world_news("$cs{name}[$w{country}]ã®$npcs[int(rand(@npcs))]{name}ãŒ$cs{name}[$country]ã®è³‡é‡‘èª¿é”ï¾™ï½°ï¾„ã‚’æ’¹ä¹±ã—ã€$vã®$e2j{money}ã‚’æµå‡ºã•ã›ã‚‹ã“ã¨ã«æˆåŠŸã—ã¾ã—ãŸ");
 }
-sub npc_military_sen { # ŒR–
+sub npc_military_sen { # è»äº‹
 	my $country = shift;
 	my $v = &_npc_get_resource($country, 'soldier');
-	&write_world_news("$cs{name}[$w{country}]‚Ì$npcs[int(rand(@npcs))]{name}‚ª$cs{name}[$country]‚Ì$v‚Ì•º‚ğô”]‚·‚é‚±‚Æ‚É¬Œ÷!$cs{name}[$w{country}]‚Ì•º‚Éæ‚è‚İ‚Ü‚µ‚½");
+	&write_world_news("$cs{name}[$w{country}]ã®$npcs[int(rand(@npcs))]{name}ãŒ$cs{name}[$country]ã®$vã®å…µã‚’æ´—è„³ã™ã‚‹ã“ã¨ã«æˆåŠŸ!$cs{name}[$w{country}]ã®å…µã«å–ã‚Šè¾¼ã¿ã¾ã—ãŸ");
 }
-sub npc_military_ds { # Dead Soldier €—ì‚Ì¢Š«
+sub npc_military_ds { # Dead Soldier æ­»éœŠã®å¬å–š
 	return if $cs{soldier}[$w{country}] > 500000;
 	$cs{soldier}[$w{country}] += 50000;
-	&write_world_news("$cs{name}[$w{country}]‚Ì$npcs[int(rand(@npcs))]{name}‚ª€‚Ì‘‚æ‚è€—ì‚Ì•ºm‚ğŒÄ‚ÑŠo‚Ü‚µA$cs{name}[$w{country}]‚Ì‘•ºm”‚ª50000‘‰Á‚µ‚Ü‚µ‚½");
+	&write_world_news("$cs{name}[$w{country}]ã®$npcs[int(rand(@npcs))]{name}ãŒæ­»ã®å›½ã‚ˆã‚Šæ­»éœŠã®å…µå£«ã‚’å‘¼ã³è¦šã¾ã—ã€$cs{name}[$w{country}]ã®ç·å…µå£«æ•°ãŒ50000å¢—åŠ ã—ã¾ã—ãŸ");
 }
 sub _npc_get_resource {
 	my($country, $k) = @_;
@@ -268,23 +269,23 @@ sub _npc_get_resource {
 	return $v;
 }
 #=================================================
-# NPC‘‚Ìí‘ˆ ./lib/_war_result.cgi‚Å•p“x’²®
+# NPCå›½ã®æˆ¦äº‰ ./lib/_war_result.cgiã§é »åº¦èª¿æ•´
 #=================================================
 sub npc_war {
 =pod
 	my @npc_pet_pars = ();
-	# “ˆêŠúŒÀc‚è‚P“ú‚ÅÍß¯Ä‚Ì”­“®—¦•Ï‰»
-	# S‘©‚ª’·‚­‚Ü‚½Ilˆõ‚ª­‚È‚¢I‚¾‚ÆˆÃ•‚ªŠˆ”­‚É‚È‚é‘O‚ÉŠúŒÀØ‚ê‚»‚¤
-	# “ˆêŠúŒÀØ‚ê‚»‚¤‚É‚È‚Á‚½‚çÌªİØÙ‚Ì”­“®—¦ã‚°‚ÄŸ‚Â‚É‚µ‚ë•‰‚¯‚é‚É‚µ‚ë‚¿‚á‚ñ‚ÆI‚í‚é‚æ‚¤‚É‚Æ‚¢‚¤’²®
-	# ‚Ü‚½ŠúŒÀØ‚ê‚»‚¤‚È’†‚ÅÄ“¯–¿‚Á‚Ä‚¢‚¤‚Ì‚à·‚èã‚ª‚ç‚È‚¢‚¾‚ë‚¤‚©‚çÒÃµ‚Ì”­“®—¦‰º‚°‚é
-	# ˆÀˆÕ‚ÉƒCƒW‚é‚ÆÛÌßÄ‚ÆÒÃµ‚ª”­¶‚·‚é ˆÃ•‚Ì‹­ã’²®‚ÉÍß½Ä‚Ì”­“®—¦ƒCƒW‚ë‚¤‚Æv‚Á‚½‚çÍß½Ä‚ÌˆÊ’u‚ğŒã‚ë‚É‚µ‚½•û‚ª‚¦‚¦‚©‚àH ‚µ‚½‚çÛÌßÄ‚Ì”­“®—¦©‘ÌŒ©’¼‚³‚È‚¢‚Æ‚¾‚ë‚¤‚¯‚Ç
-	if ($cs{strong}[$w{country}] < 30000) { # ˆÃ•‚ÌƒJƒEƒ“ƒ^[‚ª–{‹C ŠúŒÀØ‚ê‚»‚¤‚¾‚©‚ç‚Á‚ÄÌªİØÙ˜A”­‚³‚¹‚é‚ÆˆÃ•—L—˜‚·‚¬‚é‚Ì‚Å‰º‚°‚é
+	# çµ±ä¸€æœŸé™æ®‹ã‚Šï¼‘æ—¥ã§ï¾ï¾Ÿï½¯ï¾„ã®ç™ºå‹•ç‡å¤‰åŒ–
+	# æ‹˜æŸãŒé•·ãã¾ãŸé¯–äººå“¡ãŒå°‘ãªã„é¯–ã ã¨æš—é»’ãŒæ´»ç™ºã«ãªã‚‹å‰ã«æœŸé™åˆ‡ã‚Œãã†
+	# çµ±ä¸€æœŸé™åˆ‡ã‚Œãã†ã«ãªã£ãŸã‚‰ï¾Œï½ªï¾ï¾˜ï¾™ã®ç™ºå‹•ç‡ä¸Šã’ã¦å‹ã¤ã«ã—ã‚è² ã‘ã‚‹ã«ã—ã‚ã¡ã‚ƒã‚“ã¨çµ‚ã‚ã‚‹ã‚ˆã†ã«ã¨ã„ã†èª¿æ•´
+	# ã¾ãŸæœŸé™åˆ‡ã‚Œãã†ãªä¸­ã§å†åŒç›Ÿã£ã¦ã„ã†ã®ã‚‚ç››ã‚Šä¸ŠãŒã‚‰ãªã„ã ã‚ã†ã‹ã‚‰ï¾’ï¾ƒï½µã®ç™ºå‹•ç‡ä¸‹ã’ã‚‹
+	# å®‰æ˜“ã«ã‚¤ã‚¸ã‚‹ã¨ï¾›ï¾Œï¾Ÿï¾„ã¨ï¾’ï¾ƒï½µãŒç™ºç”Ÿã™ã‚‹ æš—é»’ã®å¼·å¼±èª¿æ•´ã«ï¾ï¾Ÿï½½ï¾„ã®ç™ºå‹•ç‡ã‚¤ã‚¸ã‚ã†ã¨æ€ã£ãŸã‚‰ï¾ï¾Ÿï½½ï¾„ã®ä½ç½®ã‚’å¾Œã‚ã«ã—ãŸæ–¹ãŒãˆãˆã‹ã‚‚ï¼Ÿ ã—ãŸã‚‰ï¾›ï¾Œï¾Ÿï¾„ã®ç™ºå‹•ç‡è‡ªä½“è¦‹ç›´ã•ãªã„ã¨ã ã‚ã†ã‘ã©
+	if ($cs{strong}[$w{country}] < 30000) { # æš—é»’ã®ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ãŒæœ¬æ°— æœŸé™åˆ‡ã‚Œãã†ã ã‹ã‚‰ã£ã¦ï¾Œï½ªï¾ï¾˜ï¾™é€£ç™ºã•ã›ã‚‹ã¨æš—é»’æœ‰åˆ©ã™ãã‚‹ã®ã§ä¸‹ã’ã‚‹
 		@npc_pet_pars = ($time + 2 * 24 * 3600 > $w{limit_time}) ? (6, 10, 20, 15, 45) : (6, 10, 20, 15, 40) ;
 	}
-	elsif ($cs{strong}[$w{country}] < 50000) { # 50000 > ˆÃ• >= 30000 ‚±‚Ì‘—Í‚ÅŠúŒÀØ‚ê‚»‚¤‚¾‚Æ••ˆó‚ªƒTƒ{‚Á‚Ä‚é‚ÆˆÃ•‚ª–{‹Co‚·‘O‚ÉŠÔØ‚ê‹N‚±‚µ‚»‚¤ ÌªİØÙ‚Å“ˆê‘—Í‰º‚ª‚é‚æ‚¤‚É
+	elsif ($cs{strong}[$w{country}] < 50000) { # 50000 > æš—é»’ >= 30000 ã“ã®å›½åŠ›ã§æœŸé™åˆ‡ã‚Œãã†ã ã¨å°å°ãŒã‚µãƒœã£ã¦ã‚‹ã¨æš—é»’ãŒæœ¬æ°—å‡ºã™å‰ã«æ™‚é–“åˆ‡ã‚Œèµ·ã“ã—ãã† ï¾Œï½ªï¾ï¾˜ï¾™ã§çµ±ä¸€å›½åŠ›ä¸‹ãŒã‚‹ã‚ˆã†ã«
 		@npc_pet_pars = ($time + 2 * 24 * 3600 > $w{limit_time}) ? (4, 10, 20, 15, 45) : (6, 10, 20, 15, 40) ;
 	}
-	else { # ˆÃ• >= 50000 ‚±‚Ì‘—Í‚ÅŠúŒÀØ‚ê‚»‚¤‚È‚ç‚È‚¨‚Ì‚±‚ÆÌªİØÙ˜A‘Å
+	else { # æš—é»’ >= 50000 ã“ã®å›½åŠ›ã§æœŸé™åˆ‡ã‚Œãã†ãªã‚‰ãªãŠã®ã“ã¨ï¾Œï½ªï¾ï¾˜ï¾™é€£æ‰“
 		@npc_pet_pars = ($time + 2 * 24 * 3600 > $w{limit_time}) ? (2, 15, 20, 20, 55) : (3, 15, 20, 20, 50) ;
 	}
 =cut
@@ -299,11 +300,11 @@ sub npc_war {
 		;
 	}
 	elsif ($cs{strong}[$w{country}] < 50000) {
-		  rand(4)  < 1 ? &npc_use_pet_fenrir # ¶³İÀ°—¦‚ª“ˆê‘—Í‚É¶‰E‚³‚ê‚é‚Ì‚ÅA–³‰ü‘¢‚æ‚è‚àÌªİØÙ”­“®—¦ã‚°‚Ä¶³İÀ°—¦•Ï“®‚³‚¹‚½‚¢
-		: rand(12) < 1 ? &npc_use_pet_prisoner # ÌªİØÙã‚°‚é‚ÆNPC’D‘‚ª”­“®‚µ‚É‚­‚­‚È‚é‚Ì‚ÅA’Pƒ‚ÉNPC’D‘‚Ì‚½‚ß‚ÉŠm—¦‰º‚°‚é
+		  rand(4)  < 1 ? &npc_use_pet_fenrir # ï½¶ï½³ï¾ï¾€ï½°ç‡ãŒçµ±ä¸€å›½åŠ›ã«å·¦å³ã•ã‚Œã‚‹ã®ã§ã€ç„¡æ”¹é€ ã‚ˆã‚Šã‚‚ï¾Œï½ªï¾ï¾˜ï¾™ç™ºå‹•ç‡ä¸Šã’ã¦ï½¶ï½³ï¾ï¾€ï½°ç‡å¤‰å‹•ã•ã›ãŸã„
+		: rand(12) < 1 ? &npc_use_pet_prisoner # ï¾Œï½ªï¾ï¾˜ï¾™ä¸Šã’ã‚‹ã¨NPCå¥ªå›½ãŒç™ºå‹•ã—ã«ãããªã‚‹ã®ã§ã€å˜ç´”ã«NPCå¥ªå›½ã®ãŸã‚ã«ç¢ºç‡ä¸‹ã’ã‚‹
 		: rand(20) < 1 ? &npc_use_pet_pesto
-		: rand(15) < 1 ? &npc_use_pet_loptr # ÛÌßÄ‰º‚°‚È‚¢‚Æ•¨‘ƒXƒbƒJƒ‰ƒJƒ“‚É‚È‚é‰Â”\«‚‚»‚¤‚Æv‚Á‚½‚¯‚Ç‚»‚¤‚Å‚à‚È‚©‚Á‚½‚Á‚Û‚¢
-		: rand(45) < 1 ? &npc_use_pet_meteo # NPC±Ù¶“¯—lA’Pƒ‚ÉNPC’D‘‚Ì‚½‚ß‚ÉŠm—¦‰º‚°‚é Ä“¯–¿Œ‹‚ñ‚¾uŠÔNPCÒÃµ—‚¿‚Ä‚«‚½‚Ì‚Í‚í‚ç‚½
+		: rand(15) < 1 ? &npc_use_pet_loptr # ï¾›ï¾Œï¾Ÿï¾„ä¸‹ã’ãªã„ã¨ç‰©è³‡ã‚¹ãƒƒã‚«ãƒ©ã‚«ãƒ³ã«ãªã‚‹å¯èƒ½æ€§é«˜ãã†ã¨æ€ã£ãŸã‘ã©ãã†ã§ã‚‚ãªã‹ã£ãŸã£ã½ã„
+		: rand(45) < 1 ? &npc_use_pet_meteo # NPCï½±ï¾™ï½¶åŒæ§˜ã€å˜ç´”ã«NPCå¥ªå›½ã®ãŸã‚ã«ç¢ºç‡ä¸‹ã’ã‚‹ å†åŒç›Ÿçµã‚“ã ç¬é–“NPCï¾’ï¾ƒï½µè½ã¡ã¦ããŸã®ã¯ã‚ã‚‰ãŸ
 		:                &npc_get_strong
 		;
 	}
@@ -318,7 +319,7 @@ sub npc_war {
 	}
 
 =pod
-	–³‰ü‘¢
+	ç„¡æ”¹é€ 
 	if ($cs{strong}[$w{country}] < 50000) {
 		  rand(6)  < 1 ? &npc_use_pet_fenrir
 		: rand(10) < 1 ? &npc_use_pet_prisoner
@@ -348,7 +349,7 @@ sub npc_war {
 	;
 =cut
 }
-sub npc_use_pet_fenrir { # ÌªİØÙ
+sub npc_use_pet_fenrir { # ï¾Œï½ªï¾ï¾˜ï¾™
 	return if $touitu_strong < 20000;
 	$w{game_lv} += 1 if $w{game_lv} < 90;
 	for my $i (1..$w{country}-1) {
@@ -362,30 +363,30 @@ sub npc_use_pet_fenrir { # ÌªİØÙ
 	$cs{barrier}[$w{country}] = 100 if $cs{barrier}[$w{country}] > 100;
 
 	$touitu_strong * 0.6 > $cs{strong}[$w{country}] ? 
-		&write_world_news("$cs{name}[$w{country}]‚Ì$npcs[0]{name}‚Ì–‚_‚Ì‘MŒõ!Še‘‚Ì$e2j{strong}‚ªí‚ç‚ê‚Ü‚µ‚½"):
-		&write_world_news("$cs{name}[$w{country}]‚Ì$npcs[4]{name}‚Ì”j‰óŒõü!Še‘‚Ì$e2j{strong}‚ªí‚ç‚ê‚Ü‚µ‚½");
+		&write_world_news("$cs{name}[$w{country}]ã®$npcs[0]{name}ã®é­”ç¥ã®é–ƒå…‰!å„å›½ã®$e2j{strong}ãŒå‰Šã‚‰ã‚Œã¾ã—ãŸ"):
+		&write_world_news("$cs{name}[$w{country}]ã®$npcs[4]{name}ã®ç ´å£Šå…‰ç·š!å„å›½ã®$e2j{strong}ãŒå‰Šã‚‰ã‚Œã¾ã—ãŸ");
 		
 }
-sub npc_use_pet_loptr { # ÛÌßÄ
+sub npc_use_pet_loptr { # ï¾›ï¾Œï¾Ÿï¾„
 	$w{game_lv} -= 1 if $w{game_lv} > 80;
-	&write_world_news("$cs{name}[$w{country}]‚Ì‚¤‚ñ‚±‚È‚¤(NPC)‚Ì×_‚ÌÙ‚«!");
+	&write_world_news("$cs{name}[$w{country}]ã®ã†ã‚“ã“ãªã†(NPC)ã®é‚ªç¥ã®è£ã!");
 	
-	my @disasters = (['©‘RĞŠQ','food'],['ŒoÏ”j’]','money'],['‘å’nk','soldier']);
+	my @disasters = (['è‡ªç„¶ç½å®³','food'],['çµŒæ¸ˆç ´ç¶»','money'],['å¤§åœ°éœ‡','soldier']);
 	my $v = int(rand(@disasters));
 	for my $i (1 .. $w{country}-1) {
 		next if $cs{ is_die }[$i];
 		$cs{ $disasters[$v][1] }[$i] = int($cs{ $disasters[$v][1] }[$i] * 0.5);
 	}
-	&write_world_news("<b>¢ŠE’†‚É $disasters[$v][0] ‚ª‹N‚±‚è‚Ü‚µ‚½</b>");
+	&write_world_news("<b>ä¸–ç•Œä¸­ã« $disasters[$v][0] ãŒèµ·ã“ã‚Šã¾ã—ãŸ</b>");
 }
-sub npc_use_pet_pesto { # Íß½Ä
+sub npc_use_pet_pesto { # ï¾ï¾Ÿï½½ï¾„
 	$w{game_lv} -= 1 if $w{game_lv} > 75;
 	for my $i (1..$w{country}) {
 		$cs{state}[$i] = 5;
 	}
-	&write_world_news("<b>$cs{name}[$w{country}]‚Ì$npcs[int(rand(@npcs))]{name}‚ª–Ò“Å‚ğT‚«U‚ç‚µŠe‘‚Ì$e2j{state}‚ª $country_states[5] ‚É‚È‚è‚Ü‚µ‚½</b>");
+	&write_world_news("<b>$cs{name}[$w{country}]ã®$npcs[int(rand(@npcs))]{name}ãŒçŒ›æ¯’ã‚’æ’’ãæ•£ã‚‰ã—å„å›½ã®$e2j{state}ãŒ $country_states[5] ã«ãªã‚Šã¾ã—ãŸ</b>");
 }
-sub npc_use_pet_meteo { # ÒÃµ
+sub npc_use_pet_meteo { # ï¾’ï¾ƒï½µ
 	$w{game_lv} -= 2 if $w{game_lv} > 85;
 	for my $i (1..$w{country}) {
 		for my $j ($i+1..$w{country}) {
@@ -394,9 +395,9 @@ sub npc_use_pet_meteo { # ÒÃµ
 			$w{"p_${i}_${j}"}=2;
 		}
 	}
-	&write_world_news("<b>$cs{name}[$w{country}]‚Ì$npcs[int(rand(@npcs))]{name}‚ªÒÃµ‚ğ¥‚¦¢ŠE’†‚ªŠJí‚Æ‚È‚è‚Ü‚µ‚½</b>");
+	&write_world_news("<b>$cs{name}[$w{country}]ã®$npcs[int(rand(@npcs))]{name}ãŒï¾’ï¾ƒï½µã‚’å”±ãˆä¸–ç•Œä¸­ãŒé–‹æˆ¦ã¨ãªã‚Šã¾ã—ãŸ</b>");
 }
-sub npc_use_pet_prisoner { # ˜S–
+sub npc_use_pet_prisoner { # ç‰¢ç„
 	$w{game_lv} -= 1 if $w{game_lv} > 85;
 	my @ks = (qw/war dom pro mil ceo/);
 	my $k = $ks[int(rand(@ks))];
@@ -408,20 +409,20 @@ sub npc_use_pet_prisoner { # ˜S–
 		&regist_you_data($cs{$k}[$i], 'tp',  100);
 		&regist_you_data($cs{$k}[$i], 'y_country',  $w{country});
 		
-		open my $fh, ">> $logdir/$w{country}/prisoner.cgi" or &error("$logdir/$w{country}/prisoner.cgi ‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, ">> $logdir/$w{country}/prisoner.cgi" or &error("$logdir/$w{country}/prisoner.cgi ãŒé–‹ã‘ã¾ã›ã‚“");
 		print $fh "$cs{$k}[$i]<>$i<>\n";
 		close $fh;
 	}
-	&write_world_news("<b>$cs{name}[$w{country}]‚Ì$npcs[int(rand(@npcs))]{name}‚ª•s‹C–¡‚ÈŒõ‚ğ•ú‚¿Še‘‚Ì $e2j{$k} ‚ª$cs{name}[$w{country}]‚Ì$cs{prison_name}[$w{country}]‚É—H•Â‚³‚ê‚Ü‚µ‚½</b>");
+	&write_world_news("<b>$cs{name}[$w{country}]ã®$npcs[int(rand(@npcs))]{name}ãŒä¸æ°—å‘³ãªå…‰ã‚’æ”¾ã¡å„å›½ã® $e2j{$k} ãŒ$cs{name}[$w{country}]ã®$cs{prison_name}[$w{country}]ã«å¹½é–‰ã•ã‚Œã¾ã—ãŸ</b>");
 }
-sub npc_get_strong { # ’D‘
-	# ‘Œ¹‚ª‘«‚ç‚È‚¢‚Æ‚«
+sub npc_get_strong { # å¥ªå›½
+	# è³‡æºãŒè¶³ã‚‰ãªã„ã¨ã
 	for my $k (qw/food money soldier/) {
 		return if $cs{$k}[$w{country}] < 100000;
 	}
 	
 	my $country = 1;
-	if ($cs{strong}[$w{country}] < 40000) { # ˆê”Ô‘—Í‚ª‚‚¢‘‚ğ‘I‘ğ
+	if ($cs{strong}[$w{country}] < 40000) { # ä¸€ç•ªå›½åŠ›ãŒé«˜ã„å›½ã‚’é¸æŠ
 		my $max_value = $cs{strong}[1];
 		for my $i (2 .. $w{country}-1) {
 			if ($cs{strong}[$i] > $max_value) {
@@ -434,60 +435,60 @@ sub npc_get_strong { # ’D‘
 		$country = int(rand($w{country}-1)+1);
 	}
 	
-	return if ($cs{is_die}[$country] && $cs{strong}[$country] < 5000);        # –Å–S‘‚©‚ç‚Í’D‚í‚È‚¢
-	return if $cs{strong}[$country] < 1000; # ‘—Í1000–¢–‚Í’D‚í‚È‚¢
+	return if ($cs{is_die}[$country] && $cs{strong}[$country] < 5000);        # æ»…äº¡å›½ã‹ã‚‰ã¯å¥ªã‚ãªã„
+	return if $cs{strong}[$country] < 1000; # å›½åŠ›1000æœªæº€ã¯å¥ªã‚ãªã„
 
-#	my $v = $cs{strong}[$w{country}] < 30000 ? int(rand(500)+300) : int(rand(300)+300); # Šî–{’D‘—Í 300 ` 599
-	my $v = int(rand(300)+300); # Šî–{’D‘—Í 300 ` 599
+#	my $v = $cs{strong}[$w{country}] < 30000 ? int(rand(500)+300) : int(rand(300)+300); # åŸºæœ¬å¥ªå›½åŠ› 300 ï½ 599
+	my $v = int(rand(300)+300); # åŸºæœ¬å¥ªå›½åŠ› 300 ï½ 599
 
-	# ˆÃ•‘¤‚ÌdŠ¯l”‚ª••ˆó‘¤í‘ˆ‘‚Ì•z”‚ğã‰ñ‚Á‚½‚è‰º‰ñ‚Á‚½ê‡‚ÉNPC’D‘—Í‚ğ’²®‚·‚é
-	# ÌªİØÙ‚ª–â‘è‚É‚È‚é‚¯‚ÇA¶³İÀ°”­¶—¦‚æ‚è‚àÌªİØÙ©‘Ì‚àl”‚Å’²®‚Ì‚ª—Ç‚¢‚©‚àH ‚í‚ª‚ç‚ñ
-#	my $holy_mem = int($w{country} * 0.5) * 3; # ••ˆó‘¤í‘ˆ‘‚Ì•z–‡”‚ğ‘z’è í‘ˆ‘2‘‚Å6lAí‘ˆ‘4‘‚Å12l
-#	my $vv = int( ($cs{member}[$w{country}] - $holy_mem) / 3) * 100; # ˆÃ•‚Ì’âílˆõ‚ª 3 ‘½‚¢‚Ü‚½‚Í­‚È‚¢–ˆ‚ÉNPC’D‘—Í+-100
+	# æš—é»’å´ã®ä»•å®˜äººæ•°ãŒå°å°å´æˆ¦äº‰å›½ã®å¸ƒå‘Šæ•°ã‚’ä¸Šå›ã£ãŸã‚Šä¸‹å›ã£ãŸå ´åˆã«NPCå¥ªå›½åŠ›ã‚’èª¿æ•´ã™ã‚‹
+	# ï¾Œï½ªï¾ï¾˜ï¾™ãŒå•é¡Œã«ãªã‚‹ã‘ã©ã€ï½¶ï½³ï¾ï¾€ï½°ç™ºç”Ÿç‡ã‚ˆã‚Šã‚‚ï¾Œï½ªï¾ï¾˜ï¾™è‡ªä½“ã‚‚äººæ•°ã§èª¿æ•´ã®ãŒè‰¯ã„ã‹ã‚‚ï¼Ÿ ã‚ãŒã‚‰ã‚“
+#	my $holy_mem = int($w{country} * 0.5) * 3; # å°å°å´æˆ¦äº‰å›½ã®å¸ƒå‘Šæšæ•°ã‚’æƒ³å®š æˆ¦äº‰å›½2å›½ã§6äººã€æˆ¦äº‰å›½4å›½ã§12äºº
+#	my $vv = int( ($cs{member}[$w{country}] - $holy_mem) / 3) * 100; # æš—é»’ã®åœæˆ¦äººå“¡ãŒ 3 å¤šã„ã¾ãŸã¯å°‘ãªã„æ¯ã«NPCå¥ªå›½åŠ›+-100
 #	if ($vv) {
 #		$vv = $vv > 300 ? 300 :
 #				$vv < -300 ? -300 :
-#				$vv; # Å‚+-300
+#				$vv; # æœ€é«˜+-300
 #		$v += int(rand($vv)+$vv);
-#		return if $v < 1; # ˆÃ•l‚ª‘½‚·‚¬‚Ä•â³‚Å’D‘—Í0ˆÈ‰º‚É‚È‚Á‚½‚È‚ç’D‘¶³İÀ°·¬İ¾Ù í‘ˆ‘2‘FˆÃ•15lAí‘ˆ‘3‘FˆÃ•18l ‚Å·¬İ¾Ù‚³‚ê‚éê‡‚à‚ ‚éH
+#		return if $v < 1; # æš—é»’äººãŒå¤šã™ãã¦è£œæ­£ã§å¥ªå›½åŠ›0ä»¥ä¸‹ã«ãªã£ãŸãªã‚‰å¥ªå›½ï½¶ï½³ï¾ï¾€ï½°ï½·ï½¬ï¾ï½¾ï¾™ æˆ¦äº‰å›½2å›½ï¼šæš—é»’15äººã€æˆ¦äº‰å›½3å›½ï¼šæš—é»’18äºº ã§ï½·ï½¬ï¾ï½¾ï¾™ã•ã‚Œã‚‹å ´åˆã‚‚ã‚ã‚‹ï¼Ÿ
 #	}
 
-#	$v += int(rand(201)) if ($time + 2 * 24 * 3600 > $w{limit_time}); # “ˆêŠúŒÀc‚è‚P“ú
+#	$v += int(rand(201)) if ($time + 2 * 24 * 3600 > $w{limit_time}); # çµ±ä¸€æœŸé™æ®‹ã‚Šï¼‘æ—¥
 
-	# ‚»‚Ì‘‚Ì‘Šè‚Ì–¼‘O‚ğ×İÀŞÑæ“¾
+	# ãã®å›½ã®ç›¸æ‰‹ã®åå‰ã‚’ï¾—ï¾ï¾€ï¾ï¾‘å–å¾—
 	my $name = '';
-	open my $fh, "< $logdir/$country/member.cgi" or &error("$logdir/$country/member.cgiÌ§²Ù‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	open my $fh, "< $logdir/$country/member.cgi" or &error("$logdir/$country/member.cgiï¾Œï½§ï½²ï¾™ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	rand($.) < 1 and $name = $_ while <$fh>;
 	close $fh;
 	$name =~ tr/\x0D\x0A//d;
 
 	$cs{strong}[$w{country}] += $v;
 	$cs{strong}[$country]    -= $v;
-	&write_world_news(qq|$cs{name}[$w{country}]‚Ì$npcs[int(rand(@npcs))]{name}‚ª$cs{name}[$country]‚ÉNUA$name‚Ì•”‘à‚ğŒ‚”j‚µ <font color="#FF00FF"><b>$v</b> ‚Ì$e2j{strong}‚ğ’D‚¤‚±‚Æ‚É¬Œ÷</font>‚µ‚½‚æ‚¤‚Å‚·|);
+	&write_world_news(qq|$cs{name}[$w{country}]ã®$npcs[int(rand(@npcs))]{name}ãŒ$cs{name}[$country]ã«ä¾µæ”»ã€$nameã®éƒ¨éšŠã‚’æ’ƒç ´ã— <font color="#FF00FF"><b>$v</b> ã®$e2j{strong}ã‚’å¥ªã†ã“ã¨ã«æˆåŠŸ</font>ã—ãŸã‚ˆã†ã§ã™|);
 	$cs{is_die}[$w{country}] = 0 if $cs{is_die}[$w{country}];
 }
 #=================================================
-# “¯‚¶l‚ª‰½“x‚àNPC‘‚ÉdŠ¯‚µ‚È‚¢‚æ‚¤‚É§Œä
+# åŒã˜äººãŒä½•åº¦ã‚‚NPCå›½ã«ä»•å®˜ã—ãªã„ã‚ˆã†ã«åˆ¶å¾¡
 #=================================================
 sub is_move_npc_country {
 	return 1 if $config_test;
 
-	# ŒNå‚ÉdŠ¯‚µ‚æ‚¤‚Æ‚·‚é‚ÆdŠ¯‚Å‚«‚È‚¢‚É‚àŠÖ‚í‚ç‚¸dŠ¯ƒƒO‚É‚ÍÚ‚èAŒNå‚ğ«”C‚µ‚ÄdŠ¯‚µ‚æ‚¤‚Æ‚µ‚Ä‚àƒƒO‚ÉÚ‚Á‚Ä‚¢‚é‚Ì‚ÅdŠ¯‚Å‚«‚È‚¢
-	# ƒoƒO‚Å‚Í‚È‚­AˆÃ•‚Ì“¯–¿‘‚ªŒNå‚ğ‰½l‚à—§‚Ä‚ÄˆÃ•‚É–³‘Ê‚ÉdŠ¯‚µ‚Ü‚­‚é‚ÆˆÃ•‚ÌdŠ¯ƒƒO‚ğ—¬‚¹‚é‚Æ‚¢‚¤— ‹Z‚È‹C‚à‚·‚é
+	# å›ä¸»æ™‚ã«ä»•å®˜ã—ã‚ˆã†ã¨ã™ã‚‹ã¨ä»•å®˜ã§ããªã„ã«ã‚‚é–¢ã‚ã‚‰ãšä»•å®˜ãƒ­ã‚°ã«ã¯è¼‰ã‚Šã€å›ä¸»ã‚’è¾ä»»ã—ã¦ä»•å®˜ã—ã‚ˆã†ã¨ã—ã¦ã‚‚ãƒ­ã‚°ã«è¼‰ã£ã¦ã„ã‚‹ã®ã§ä»•å®˜ã§ããªã„
+	# ãƒã‚°ã§ã¯ãªãã€æš—é»’ã®åŒç›Ÿå›½ãŒå›ä¸»ã‚’ä½•äººã‚‚ç«‹ã¦ã¦æš—é»’ã«ç„¡é§„ã«ä»•å®˜ã—ã¾ãã‚‹ã¨æš—é»’ã®ä»•å®˜ãƒ­ã‚°ã‚’æµã›ã‚‹ã¨ã„ã†è£æŠ€ãªæ°—ã‚‚ã™ã‚‹
 	if ($m{name} eq $cs{ceo}[$m{country}]) {
-		$mes .= "$c_m‚Ì$e2j{ceo}‚ğ«”C‚·‚é•K—v‚ª‚ ‚è‚Ü‚·<br>";
+		$mes .= "$c_mã®$e2j{ceo}ã‚’è¾ä»»ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™<br>";
 		&begin;
 		return 0;
 	}
 
 	my @lines = ();
-	open my $fh, "+< $logdir/$w{country}/old_member.cgi" or &error("$logdir/$w{country}/old_member.cgiÌ§²Ù‚ªŠJ‚¯‚Ü‚¹‚ñ");
+	open my $fh, "+< $logdir/$w{country}/old_member.cgi" or &error("$logdir/$w{country}/old_member.cgiï¾Œï½§ï½²ï¾™ãŒé–‹ã‘ã¾ã›ã‚“");
 	eval { flock $fh, 2; };
 	while (my $line = <$fh>) {
 		$line =~ tr/\x0D\x0A//d;
 		if ($line eq $m{name}) {
 			close $fh;
-			$mes .= "‰ß‹‚ÉNPC‘‚ÖdŠ¯‚µ‚½l‚ÍA‚µ‚Î‚ç‚­NPC‘‚ÖdŠ¯‚·‚é‚±‚Æ‚Í‹–‚³‚ê‚Ü‚¹‚ñ<br>";
+			$mes .= "éå»ã«NPCå›½ã¸ä»•å®˜ã—ãŸäººã¯ã€ã—ã°ã‚‰ãNPCå›½ã¸ä»•å®˜ã™ã‚‹ã“ã¨ã¯è¨±ã•ã‚Œã¾ã›ã‚“<br>";
 			return 0;
 		}
 		push @lines, "$line\n";
@@ -499,18 +500,18 @@ sub is_move_npc_country {
 	print $fh @lines;
 	close $fh;
 
-	# ƒoƒO‚¶‚á‚È‚­ˆÃ•‚ÌdŠ¯ƒƒO‚ğÌßÚ²Ô°‚ª©—R‚É—¬‚¹‚é‚æ‚¤‚É‚µ‚Ä‚éH
+	# ãƒã‚°ã˜ã‚ƒãªãæš—é»’ã®ä»•å®˜ãƒ­ã‚°ã‚’ï¾Œï¾Ÿï¾šï½²ï¾”ï½°ãŒè‡ªç”±ã«æµã›ã‚‹ã‚ˆã†ã«ã—ã¦ã‚‹ï¼Ÿ
 #	if ($m{name} eq $cs{ceo}[$m{country}]) {
-#		$mes .= "$c_m‚Ì$e2j{ceo}‚ğ«”C‚·‚é•K—v‚ª‚ ‚è‚Ü‚·<br>";
+#		$mes .= "$c_mã®$e2j{ceo}ã‚’è¾ä»»ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™<br>";
 #		&begin;
 #		return 0;
 #	}
 
-	# ‘ã•\Îß²İÄ0
+	# ä»£è¡¨ï¾ï¾Ÿï½²ï¾ï¾„0
 	for my $k (qw/war dom mil pro/) {
 		$m{$k.'_c'} = int($m{$k.'_c'} * 0);
 	}
-	&mes_and_world_news("ˆ«–‚‚É°‚ğ”„‚è“n‚µ‚Ü‚µ‚½", 1);
+	&mes_and_world_news("æ‚ªé­”ã«é­‚ã‚’å£²ã‚Šæ¸¡ã—ã¾ã—ãŸ", 1);
 	return 1;
 }
 1;
