@@ -1,41 +1,41 @@
 my $this_file = "$logdir/auction.cgi";
 #=================================================
-# µ°¸¼®İ Created by Merino
+# ï½µï½°ï½¸ï½¼ï½®ï¾ Created by Merino
 #=================================================
 require "$datadir/buyable.cgi";
 
-# S‘©’†‚Ìs“®—pŠÖ”
-sub is_rest { return $m{lib_r} eq 'shopping_auction'; } # S‘©’†‚Ìs“®‚©
-sub set_tp { (&is_rest ? $m{tp_r} : $m{tp}) = shift; } # S‘©’†E”ñS‘©’†‚Ìtp¾¯À°
-sub get_tp { return &is_rest ? $m{tp_r} : $m{tp}; } # S‘©’†E”ñS‘©’†‚Ì¹Ş¯À°
-sub refresh_r { $m{lib_r} = $m{tp_r} = ''; } # refresh‚ÌS‘©’†”Å
+# æ‹˜æŸä¸­ã®è¡Œå‹•ç”¨é–¢æ•°
+sub is_rest { return $m{lib_r} eq 'shopping_auction'; } # æ‹˜æŸä¸­ã®è¡Œå‹•ã‹
+sub set_tp { (&is_rest ? $m{tp_r} : $m{tp}) = shift; } # æ‹˜æŸä¸­ãƒ»éæ‹˜æŸä¸­ã®tpï½¾ï½¯ï¾€ï½°
+sub get_tp { return &is_rest ? $m{tp_r} : $m{tp}; } # æ‹˜æŸä¸­ãƒ»éæ‹˜æŸä¸­ã®ï½¹ï¾ï½¯ï¾€ï½°
+sub refresh_r { $m{lib_r} = $m{tp_r} = ''; } # refreshã®æ‹˜æŸä¸­ç‰ˆ
 
-# S‘©’†‚Æ“¯‚¶s“®‚ğ”ñS‘©’†‚É‚µ‚½ê‡AS‘©’†‚Ì•û‚ğ·¬İ¾Ù
+# æ‹˜æŸä¸­ã¨åŒã˜è¡Œå‹•ã‚’éæ‹˜æŸä¸­ã«ã—ãŸå ´åˆã€æ‹˜æŸä¸­ã®æ–¹ã‚’ï½·ï½¬ï¾ï½¾ï¾™
 &refresh_r if $m{lib_r} eq $m{lib};
 
-# —DŠÔ(“ú)
+# è½æœ­æ™‚é–“(æ—¥)
 my $auction_limit_day = 3;
 
-# Å‘åo•i”
+# æœ€å¤§å‡ºå“æ•°
 my $max_auction = 30;
 
-# o•i‹Ö~±²ÃÑ
+# å‡ºå“ç¦æ­¢ï½±ï½²ï¾ƒï¾‘
 my %taboo_items = (
-	# ÌŞÛİ½Ş¿°ÄŞ, Ûİ¸Ş½Ëß±, ÊŞÄÙ±¸½, Ì§²±°, ³¨İÄŞ, »İÀŞ°
-	# ¼Ş¬İ¸¼®¯Ìß‚Åè‚É“ü‚é•¨‚Åo•i˜g‚ğ–„‚ß‚ér‚ç‚µ‚Ö‚Ì‘Îô‚¾‚Æv‚í‚ê‚é
-	wea => [1,6,11,16,21,26], # •Ší
-	egg => [], # ÀÏºŞ
-	pet => [], # Íß¯Ä
-	gua => [], # –h‹ï
+	# ï¾Œï¾ï¾›ï¾ï½½ï¾ï½¿ï½°ï¾„ï¾, ï¾›ï¾ï½¸ï¾ï½½ï¾‹ï¾Ÿï½±, ï¾Šï¾ï¾„ï¾™ï½±ï½¸ï½½, ï¾Œï½§ï½²ï½±ï½°, ï½³ï½¨ï¾ï¾„ï¾, ï½»ï¾ï¾€ï¾ï½°,ï½½ï¾˜ï¾ï½¸ï¾ï½¼ï½®ï½¯ï¾„
+	# ï½¼ï¾ï½¬ï¾ï½¸ï½¼ï½®ï½¯ï¾Œï¾Ÿã§æ‰‹ã«å…¥ã‚‹ç‰©ã§å‡ºå“æ ã‚’åŸ‹ã‚ã‚‹è’ã‚‰ã—ã¸ã®å¯¾ç­–ã ã¨æ€ã‚ã‚Œã‚‹
+	wea => [1,6,11,16,21,26,34], # æ­¦å™¨
+	egg => [], # ï¾€ï¾ï½ºï¾
+	pet => [], # ï¾ï¾Ÿï½¯ï¾„
+	gua => [], # é˜²å…·
 );
 
 
 #=================================================
-# —˜—pğŒ
+# åˆ©ç”¨æ¡ä»¶
 #=================================================
 sub is_satisfy {
 	if ($m{shogo} eq $shogos[1][0] || $m{shogo_t} eq $shogos[1][0]) {
-		$mes .= "$shogos[1][0]‚Ì•û‚Í‚¨’f‚è‚µ‚Ä‚¢‚Ü‚·<br>";
+		$mes .= "$shogos[1][0]ã®æ–¹ã¯ãŠæ–­ã‚Šã—ã¦ã„ã¾ã™<br>";
 
 		if (&is_rest) {
 			&refresh_r;
@@ -54,17 +54,17 @@ sub is_satisfy {
 #=================================================
 sub begin {
 	if (&get_tp > 1) {
-		$mes .= '‘¼‚É‰½‚©‚µ‚Ü‚·‚©?<br>';
+		$mes .= 'ä»–ã«ä½•ã‹ã—ã¾ã™ã‹?<br>';
 		&set_tp(1);
 	}
 	else {
-		$mes .= 'µ°¸¼®İ‰ïê‚É—ˆ‚Ü‚µ‚½<br>‰½‚ğ‚µ‚Ü‚·‚©?<br>';
+		$mes .= 'ï½µï½°ï½¸ï½¼ï½®ï¾ä¼šå ´ã«æ¥ã¾ã—ãŸ<br>ä½•ã‚’ã—ã¾ã™ã‹?<br>';
 	}
 	if (&is_rest) {
-		&menu('‚â‚ß‚é','“üD‚·‚é');
+		&menu('ã‚„ã‚ã‚‹','å…¥æœ­ã™ã‚‹');
 	}
 	else {
-		&menu('‚â‚ß‚é','“üD‚·‚é','o•i‚·‚é');
+		&menu('ã‚„ã‚ã‚‹','å…¥æœ­ã™ã‚‹','å‡ºå“ã™ã‚‹');
 	}
 }
 sub tp_1 {
@@ -75,56 +75,56 @@ sub tp_1 {
 }
 
 #=================================================
-# “üD
+# å…¥æœ­
 #=================================================
 sub tp_100 {
 	$layout = 1;
 	
-	$mes .= qq|µ°¸¼®İ‚Ì—D“ú”‚ÍAo•i“ú‚©‚ç $auction_limit_day“ú‘OŒã‚Å‚·<br>|;
+	$mes .= qq|ï½µï½°ï½¸ï½¼ï½®ï¾ã®è½æœ­æ—¥æ•°ã¯ã€å‡ºå“æ—¥ã‹ã‚‰ $auction_limit_dayæ—¥å‰å¾Œã§ã™<br>|;
 	$mes .= qq|<form method="$method" action="$script">|;
-	$mes .= qq|<input type="radio" id="no_0" name="cmd" value="0" checked><label for="no_0">‚â‚ß‚é</label><br>|;
- 	$mes .= $is_mobile ? qq|<hr>—D•i/“üDŠz/‘¦ŒˆŠz/“üDÒ/o•iÒ<br>|
- 		: qq|<table class="table1" cellpadding="3"><tr><th>—D•i</th><th>“üDŠz</th><th>‘¦ŒˆŠz</th><th>“üDÒ</th><th>o•iÒ</th><th>ó‘Ô</th><th>“üD‰Â”\\Šz<br></th>|;
+	$mes .= qq|<input type="radio" id="no_0" name="cmd" value="0" checked><label for="no_0">ã‚„ã‚ã‚‹</label><br>|;
+ 	$mes .= $is_mobile ? qq|<hr>è½æœ­å“/å…¥æœ­é¡/å³æ±ºé¡/å…¥æœ­è€…/å‡ºå“è€…<br>|
+ 		: qq|<table class="table1" cellpadding="3"><tr><th>è½æœ­å“</th><th>å…¥æœ­é¡</th><th>å³æ±ºé¡</th><th>å…¥æœ­è€…</th><th>å‡ºå“è€…</th><th>çŠ¶æ…‹</th><th>å…¥æœ­å¯èƒ½\é¡<br></th>|;
 
-	open my $fh, "< $this_file" or &error("$this_file‚ª“Ç‚İ‚ß‚Ü‚¹‚ñ");
+	open my $fh, "< $this_file" or &error("$this_fileãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“");
 	$m{total_auction} = 0;
 	while (my $line = <$fh>) {
 		my($bit_time, $no, $kind, $item_no, $item_c, $item_lv, $from_name, $to_name, $item_price, $buyout_price) = split /<>/, $line;
 		my $item_title = &get_item_name($kind, $item_no, $item_c, $item_lv);
-		my $item_state = $time + 3600 * 24 > $bit_time ? "‚»‚ë‚»‚ë":
-						$time + ($auction_limit_day - 1) * 3600 * 24 > $bit_time ? "‚Ü‚¾‚Ü‚¾":"new";
+		my $item_state = $time + 3600 * 24 > $bit_time ? "ãã‚ãã‚":
+						$time + ($auction_limit_day - 1) * 3600 * 24 > $bit_time ? "ã¾ã ã¾ã ":"new";
 		unless($buyout_price){
-			$buyout_price = '‚È‚µ';
+			$buyout_price = 'ãªã—';
 		}
 		my $next_min_price = int($item_price * 1.2);
-		$mes .= $is_mobile ? qq|<hr><input type="radio" name="cmd" value="$no">$item_title/$item_price G/‘¦$buyout_price G/$to_name/$from_name/$item_state<br>|
+		$mes .= $is_mobile ? qq|<hr><input type="radio" name="cmd" value="$no">$item_title/$item_price G/å³$buyout_price G/$to_name/$from_name/$item_state<br>|
 			: qq|<tr><td><input type="radio" id="$no" name="cmd" value="$no"><label for="$no">$item_title</label></td><td align="right">$item_price G</td><td align="right">$buyout_price G</td><td>$to_name</td><td>$from_name</td><td>$item_state<br></td><td>$next_min_price</td></tr>|;
 		$m{total_auction} += $item_price if ($to_name eq $m{name} && $from_name ne $m{name});
 	}
 	close $fh;
 	
 	$mes .= qq|</table>| unless $is_mobile;
-	$mes .= qq|<p>“üD‹àŠzF<input type="text" name="money" value="0" class="text_box1" style="text-align:right" class="text1">G</p>|;
+	$mes .= qq|<p>å…¥æœ­é‡‘é¡ï¼š<input type="text" name="money" value="0" class="text_box1" style="text-align:right" class="text1">G</p>|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="“üD‚·‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="å…¥æœ­ã™ã‚‹" class="button1"></p></form>|;
 	
 	&set_tp(&get_tp + 10);
 }
 sub tp_110 {
 	$in{money} = int($in{money});
 	if ($m{money} < $in{money} + $m{total_auction}) {
-		$mes .= '‚»‚ñ‚È‚É‚¨‹à‚ğ‚Á‚Ä‚¢‚Ü‚¹‚ñ<br>';
+		$mes .= 'ãã‚“ãªã«ãŠé‡‘ã‚’æŒã£ã¦ã„ã¾ã›ã‚“<br>';
 	}
 	elsif ($cmd && $in{money} && $in{money} !~ /[^0-9]/) {
 		my $is_rewrite = 0;
 		my $is_sokketsu = 0;
 		my @news_messages = ();
 		my @lines = ();
-		open my $fh, "+< $this_file" or &error("$this_file‚ªŠJ‚¯‚Ü‚¹‚ñ");
+		open my $fh, "+< $this_file" or &error("$this_fileãŒé–‹ã‘ã¾ã›ã‚“");
 		eval { flock $fh, 2; };
 		while (my $line = <$fh>) {
 			my($bit_time, $no, $kind, $item_no, $item_c, $item_lv, $from_name, $to_name, $item_price, $buyout_price) = split /<>/, $line;
-			next unless $item_no; # ‚Ç‚¤‚¢‚¤ŒoˆÜ‚Å‹N‚«‚½‚Ì‚©•ª‚©‚ç‚ñ‚ªƒf[ƒ^‚È‚µ‚ª—D‚³‚ê‚½‚Ì‚Å’e‚­
+			next unless $item_no; # ã©ã†ã„ã†çµŒç·¯ã§èµ·ããŸã®ã‹åˆ†ã‹ã‚‰ã‚“ãŒãƒ‡ãƒ¼ã‚¿ãªã—ãŒè½æœ­ã•ã‚ŒãŸã®ã§å¼¾ã
 			if ($no eq $cmd) {
 				my $need_money = int($item_price * 1.2);
 				if ($buyout_price && $need_money > $buyout_price) {
@@ -134,19 +134,19 @@ sub tp_110 {
 					my $item_title = &get_item_name($kind, $item_no, $item_c, $item_lv);
 
 					$m{total_auction} += $in{money};
-					$mes .= "$item_title‚É $in{money} G‚Å“üD‚µ‚Ü‚µ‚½<br>";
+					$mes .= "$item_titleã« $in{money} Gã§å…¥æœ­ã—ã¾ã—ãŸ<br>";
 					if($buyout_price && $in{money} >= $buyout_price){
 						my $to_id = unpack 'H*', $m{name};
 						if(-e "$userdir/$to_id/user.cgi"){
 							&send_item($m{name}, $kind, $item_no, $item_c, $item_lv, 1);
 						}
-						&send_money($m{name}, 'µ°¸¼®İ‰ïê', "-$in{money}");
-						&send_money($from_name, 'µ°¸¼®İ‰ïê', $in{money});
+						&send_money($m{name}, 'ï½µï½°ï½¸ï½¼ï½®ï¾ä¼šå ´', "-$in{money}");
+						&send_money($from_name, 'ï½µï½°ï½¸ï½¼ï½®ï¾ä¼šå ´', $in{money});
 						&sale_data_log($kind, $item_no, $item_c, $item_lv, $in{money}, 3);
-						$mes .= "‘¦Œˆ‰¿Ši‚ğ’ñ¦‚µ‚Ü‚µ‚½<br>";
-						push @news_messages, "$from_name‚Ìo•i‚µ‚½$item_title‚ğ$m{name}‚ª $in{money} G(‘¦Œˆ)‚Å—D‚µ‚Ü‚µ‚½";
-#						&write_send_news("$from_name‚Ìo•i‚µ‚½$item_title‚ğ$m{name}‚ª $in{money} G(‘¦Œˆ)‚Å—D‚µ‚Ü‚µ‚½");
-						&send_twitter("$from_name‚Ìo•i‚µ‚½$item_title‚ğ$m{name}‚ª $in{money} G(‘¦Œˆ)‚Å—D‚µ‚Ü‚µ‚½");
+						$mes .= "å³æ±ºä¾¡æ ¼ã‚’æç¤ºã—ã¾ã—ãŸ<br>";
+						push @news_messages, "$from_nameã®å‡ºå“ã—ãŸ$item_titleã‚’$m{name}ãŒ $in{money} G(å³æ±º)ã§è½æœ­ã—ã¾ã—ãŸ";
+#						&write_send_news("$from_nameã®å‡ºå“ã—ãŸ$item_titleã‚’$m{name}ãŒ $in{money} G(å³æ±º)ã§è½æœ­ã—ã¾ã—ãŸ");
+						&send_twitter("$from_nameã®å‡ºå“ã—ãŸ$item_titleã‚’$m{name}ãŒ $in{money} G(å³æ±º)ã§è½æœ­ã—ã¾ã—ãŸ");
 						$is_sokketsu = 1;
 						$is_rewrite = 1;
 					}else{
@@ -155,13 +155,13 @@ sub tp_110 {
 					}
 				}
 				else {
-					$mes .= "“üD‚ÍŒ»İ‚Ì—DŠz‚Ì1.2”{ˆÈã‚Ì‹àŠz( $need_money G)‚ª•K—v‚Å‚·<br>";
+					$mes .= "å…¥æœ­ã¯ç¾åœ¨ã®è½æœ­é¡ã®1.2å€ä»¥ä¸Šã®é‡‘é¡( $need_money G)ãŒå¿…è¦ã§ã™<br>";
 				}
 				unless($is_sokketsu){
 					push @lines, $line;
 				}
 			}
-			# —Dˆ—
+			# è½æœ­å‡¦ç†
 			elsif ($time > $bit_time) {
 				my $item_title = &get_item_name($kind, $item_no, $item_c, $item_lv);
 				
@@ -169,12 +169,12 @@ sub tp_110 {
 				if(-e "$userdir/$to_id/user.cgi"){
 					&send_item($to_name, $kind, $item_no, $item_c, $item_lv, 1);
 				}
-				&send_money($to_name, 'µ°¸¼®İ‰ïê', "-$item_price");
-				&send_money($from_name, 'µ°¸¼®İ‰ïê', $item_price);
+				&send_money($to_name, 'ï½µï½°ï½¸ï½¼ï½®ï¾ä¼šå ´', "-$item_price");
+				&send_money($from_name, 'ï½µï½°ï½¸ï½¼ï½®ï¾ä¼šå ´', $item_price);
 				&sale_data_log($kind, $item_no, $item_c, $item_lv, $item_price, 2);
-				push @news_messages, "$from_name‚Ìo•i‚µ‚½$item_title‚ğ$to_name‚ª $item_price G‚Å—D‚µ‚Ü‚µ‚½";
-#				&write_send_news("$from_name‚Ìo•i‚µ‚½$item_title‚ğ$to_name‚ª $item_price G‚Å—D‚µ‚Ü‚µ‚½");
-				&send_twitter("$from_name‚Ìo•i‚µ‚½$item_title‚ğ$to_name‚ª $item_price G‚Å—D‚µ‚Ü‚µ‚½");
+				push @news_messages, "$from_nameã®å‡ºå“ã—ãŸ$item_titleã‚’$to_nameãŒ $item_price Gã§è½æœ­ã—ã¾ã—ãŸ";
+#				&write_send_news("$from_nameã®å‡ºå“ã—ãŸ$item_titleã‚’$to_nameãŒ $item_price Gã§è½æœ­ã—ã¾ã—ãŸ");
+				&send_twitter("$from_nameã®å‡ºå“ã—ãŸ$item_titleã‚’$to_nameãŒ $item_price Gã§è½æœ­ã—ã¾ã—ãŸ");
 				$is_rewrite = 1;
 			}
 			else {
@@ -193,38 +193,38 @@ sub tp_110 {
 		}
 	}
 	else {
-		$mes .= '‚â‚ß‚Ü‚µ‚½<br>';
+		$mes .= 'ã‚„ã‚ã¾ã—ãŸ<br>';
 	}
 	
 	&begin;
 }
 
 #=================================================
-# o•i
+# å‡ºå“
 #=================================================
 sub tp_200 {
 	if (&is_rest) {
-		$mes .= 'S‘©’†‚Éo•i‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ';
+		$mes .= 'æ‹˜æŸä¸­ã«å‡ºå“ã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“';
 		&refresh_r;
 		return;
 	}
 	$layout = 1;
-	$mes .= '‚Ç‚ê‚ğo•i‚µ‚Ü‚·‚©?<br>';
+	$mes .= 'ã©ã‚Œã‚’å‡ºå“ã—ã¾ã™ã‹?<br>';
 
 	$mes .= qq|<form method="$method" action="$script">|;
-	$mes .= qq|<input type="radio" id="no_0" name="cmd" value="0" checked><label for="no_0">‚â‚ß‚é</label><br>|;
-	$mes .= qq|<input type="radio" id="no_1" name="cmd" value="1"><label for="no_1">$weas[$m{wea}][1]š$m{wea_lv}($m{wea_c})</label><br>| if $m{wea};
+	$mes .= qq|<input type="radio" id="no_0" name="cmd" value="0" checked><label for="no_0">ã‚„ã‚ã‚‹</label><br>|;
+	$mes .= qq|<input type="radio" id="no_1" name="cmd" value="1"><label for="no_1">$weas[$m{wea}][1]â˜…$m{wea_lv}($m{wea_c})</label><br>| if $m{wea};
 	$mes .= qq|<input type="radio" id="no_2" name="cmd" value="2"><label for="no_2">$eggs[$m{egg}][1]($m{egg_c})</label><br>| if $m{egg};
-	$mes .= qq|<input type="radio" id="no_3" name="cmd" value="3"><label for="no_3">$pets[$m{pet}][1]š$m{pet_c}</label><br>| if $m{pet} > 0;
+	$mes .= qq|<input type="radio" id="no_3" name="cmd" value="3"><label for="no_3">$pets[$m{pet}][1]â˜…$m{pet_c}</label><br>| if $m{pet} > 0;
 	$mes .= qq|<input type="radio" id="no_4" name="cmd" value="4"><label for="no_4">$guas[$m{gua}][1]</label><br>| if $m{gua};
-	$mes .= qq|“üDŠúŒÀ<br>|;
-	$mes .= qq|<input type="radio" id="no_5" name="tlimit" value="0" checked><label for="no_5">•’Ê</label><br>|;
-	$mes .= qq|<input type="radio" id="no_6" name="tlimit" value="1"><label for="no_6">’·‚ß</label><br>|;
-	$mes .= qq|<input type="radio" id="no_7" name="tlimit" value="2"><label for="no_7">’Z‚ß</label><br>|;
-	$mes .= qq|<p>‰Šú‹àŠz<input type="text" name="price" value="0" class="text_box1" style="text-align:right">G</p>|;
-	$mes .= qq|<p>‘¦Œˆ‹àŠz<input type="text" name="buyout_price" value="0" class="text_box1" style="text-align:right">G</p>|;
+	$mes .= qq|å…¥æœ­æœŸé™<br>|;
+	$mes .= qq|<input type="radio" id="no_5" name="tlimit" value="0" checked><label for="no_5">æ™®é€š</label><br>|;
+	$mes .= qq|<input type="radio" id="no_6" name="tlimit" value="1"><label for="no_6">é•·ã‚</label><br>|;
+	$mes .= qq|<input type="radio" id="no_7" name="tlimit" value="2"><label for="no_7">çŸ­ã‚</label><br>|;
+	$mes .= qq|<p>åˆæœŸé‡‘é¡<input type="text" name="price" value="0" class="text_box1" style="text-align:right">G</p>|;
+	$mes .= qq|<p>å³æ±ºé‡‘é¡<input type="text" name="buyout_price" value="0" class="text_box1" style="text-align:right">G</p>|;
 	$mes .= qq|<input type="hidden" name="id" value="$id"><input type="hidden" name="pass" value="$pass">|;
-	$mes .= qq|<p><input type="submit" value="o•i‚·‚é" class="button1"></p></form>|;
+	$mes .= qq|<p><input type="submit" value="å‡ºå“ã™ã‚‹" class="button1"></p></form>|;
 	
 	&set_tp(&get_tp + 10);
 }
@@ -233,7 +233,7 @@ sub tp_210 {
 	
 	my $is_find = 0;
 	my @lines = ();
-	open my $fh, "< $this_file" or &error("$this_file ‚ªŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½");
+	open my $fh, "< $this_file" or &error("$this_file ãŒé–‹ã‘ã¾ã›ã‚“ã§ã—ãŸ");
 	while (my $line = <$fh>) {
 		my($name) = (split /<>/, $line)[6];
 		if (!$is_find && $m{name} eq $name) {
@@ -244,16 +244,16 @@ sub tp_210 {
 	close $fh;
 	
 	if ($is_find) {
-		$mes .= 'o•i‚µ‚Ä‚¢‚é‚à‚Ì‚ª—D‚³‚ê‚é‚Ü‚ÅAo•i‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñ<br>';
+		$mes .= 'å‡ºå“ã—ã¦ã„ã‚‹ã‚‚ã®ãŒè½æœ­ã•ã‚Œã‚‹ã¾ã§ã€å‡ºå“ã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“<br>';
 	}
 	elsif (@lines >= $max_auction) {
-		$mes .= 'Œ»İAo•i‚Ìó•t‚Í‚µ‚Ä‚¨‚è‚Ü‚¹‚ñ<br>o•i”‚ªŒ¸‚Á‚Ä‚©‚çÄ“x\\‚µ‚İ‚­‚¾‚³‚¢<br>';
+		$mes .= 'ç¾åœ¨ã€å‡ºå“ã®å—ä»˜ã¯ã—ã¦ãŠã‚Šã¾ã›ã‚“<br>å‡ºå“æ•°ãŒæ¸›ã£ã¦ã‹ã‚‰å†åº¦ç”³\ã—è¾¼ã¿ãã ã•ã„<br>';
 	}
 	elsif ($in{price} =~ /[^0-9]/ || $in{price} >= 4999999 || $in{price} < 5) {
-		$mes .= '’l’i‚Í 5 GˆÈã 499–œ9999 GˆÈ“à‚É‚·‚é•K—v‚ª‚ ‚è‚Ü‚·<br>';
+		$mes .= 'å€¤æ®µã¯ 5 Gä»¥ä¸Š 499ä¸‡9999 Gä»¥å†…ã«ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™<br>';
 	}
 	elsif ($in{buyout_price} =~ /[^0-9]/ || $in{buyout_price} >= 4999999) {
-		$mes .= '‘¦Œˆ’l’i‚Í 499–œ9999 GˆÈ“à‚É‚·‚é•K—v‚ª‚ ‚è‚Ü‚·<br>';
+		$mes .= 'å³æ±ºå€¤æ®µã¯ 499ä¸‡9999 Gä»¥å†…ã«ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™<br>';
 	}
 	elsif ( ($cmd eq '1' && $m{wea})
 		 || ($cmd eq '2' && $m{egg})
@@ -268,7 +268,7 @@ sub tp_210 {
 									: $cmd eq '3' ? $pets[$m{pet}][1]
 									:               $guas[$m{gua}][1]
 									;
-					$mes .= "$t_item_name‚Ío•i‹Ö~±²ÃÑ‚Æ‚È‚Á‚Ä‚¨‚è‚Ü‚·<br>";
+					$mes .= "$t_item_nameã¯å‡ºå“ç¦æ­¢ï½±ï½²ï¾ƒï¾‘ã¨ãªã£ã¦ãŠã‚Šã¾ã™<br>";
 					&begin;
 					return;
 				}
@@ -285,40 +285,40 @@ sub tp_210 {
 					$m{wea} = 32;
 					$m{wea_c} = 0;
 					$m{wea_lv} = 0;
-					$mes .= "‚¿å‚Ìè‚ğ—£‚ê‚½“r’[$m{wea_name}‚Í‚½‚¾‚Ì$weas[$m{wea}][1]‚É‚È‚Á‚Ä‚µ‚Ü‚Á‚½<br>";
+					$mes .= "æŒã¡ä¸»ã®æ‰‹ã‚’é›¢ã‚ŒãŸé€”ç«¯$m{wea_name}ã¯ãŸã ã®$weas[$m{wea}][1]ã«ãªã£ã¦ã—ã¾ã£ãŸ<br>";
 					$m{wea_name} = "";
 				}
-				&mes_and_send_news("$weas[$m{wea}][1]‚ğo•i‚µ‚Ü‚µ‚½");
-				&send_twitter("$weas[$m{wea}][1]‚ğo•i‚µ‚Ü‚µ‚½", 1);
+				&mes_and_send_news("$weas[$m{wea}][1]ã‚’å‡ºå“ã—ã¾ã—ãŸ");
+				&send_twitter("$weas[$m{wea}][1]ã‚’å‡ºå“ã—ã¾ã—ãŸ", 1);
 				$m{wea} = $m{wea_c} = $m{wea_lv} = 0;
 			}
 			elsif ($cmd eq '2' && $m{egg}) {
-				&mes_and_send_news("$eggs[$m{egg}][1]‚ğo•i‚µ‚Ü‚µ‚½");
-				&send_twitter("$eggs[$m{egg}][1]‚ğo•i‚µ‚Ü‚µ‚½", 1);
+				&mes_and_send_news("$eggs[$m{egg}][1]ã‚’å‡ºå“ã—ã¾ã—ãŸ");
+				&send_twitter("$eggs[$m{egg}][1]ã‚’å‡ºå“ã—ã¾ã—ãŸ", 1);
 				$m{egg} = $m{egg_c} = 0;
 			}
 			elsif ($cmd eq '3' && $m{pet}) {
-				&mes_and_send_news("$pets[$m{pet}][1]š$m{pet_c}‚ğo•i‚µ‚Ü‚µ‚½");
-				&send_twitter("$pets[$m{pet}][1]š$m{pet_c}‚ğo•i‚µ‚Ü‚µ‚½", 1);
+				&mes_and_send_news("$pets[$m{pet}][1]â˜…$m{pet_c}ã‚’å‡ºå“ã—ã¾ã—ãŸ");
+				&send_twitter("$pets[$m{pet}][1]â˜…$m{pet_c}ã‚’å‡ºå“ã—ã¾ã—ãŸ", 1);
 				&remove_pet;
 			}
 			elsif ($cmd eq '4' && $m{gua}) {
-				&mes_and_send_news("$guas[$m{gua}][1]‚ğo•i‚µ‚Ü‚µ‚½");
-				&send_twitter("$guas[$m{gua}][1]‚ğo•i‚µ‚Ü‚µ‚½", 1);
+				&mes_and_send_news("$guas[$m{gua}][1]ã‚’å‡ºå“ã—ã¾ã—ãŸ");
+				&send_twitter("$guas[$m{gua}][1]ã‚’å‡ºå“ã—ã¾ã—ãŸ", 1);
 				$m{gua} = 0;
 			}
 			
-			my $bit_time = $time + int( $auction_limit_day * 3600 * 24 + rand(3600) ); # “üDŠÔ‚ğ‚PŠÔ’ö“x‚Î‚ç‚¯‚³‚·
+			my $bit_time = $time + int( $auction_limit_day * 3600 * 24 + rand(3600) ); # å…¥æœ­æ™‚é–“ã‚’ï¼‘æ™‚é–“ç¨‹åº¦ã°ã‚‰ã‘ã•ã™
 			$bit_time += int( 3600 * 24 + rand(3600) ) if $in{tlimit} eq '1'; 
 			$bit_time -= int( 3600 * 24 + rand(3600) ) if $in{tlimit} eq '2'; 
 			my($last_no) = (split /<>/, $lines[-1])[1];
 			++$last_no;
-			open my $fh2, ">> $this_file" or &error("$this_file ‚ªŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½");
+			open my $fh2, ">> $this_file" or &error("$this_file ãŒé–‹ã‘ã¾ã›ã‚“ã§ã—ãŸ");
 			print $fh2 "$bit_time<>$last_no<>$cmd<>$item_no<>$item_c<>$item_lv<>$m{name}<>$m{name}<>$item_price<>$buyout_price<>\n";
 			close $fh2;
 	}
 	else {
-		$mes .= '‚â‚ß‚Ü‚µ‚½<br>';
+		$mes .= 'ã‚„ã‚ã¾ã—ãŸ<br>';
 	}
 	
 	&begin;
@@ -354,4 +354,4 @@ sub is_buyable{
 	return 1;
 }
 
-1; # íœ•s‰Â
+1; # å‰Šé™¤ä¸å¯
